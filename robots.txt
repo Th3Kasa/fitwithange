@@ -4,4 +4,4 @@ Allow: /
 # Keep admin page out of search indexes (it has its own noindex meta tag too)
 Disallow: /admin.html
 
-Sitemap: https://fitwithange.com/sitemap.xml
+Sitemap: https://fitwithange.vercel.app/sitemap.xml

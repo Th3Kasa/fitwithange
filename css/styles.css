@@ -73,6 +73,28 @@
   --header-h-shrunk: 56px;
 }
 
+/* ---------- Skip Link ---------- */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  background: var(--charcoal);
+  color: var(--white);
+  padding: 0.75rem 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  z-index: 9999;
+  text-decoration: none;
+  border-radius: 0 0 var(--radius-sm) 0;
+  transition: top 0.1s ease;
+}
+
+.skip-link:focus {
+  top: 0;
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
 /* ---------- Reset & Base ---------- */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -949,7 +971,14 @@ p { color: var(--gray); line-height: 1.75; }
 }
 
 .form-control:focus {
-  outline: none;
+  outline: none; /* replaced by border + ring below */
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.18);
+}
+
+.form-control:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 0;
   border-color: var(--gold);
   box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.18);
 }
