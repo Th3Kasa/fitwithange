@@ -1,0 +1,27 @@
+{
+  "name": "FitWithAnge — Angelina Farag",
+  "short_name": "FitWithAnge",
+  "description": "Women's strength training and body transformation coaching with Angelina Farag.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#d4a574",
+  "orientation": "portrait-primary",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [],
+  "categories": ["health", "fitness", "lifestyle"]
+}

@@ -1,0 +1,16 @@
+# Claude Code internal settings
+.claude/
+
+# Python scraper environment
+scraper/venv/
+scraper/__pycache__/
+scraper/*.pyc
+scraper/output/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+*.swp

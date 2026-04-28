@@ -1,0 +1,29 @@
+# Scraped data — may be large, keep off version control
+output/
+
+# Instagram session files — contain auth tokens, NEVER commit
+sessions/
+
+# Python virtual environment
+venv/
+.venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# OS noise
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor noise
+.vscode/
+.idea/
+*.swp
+*.swo
+*~

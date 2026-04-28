@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — FitWithAnge Booking Dashboard</title>
+  <meta name="robots" content="noindex, nofollow" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#1a1a1a" />
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <style>
+    .admin-header {
+      background: var(--charcoal);
+      color: var(--white);
+      padding: var(--space-sm) 0;
+      border-bottom: 2px solid var(--gold);
+    }
+    .admin-header .header-inner { justify-content: space-between; }
+    .admin-header .site-logo { color: var(--white); }
+
+    .stat-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: var(--space-md) var(--space-lg);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      text-align: center;
+    }
+    .stat-card .stat-number { font-size: 2rem; }
+
+    .admin-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-md);
+    }
+
+    .admin-toolbar-left {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+
+    .search-input {
+      padding: 0.6rem 1rem;
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 0.9rem;
+      width: 220px;
+      transition: border-color var(--transition);
+    }
+    .search-input:focus { outline: none; border-color: var(--gold); }
+
+    .filter-select {
+      padding: 0.6rem 1rem;
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 0.9rem;
+      background: var(--white);
+      cursor: pointer;
+    }
+
+    .security-notice {
+      background: #fff3cd;
+      border: 1px solid #ffc107;
+      border-radius: var(--radius);
+      padding: var(--space-sm) var(--space-md);
+      font-size: 0.85rem;
+      color: #856404;
+      margin-bottom: var(--space-lg);
+    }
+
+    #empty-state {
+      text-align: center;
+      padding: var(--space-xl);
+      color: var(--gray);
+    }
+  </style>
+</head>
+<body style="background:var(--light-bg);">
+
+  <!-- ADMIN HEADER -->
+  <header class="admin-header" role="banner">
+    <div class="header-inner" style="max-width:var(--max-width);margin-inline:auto;padding-inline:var(--space-sm);">
+      <div class="site-logo">FitWith<span>Ange</span> <span style="font-size:0.75rem;font-weight:400;opacity:0.6;margin-left:0.5rem;">Admin</span></div>
+      <div style="display:flex;gap:var(--space-sm);align-items:center;">
+        <a href="index.html" style="color:rgba(255,255,255,0.6);font-size:0.85rem;text-decoration:none;">← Back to site</a>
+        <button id="logout-btn" class="btn btn--outline" style="color:var(--gold);border-color:var(--gold);padding:0.5rem 1rem;font-size:0.85rem;">
+          Log Out
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content" style="padding:var(--space-lg) 0 var(--space-2xl);">
+    <div class="container">
+
+      <!-- ═══════════ PASSWORD GATE ═══════════ -->
+      <!--
+        ⚠️  SECURITY NOTE: This password gate is CLIENT-SIDE ONLY.
+        It is NOT secure — anyone with DevTools can bypass it by running:
+          sessionStorage.setItem('fitwithange_admin_auth', 'true')
+        This is purely a convenience gate to prevent accidental access,
+        NOT a replacement for real authentication. Do not rely on this
+        for genuinely sensitive data.
+        Password: fitwithange2026
+      -->
+      <div id="admin-gate" class="password-gate" style="display:none;">
+        <div class="gate-card">
+          <div style="font-size:2.5rem;margin-bottom:var(--space-sm);" aria-hidden="true">🔒</div>
+          <h2>Admin Access</h2>
+          <p>Enter the admin password to view booking records.</p>
+
+          <div style="background:#fff3cd;border:1px solid #ffc107;border-radius:var(--radius-sm);padding:0.75rem;font-size:0.8rem;color:#856404;margin-bottom:var(--space-md);text-align:left;">
+            ⚠️ This is a client-side convenience gate only — not a secure login.
+          </div>
+
+          <form id="password-form" novalidate>
+            <div class="form-group">
+              <label class="form-label" for="admin-password">Password</label>
+              <input
+                class="form-control"
+                type="password"
+                id="admin-password"
+                name="password"
+                autocomplete="current-password"
+                placeholder="Enter admin password"
+                required
+              />
+              <span id="password-error" style="display:none;color:#d9534f;font-size:0.8rem;margin-top:0.25rem;display:none;"></span>
+            </div>
+            <button type="submit" class="btn btn--primary form-submit">Unlock Dashboard</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- ═══════════ DASHBOARD ═══════════ -->
+      <div id="admin-dashboard" style="display:none;">
+
+        <div style="margin-bottom:var(--space-lg);">
+          <h1 style="font-size:1.75rem;margin-bottom:0.25rem;">Booking Dashboard</h1>
+          <p style="color:var(--gray);font-size:0.9rem;">All bookings submitted via the FitWithAnge booking form. Stored in browser localStorage.</p>
+        </div>
+
+        <div class="security-notice" role="alert">
+          ⚠️ <strong>Reminder:</strong> Bookings are stored in <em>this browser's</em> localStorage only — they are not synced to a server or other devices. Export to CSV regularly to back up your records. For a real backend, integrate with Formspree, Airtable, or a database.
+        </div>
+
+        <!-- Stats Row -->
+        <div style="display:grid;gap:var(--space-md);margin-bottom:var(--space-xl);" class="stats-row">
+          <div class="stat-card fade-in">
+            <span class="stat-number" id="booking-count" style="font-family:var(--font-heading);font-weight:700;color:var(--gold);display:block;">0</span>
+            <span style="font-size:0.85rem;color:var(--gray);">Total Bookings</span>
+          </div>
+          <div class="stat-card fade-in">
+            <span class="stat-number" id="pending-count" style="font-family:var(--font-heading);font-weight:700;color:#856404;display:block;">0</span>
+            <span style="font-size:0.85rem;color:var(--gray);">Pending</span>
+          </div>
+          <div class="stat-card fade-in">
+            <span class="stat-number" id="confirmed-count" style="font-family:var(--font-heading);font-weight:700;color:#155724;display:block;">0</span>
+            <span style="font-size:0.85rem;color:var(--gray);">Confirmed</span>
+          </div>
+        </div>
+        <style>
+          @media (min-width: 480px) { .stats-row { grid-template-columns: repeat(3,1fr) !important; } }
+        </style>
+
+        <!-- Toolbar -->
+        <div class="admin-toolbar">
+          <div class="admin-toolbar-left">
+            <input
+              type="search"
+              id="search-input"
+              class="search-input"
+              placeholder="Search by name, email…"
+              aria-label="Search bookings"
+            />
+            <select id="filter-status" class="filter-select" aria-label="Filter by status">
+              <option value="all">All Statuses</option>
+              <option value="pending">Pending</option>
+              <option value="confirmed">Confirmed</option>
+            </select>
+          </div>
+          <button id="export-csv" class="btn btn--dark" aria-label="Export bookings to CSV">
+            ⬇ Export CSV
+          </button>
+        </div>
+
+        <!-- Table -->
+        <div class="admin-table-wrap">
+          <table class="admin-table" aria-label="Bookings table">
+            <thead>
+              <tr>
+                <th data-col="id" scope="col">ID</th>
+                <th data-col="timestamp" scope="col">Date Submitted ▼</th>
+                <th data-col="name" scope="col">Name</th>
+                <th data-col="email" scope="col">Email</th>
+                <th data-col="phone" scope="col">Phone</th>
+                <th data-col="service" scope="col">Service</th>
+                <th data-col="date" scope="col">Pref. Date</th>
+                <th data-col="time" scope="col">Pref. Time</th>
+                <th data-col="goals" scope="col">Goals</th>
+                <th data-col="status" scope="col">Status</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="bookings-tbody"></tbody>
+          </table>
+
+          <div id="empty-state" style="display:none;">
+            <div style="font-size:3rem;margin-bottom:var(--space-sm);" aria-hidden="true">📭</div>
+            <h3 style="font-size:1.1rem;margin-bottom:0.5rem;">No bookings yet</h3>
+            <p style="font-size:0.9rem;">When clients submit the booking form on <a href="book.html" style="color:var(--gold);">book.html</a>, they'll appear here.</p>
+          </div>
+        </div>
+
+        <!-- Add test booking button (dev helper) -->
+        <div style="margin-top:var(--space-lg);padding:var(--space-md);background:var(--white);border-radius:var(--radius);border:1px dashed var(--border);">
+          <p style="font-size:0.85rem;color:var(--gray);margin-bottom:var(--space-sm);">
+            <strong>Developer Helper:</strong> Add a sample booking to test the dashboard.
+          </p>
+          <button id="add-test-booking" class="btn btn--outline" style="font-size:0.85rem;padding:0.5rem 1rem;">
+            + Add Sample Booking
+          </button>
+        </div>
+
+      </div><!-- /#admin-dashboard -->
+
+    </div>
+  </main>
+
+  <script src="js/main.js"></script>
+  <script src="js/admin.js"></script>
+  <script>
+    // Dev helper: add a sample booking for testing
+    document.getElementById('add-test-booking')?.addEventListener('click', function () {
+      const key = 'fitwithange_bookings';
+      const bookings = JSON.parse(localStorage.getItem(key) || '[]');
+      bookings.push({
+        id: 'bk_test_' + Date.now(),
+        timestamp: new Date().toISOString(),
+        status: 'pending',
+        name: 'Sample Client',
+        email: 'sample@example.com',
+        phone: '+61 400 000 000',
+        service: 'Online Coaching',
+        date: '2026-05-15',
+        time: 'Morning (7am–12pm)',
+        goals: 'Lose body fat and build muscle. Want to feel confident in the gym and understand nutrition better.'
+      });
+      localStorage.setItem(key, JSON.stringify(bookings));
+      location.reload();
+    });
+  </script>
+</body>
+</html>
