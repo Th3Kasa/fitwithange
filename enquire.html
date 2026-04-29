@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<!--
+  ====================================================================
+  SETUP INSTRUCTIONS FOR ANGELINA
+  ====================================================================
+
+  Before this page works end-to-end, complete these 5 steps:
+
+  1. Sign up free at https://calendly.com (use your business email)
+
+  2. In Calendly → Profile Settings → Timezone → select
+     "Australia/Sydney" so all availability shows in AEST/AEDT.
+
+  3. Create a new Event Type:
+       Name:      "Discovery Call"
+       Duration:  30 minutes
+       Days:      Monday – Friday
+       Hours:     9:00 AM – 4:00 PM (Sydney time)
+       Location:  Google Meet (auto-generated link)
+
+  4. In that Event Type → "Invitee Questions", add FOUR custom
+     questions so the prefill parameters work:
+       a1  →  Phone number
+       a2  →  Instagram handle (optional)
+       a3  →  Goals (what you want to achieve)
+       a4  →  Blockers (what's stopping you)
+     (Calendly labels these a1, a2, a3, a4 in the URL prefill)
+
+  5. Copy the event's sharing URL — it looks like:
+       https://calendly.com/YOUR-USERNAME/discovery-call
+     Then paste it as the value of CALENDLY_URL in the <script>
+     block near the bottom of this file (replace the placeholder).
+
+  ====================================================================
+  UNTIL CALENDLY_URL IS CONFIGURED:
+  Step 2 automatically shows a friendly placeholder card instead of
+  the embed widget. The enquiry is still saved to localStorage so
+  you receive it — Angelina, just check admin.html to see submissions.
+  ====================================================================
+-->
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Book a Free Discovery Call | FitWithAnge Sydney</title>
+  <meta name="description" content="Book a free 20–30 minute Discovery Call with Angelina Farag — Exercise Physiologist, Sydney. Share your goals, see if we're a great fit, no pressure." />
+
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://fitwithange.vercel.app/enquire.html" />
+  <meta property="og:site_name"   content="FitWithAnge" />
+  <meta property="og:locale"      content="en_AU" />
+  <meta property="og:title"       content="Book a Free Discovery Call | FitWithAnge Sydney" />
+  <meta property="og:description" content="Book a free Discovery Call with Angelina Farag, Exercise Physiologist. Share your goals and let's chat — no pressure, no obligation." />
+  <meta property="og:image"       content="https://fitwithange.vercel.app/assets/img/angelina.jpg" />
+  <meta property="og:image:alt"   content="Angelina Farag — Exercise Physiologist and Personal Trainer, Sydney" />
+
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Book a Free Discovery Call | FitWithAnge Sydney" />
+  <meta name="twitter:description" content="Book a free Discovery Call with Angelina Farag, Exercise Physiologist. No pressure, no obligation." />
+  <meta name="twitter:image"       content="https://fitwithange.vercel.app/assets/img/angelina.jpg" />
+
+  <link rel="canonical" href="https://fitwithange.vercel.app/enquire.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#d4a574" />
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://fitwithange.vercel.app/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Book a Discovery Call",
+        "item": "https://fitwithange.vercel.app/enquire.html"
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
+  <!-- ANNOUNCEMENT BAR -->
+  <div class="announcement-bar" id="announcement-bar" role="region" aria-label="Partner offer">
+    <p>Activewear partner: <a href="https://clubathletica.com.au/?sca_ref=10453730.MFEqJltNbf" target="_blank" rel="noopener sponsored">Club Athletica DC</a> — use code <strong>ANGEX10</strong> for a discount</p>
+    <button class="announcement-bar__close" aria-label="Dismiss announcement" onclick="dismissBar()">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <a href="index.html" class="site-logo" aria-label="FitWithAnge Home">FitWith<span>Ange</span></a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="contact.html">Contact</a>
+        <a href="enquire.html" class="btn btn--primary active" style="padding:0.6rem 1.25rem;">Book a Free Enquiry</a>
+      </nav>
+      <button class="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="services.html">Services</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="contact.html">Contact</a>
+    <a href="enquire.html" class="btn btn--primary">Book a Free Enquiry</a>
+  </nav>
+
+  <main id="main-content">
+
+    <!-- PAGE HERO -->
+    <section class="page-hero" aria-label="Discovery call booking hero">
+      <div class="container">
+        <nav aria-label="Breadcrumb" class="breadcrumb">
+          <a href="index.html">Home</a>
+          <span class="sep" aria-hidden="true">›</span>
+          <span aria-current="page">Book a Discovery Call</span>
+        </nav>
+        <span class="section-label">Free &amp; No Obligation</span>
+        <h1>Book Your Free<br><em style="color:var(--gold);font-style:italic;">Discovery Call</em></h1>
+        <p class="lead">A complimentary 20–30 minute video chat with Angelina to talk goals, see if we're a great fit, and explore next steps — privately and without pressure.</p>
+      </div>
+    </section>
+
+    <!-- DISCOVERY CALL FLOW -->
+    <section class="section" aria-labelledby="enquiry-flow-heading">
+      <div class="container" style="max-width:680px;">
+
+        <h2 id="enquiry-flow-heading" class="visually-hidden">Discovery Call Booking Flow</h2>
+
+        <!-- ARIA live region for validation announcements -->
+        <div id="enq-live-region" role="status" aria-live="polite" aria-atomic="true" class="visually-hidden"></div>
+
+        <!-- PROGRESS INDICATOR -->
+        <div class="enq-progress" aria-label="Booking progress" role="progressbar" aria-valuemin="1" aria-valuemax="2" aria-valuenow="1" id="enq-progress">
+          <div class="enq-progress__track">
+            <div class="enq-progress__fill" id="enq-progress-fill"></div>
+          </div>
+          <div class="enq-progress__steps" aria-hidden="true">
+            <div class="enq-step enq-step--active" id="enq-step-1-indicator">
+              <div class="enq-step__circle">1</div>
+              <span class="enq-step__label">Your Details</span>
+            </div>
+            <div class="enq-step" id="enq-step-2-indicator">
+              <div class="enq-step__circle">2</div>
+              <span class="enq-step__label">Pick a Time</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- =========================================================
+             STEP 1: INTAKE FORM
+             ========================================================= -->
+        <div id="enq-step-1" class="booking-panel enq-panel">
+
+          <div class="enq-panel__header">
+            <h2 id="enq-form-heading" class="enq-panel__title">Tell Us About Yourself</h2>
+            <p class="enq-panel__subtitle">Fill in the form below and Angelina will have everything she needs before your call.</p>
+          </div>
+
+          <form id="enq-form" novalidate aria-labelledby="enq-form-heading">
+
+            <!-- Honeypot (hidden from real users) -->
+            <input
+              type="text"
+              name="website"
+              id="enq-honeypot"
+              style="display:none;"
+              tabindex="-1"
+              aria-hidden="true"
+              autocomplete="off"
+            />
+
+            <!-- Name row -->
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="enq-first-name">
+                  First Name <span aria-hidden="true" class="enq-required">*</span>
+                </label>
+                <input
+                  class="form-control"
+                  type="text"
+                  id="enq-first-name"
+                  name="firstName"
+                  autocomplete="given-name"
+                  placeholder="Jane"
+                  required
+                  aria-required="true"
+                  aria-describedby="enq-first-name-error"
+                  minlength="2"
+                  maxlength="50"
+                />
+                <span class="enq-field-error" id="enq-first-name-error" role="alert" aria-live="polite"></span>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="enq-last-name">
+                  Last Name <span aria-hidden="true" class="enq-required">*</span>
+                </label>
+                <input
+                  class="form-control"
+                  type="text"
+                  id="enq-last-name"
+                  name="lastName"
+                  autocomplete="family-name"
+                  placeholder="Smith"
+                  required
+                  aria-required="true"
+                  aria-describedby="enq-last-name-error"
+                  minlength="2"
+                  maxlength="50"
+                />
+                <span class="enq-field-error" id="enq-last-name-error" role="alert" aria-live="polite"></span>
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="form-group">
+              <label class="form-label" for="enq-email">
+                Email Address <span aria-hidden="true" class="enq-required">*</span>
+              </label>
+              <input
+                class="form-control"
+                type="email"
+                id="enq-email"
+                name="email"
+                autocomplete="email"
+                inputmode="email"
+                placeholder="jane@example.com"
+                required
+                aria-required="true"
+                aria-describedby="enq-email-error"
+              />
+              <span class="enq-field-error" id="enq-email-error" role="alert" aria-live="polite"></span>
+            </div>
+
+            <!-- Phone -->
+            <div class="form-group">
+              <label class="form-label" for="enq-phone">
+                Phone Number <span aria-hidden="true" class="enq-required">*</span>
+              </label>
+              <input
+                class="form-control"
+                type="tel"
+                id="enq-phone"
+                name="phone"
+                autocomplete="tel"
+                inputmode="tel"
+                placeholder="+61 4XX XXX XXX"
+                required
+                aria-required="true"
+                aria-describedby="enq-phone-error enq-phone-hint"
+              />
+              <span class="enq-field-hint" id="enq-phone-hint">Include country code for international numbers (e.g. +61 for Australia)</span>
+              <span class="enq-field-error" id="enq-phone-error" role="alert" aria-live="polite"></span>
+            </div>
+
+            <!-- Instagram (optional) -->
+            <div class="form-group">
+              <label class="form-label" for="enq-instagram">
+                Instagram Handle <span style="color:var(--gray-light);font-weight:400;font-size:0.8rem;">(optional)</span>
+              </label>
+              <div class="enq-input-prefix-wrap">
+                <span class="enq-input-prefix" aria-hidden="true">@</span>
+                <input
+                  class="form-control enq-input-prefixed"
+                  type="text"
+                  id="enq-instagram"
+                  name="instagram"
+                  autocomplete="off"
+                  inputmode="url"
+                  placeholder="yourhandle"
+                  aria-describedby="enq-instagram-error"
+                  maxlength="31"
+                />
+              </div>
+              <span class="enq-field-error" id="enq-instagram-error" role="alert" aria-live="polite"></span>
+            </div>
+
+            <!-- Goals textarea -->
+            <div class="form-group">
+              <label class="form-label" for="enq-goals">
+                What goals are you wanting to achieve? <span aria-hidden="true" class="enq-required">*</span>
+              </label>
+              <textarea
+                class="form-control"
+                id="enq-goals"
+                name="goals"
+                rows="5"
+                placeholder="e.g. Lose body fat, build lean muscle, improve my energy levels, feel confident in my body…"
+                required
+                aria-required="true"
+                aria-describedby="enq-goals-error enq-goals-counter"
+                minlength="20"
+                maxlength="1000"
+              ></textarea>
+              <div class="enq-textarea-footer">
+                <span class="enq-field-error" id="enq-goals-error" role="alert" aria-live="polite"></span>
+                <span class="enq-char-counter" id="enq-goals-counter" aria-live="polite" aria-atomic="true">0 / 1000</span>
+              </div>
+            </div>
+
+            <!-- Blockers textarea -->
+            <div class="form-group">
+              <label class="form-label" for="enq-blockers">
+                What's stopping you from achieving these goals? <span aria-hidden="true" class="enq-required">*</span>
+              </label>
+              <textarea
+                class="form-control"
+                id="enq-blockers"
+                name="blockers"
+                rows="5"
+                placeholder="e.g. Unsure where to start, tried programs before and lost motivation, need accountability…"
+                required
+                aria-required="true"
+                aria-describedby="enq-blockers-error enq-blockers-counter"
+                minlength="20"
+                maxlength="1000"
+              ></textarea>
+              <div class="enq-textarea-footer">
+                <span class="enq-field-error" id="enq-blockers-error" role="alert" aria-live="polite"></span>
+                <span class="enq-char-counter" id="enq-blockers-counter" aria-live="polite" aria-atomic="true">0 / 1000</span>
+              </div>
+            </div>
+
+            <p class="enq-privacy-note">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" style="width:1rem;height:1rem;color:var(--gold);vertical-align:middle;margin-right:0.3rem;">
+                <rect x="3" y="11" width="18" height="11" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              </svg>
+              Your details are kept strictly private and never shared.
+            </p>
+
+            <button type="submit" id="enq-submit" class="btn btn--primary btn--lg form-submit">
+              Continue to Scheduling
+              <svg class="icon icon-lg" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              </svg>
+            </button>
+
+          </form>
+        </div><!-- /enq-step-1 -->
+
+
+        <!-- =========================================================
+             STEP 2: CALENDLY SCHEDULER
+             ========================================================= -->
+        <div id="enq-step-2" class="booking-panel enq-panel" style="display:none;">
+
+          <div class="enq-panel__header">
+            <h2 id="enq-scheduler-heading" class="enq-panel__title" tabindex="-1">Pick a Time That Works for You</h2>
+            <p class="enq-panel__subtitle">All times shown in your local timezone. Angelina is based in Sydney, Australia (AEST/AEDT) and is available Mon–Fri, 9 AM – 4 PM.</p>
+          </div>
+
+          <!-- Recap card -->
+          <div class="enq-recap" id="enq-recap" aria-label="Your submitted details">
+            <div class="enq-recap__info">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" style="color:var(--gold);flex-shrink:0;">
+                <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              </svg>
+              <div>
+                <strong id="enq-recap-name"></strong>
+                <span id="enq-recap-email"></span>
+              </div>
+            </div>
+            <button type="button" id="enq-edit-btn" class="btn btn--outline enq-recap__edit" aria-label="Go back and edit your details">
+              Edit
+            </button>
+          </div>
+
+          <!-- Calendly embed container (or fallback) -->
+          <div id="enq-calendly-container" class="enq-calendly-wrap"></div>
+
+          <!-- Fallback shown when CALENDLY_URL not configured -->
+          <div id="enq-calendly-placeholder" class="enq-placeholder" style="display:none;" role="region" aria-label="Scheduling placeholder">
+            <div class="enq-placeholder__inner">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" style="width:2.5rem;height:2.5rem;color:var(--gold);margin:0 auto var(--space-sm);">
+                <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <path d="M3 9h18M9 3v3M15 3v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              </svg>
+              <h3>Scheduler Coming Soon</h3>
+              <p>Your enquiry has been received! Angelina will email you within 24 hours to arrange a convenient time for your Discovery Call.</p>
+              <p style="font-size:0.875rem;">In the meantime, feel free to <a href="https://www.instagram.com/fitwith_ange/" target="_blank" rel="noopener" style="color:var(--gold);font-weight:600;">DM @fitwith_ange on Instagram</a> if you have any questions.</p>
+            </div>
+          </div>
+
+          <!-- Post-booking success card (shown after Calendly fires event) -->
+          <div id="enq-booked-success" class="enq-success-card" style="display:none;" role="region" aria-label="Booking confirmed" aria-live="polite">
+            <div class="enq-success-card__inner">
+              <span class="enq-success-card__icon" aria-hidden="true">&#x2705;</span>
+              <h3>You're booked!</h3>
+              <p>Check your email for the Google Meet invite. Talk soon — Angelina.</p>
+              <a href="index.html" class="btn btn--primary" style="margin-top:var(--space-md);">Back to Home</a>
+            </div>
+          </div>
+
+          <!-- Fallback contact link -->
+          <p class="enq-fallback-contact" id="enq-fallback-contact">
+            Having trouble?
+            <a href="mailto:contact@fitwithange.com.au" style="color:var(--gold);font-weight:600;">Email Angelina directly</a>
+          </p>
+
+        </div><!-- /enq-step-2 -->
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="site-logo">FitWith<span>Ange</span></div>
+          <p>Helping women build strength and transform their bodies through intelligent, personalised coaching.</p>
+          <div class="social-row">
+            <a href="https://www.instagram.com/fitwith_ange/" target="_blank" rel="noopener noreferrer"
+               class="social-icon" aria-label="Follow @fitwith_ange on Instagram">
+              <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>
+              </svg>
+            </a>
+          </div>
+          <p class="footer-partner">Activewear partner: <a href="https://clubathletica.com.au/?sca_ref=10453730.MFEqJltNbf" target="_blank" rel="noopener sponsored">Club Athletica DC</a> — use code <strong>ANGEX10</strong></p>
+        </div>
+        <nav aria-label="Footer quick links">
+          <p class="footer-heading">Quick Links</p>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="enquire.html">Book a Call</a></li>
+          </ul>
+        </nav>
+        <div>
+          <p class="footer-heading">Get in Touch</p>
+          <ul class="footer-links">
+            <li><a href="https://www.instagram.com/fitwith_ange/" target="_blank" rel="noopener">Instagram</a></li>
+            <li><a href="enquire.html">Book a free enquiry</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; <span class="current-year">2026</span> FitWithAnge &middot; Angelina Farag. All rights reserved.</p>
+        <p>Sydney, NSW, Australia</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Calendly widget script (loads async, only used when CALENDLY_URL is configured) -->
+  <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+
+  <script src="js/main.js"></script>
+  <script>
+    // ---------------------------------------------------------------
+    // CONFIGURE THIS: Replace with your real Calendly event URL
+    // Example: 'https://calendly.com/angelina-farag/discovery-call'
+    // ---------------------------------------------------------------
+    var CALENDLY_URL = 'https://calendly.com/REPLACE-WITH-ANGE-USERNAME/discovery-call';
+
+    // ---------------------------------------------------------------
+    // Announcement bar
+    // ---------------------------------------------------------------
+    (function () {
+      var bar = document.getElementById('announcement-bar');
+      if (bar && sessionStorage.getItem('announcementDismissed')) bar.style.display = 'none';
+    })();
+
+    function dismissBar() {
+      var bar = document.getElementById('announcement-bar');
+      if (bar) { bar.style.display = 'none'; sessionStorage.setItem('announcementDismissed', '1'); }
+    }
+
+    // ---------------------------------------------------------------
+    // Helpers
+    // ---------------------------------------------------------------
+    var STORAGE_KEY = 'fitwithange_enquiries';
+
+    function readEnquiries() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); } catch (e) { return []; }
+    }
+
+    function writeEnquiries(arr) {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(arr)); } catch (e) { /* storage full/private */ }
+    }
+
+    function generateId() {
+      return 'enq_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
+    }
+
+    // Robust email regex (per RFC 5322 simplified, not just type=email)
+    function isValidEmail(val) {
+      return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/.test(val.trim());
+    }
+
+    // Name: letters, hyphens, apostrophes, spaces; 2–50 chars
+    function isValidName(val) {
+      return /^[a-zA-ZÀ-ÖØ-öø-ÿ'\- ]{2,50}$/.test(val.trim());
+    }
+
+    // Phone: 8–20 chars, allows + digits spaces dashes parens
+    function isValidPhone(val) {
+      return /^[+\d][+\d\s\-().]{6,19}$/.test(val.trim()) && val.replace(/\D/g, '').length >= 7;
+    }
+
+    // Instagram: 1–30 chars, [a-zA-Z0-9._] (strip leading @ before checking)
+    function isValidInstagram(val) {
+      var handle = val.replace(/^@+/, '');
+      if (handle === '') return true; // optional field
+      return /^[a-zA-Z0-9._]{1,30}$/.test(handle);
+    }
+
+    function stripAtSign(val) {
+      return val.replace(/^@+/, '');
+    }
+
+    // ---------------------------------------------------------------
+    // Validation rules per field
+    // ---------------------------------------------------------------
+    function validateField(id, showError) {
+      var el = document.getElementById(id);
+      var errEl = document.getElementById(id + '-error');
+      var val = el ? el.value : '';
+      var msg = '';
+
+      switch (id) {
+        case 'enq-first-name':
+          if (!val.trim()) { msg = 'First name is required.'; }
+          else if (!isValidName(val)) { msg = 'Please enter a valid first name (letters, hyphens, apostrophes only).'; }
+          break;
+        case 'enq-last-name':
+          if (!val.trim()) { msg = 'Last name is required.'; }
+          else if (!isValidName(val)) { msg = 'Please enter a valid last name (letters, hyphens, apostrophes only).'; }
+          break;
+        case 'enq-email':
+          if (!val.trim()) { msg = 'Email address is required.'; }
+          else if (!isValidEmail(val)) { msg = 'Please enter a valid email address (e.g. jane@example.com).'; }
+          break;
+        case 'enq-phone':
+          if (!val.trim()) { msg = 'Phone number is required.'; }
+          else if (!isValidPhone(val)) { msg = 'Please enter a valid phone number (8–20 digits, international format OK).'; }
+          break;
+        case 'enq-instagram':
+          if (!isValidInstagram(val)) { msg = 'Instagram handles can only contain letters, numbers, underscores, and periods (max 30 characters).'; }
+          break;
+        case 'enq-goals':
+          if (!val.trim()) { msg = 'Please share your goals — this helps Angelina prepare for your call.'; }
+          else if (val.trim().length < 20) { msg = 'Please give a little more detail (at least 20 characters).'; }
+          break;
+        case 'enq-blockers':
+          if (!val.trim()) { msg = 'Please share what\'s been holding you back — there\'s no wrong answer.'; }
+          else if (val.trim().length < 20) { msg = 'Please give a little more detail (at least 20 characters).'; }
+          break;
+      }
+
+      if (showError && errEl) {
+        errEl.textContent = msg;
+        if (el) {
+          if (msg) {
+            el.classList.add('enq-input--error');
+            el.setAttribute('aria-invalid', 'true');
+          } else {
+            el.classList.remove('enq-input--error');
+            el.removeAttribute('aria-invalid');
+          }
+        }
+      }
+
+      return msg === '';
+    }
+
+    // ---------------------------------------------------------------
+    // Blur listeners (per-field inline errors after user leaves field)
+    // ---------------------------------------------------------------
+    var fieldIds = ['enq-first-name', 'enq-last-name', 'enq-email', 'enq-phone', 'enq-instagram', 'enq-goals', 'enq-blockers'];
+
+    fieldIds.forEach(function (id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+
+      // Show error on blur
+      el.addEventListener('blur', function () {
+        validateField(id, true);
+      });
+
+      // Clear error while typing (once the field was already invalid)
+      el.addEventListener('input', function () {
+        var errEl = document.getElementById(id + '-error');
+        if (errEl && errEl.textContent) {
+          validateField(id, true);
+        }
+      });
+    });
+
+    // ---------------------------------------------------------------
+    // Live character counters for textareas
+    // ---------------------------------------------------------------
+    function bindCharCounter(textareaId, counterId, max) {
+      var ta = document.getElementById(textareaId);
+      var counter = document.getElementById(counterId);
+      if (!ta || !counter) return;
+
+      function update() {
+        var len = ta.value.length;
+        counter.textContent = len + ' / ' + max;
+        counter.classList.toggle('enq-char-counter--warn', len > max * 0.9);
+        counter.classList.toggle('enq-char-counter--over', len >= max);
+      }
+
+      ta.addEventListener('input', update);
+      update();
+    }
+
+    bindCharCounter('enq-goals', 'enq-goals-counter', 1000);
+    bindCharCounter('enq-blockers', 'enq-blockers-counter', 1000);
+
+    // ---------------------------------------------------------------
+    // Progress bar
+    // ---------------------------------------------------------------
+    function setProgress(step) {
+      var fill = document.getElementById('enq-progress-fill');
+      var s1   = document.getElementById('enq-step-1-indicator');
+      var s2   = document.getElementById('enq-step-2-indicator');
+      var prog = document.getElementById('enq-progress');
+
+      if (prog) prog.setAttribute('aria-valuenow', step);
+
+      if (fill) fill.style.width = step === 1 ? '50%' : '100%';
+
+      if (s1 && s2) {
+        if (step === 1) {
+          s1.classList.add('enq-step--active');
+          s1.classList.remove('enq-step--complete');
+          s2.classList.remove('enq-step--active');
+        } else {
+          s1.classList.remove('enq-step--active');
+          s1.classList.add('enq-step--complete');
+          s2.classList.add('enq-step--active');
+        }
+      }
+    }
+
+    // ---------------------------------------------------------------
+    // Show Step 2
+    // ---------------------------------------------------------------
+    function showStep2(firstName, lastName, email, phone, instagram, goals, blockers) {
+      // Update recap card
+      var recapName  = document.getElementById('enq-recap-name');
+      var recapEmail = document.getElementById('enq-recap-email');
+      if (recapName)  recapName.textContent  = firstName + ' ' + lastName;
+      if (recapEmail) recapEmail.textContent  = email;
+
+      // Switch panels
+      document.getElementById('enq-step-1').style.display = 'none';
+      var step2 = document.getElementById('enq-step-2');
+      step2.style.display = 'block';
+
+      // Focus management
+      var heading = document.getElementById('enq-scheduler-heading');
+      if (heading) {
+        heading.focus();
+        // Smooth scroll to top of panel
+        step2.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      setProgress(2);
+
+      // Decide: embed Calendly or show placeholder
+      var isConfigured = CALENDLY_URL.indexOf('REPLACE-WITH') === -1;
+      var container = document.getElementById('enq-calendly-container');
+      var placeholder = document.getElementById('enq-calendly-placeholder');
+
+      if (isConfigured) {
+        placeholder.style.display = 'none';
+        container.style.display = 'block';
+
+        // Build prefill URL
+        var goalsTrunc    = goals.substring(0, 250);
+        var blockersTrunc = blockers.substring(0, 250);
+        var igDisplay     = instagram ? instagram : '';
+
+        var prefillUrl = CALENDLY_URL
+          + '?name='  + encodeURIComponent(firstName + ' ' + lastName)
+          + '&email=' + encodeURIComponent(email)
+          + '&a1='    + encodeURIComponent(phone)
+          + '&a2='    + encodeURIComponent(igDisplay)
+          + '&a3='    + encodeURIComponent(goalsTrunc)
+          + '&a4='    + encodeURIComponent(blockersTrunc);
+
+        // Create Calendly inline widget
+        container.innerHTML =
+          '<div class="calendly-inline-widget"' +
+          ' data-url="' + prefillUrl + '"' +
+          ' style="min-width:320px;height:700px;"></div>';
+
+        // If widget.js already loaded, init; otherwise it auto-inits on load
+        if (window.Calendly && window.Calendly.initInlineWidgets) {
+          window.Calendly.initInlineWidgets();
+        }
+
+      } else {
+        // Not configured yet — show friendly placeholder
+        container.style.display = 'none';
+        placeholder.style.display = 'block';
+      }
+    }
+
+    // ---------------------------------------------------------------
+    // Form submit handler
+    // ---------------------------------------------------------------
+    var enqForm   = document.getElementById('enq-form');
+    var enqSubmit = document.getElementById('enq-submit');
+    var liveRegion = document.getElementById('enq-live-region');
+
+    // Track enquiry id for post-booking update
+    var currentEnquiryId = null;
+
+    if (enqForm) {
+      enqForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        // Honeypot check
+        var honeypot = document.getElementById('enq-honeypot');
+        if (honeypot && honeypot.value) {
+          // Bot detected — silently succeed (do nothing)
+          return;
+        }
+
+        // Validate all fields (show all errors at once)
+        var allValid = true;
+        var firstErrorId = null;
+
+        fieldIds.forEach(function (id) {
+          var valid = validateField(id, true);
+          if (!valid) {
+            allValid = false;
+            if (!firstErrorId) firstErrorId = id;
+          }
+        });
+
+        if (!allValid) {
+          // Announce first error
+          var firstErrText = document.getElementById(firstErrorId + '-error');
+          if (liveRegion && firstErrText) {
+            liveRegion.textContent = 'Please fix the following: ' + firstErrText.textContent;
+          }
+          // Focus first invalid field
+          var firstField = document.getElementById(firstErrorId);
+          if (firstField) firstField.focus();
+          return;
+        }
+
+        // Collect values
+        var firstName  = document.getElementById('enq-first-name').value.trim();
+        var lastName   = document.getElementById('enq-last-name').value.trim();
+        var email      = document.getElementById('enq-email').value.trim();
+        var phone      = document.getElementById('enq-phone').value.trim();
+        var igRaw      = document.getElementById('enq-instagram').value.trim();
+        var instagram  = igRaw ? stripAtSign(igRaw) : null;
+        var goals      = document.getElementById('enq-goals').value.trim();
+        var blockers   = document.getElementById('enq-blockers').value.trim();
+
+        // Disable submit during "processing"
+        enqSubmit.disabled = true;
+        enqSubmit.textContent = 'Saving…';
+
+        // Save to localStorage
+        var enquiry = {
+          id:                 generateId(),
+          timestamp:          new Date().toISOString(),
+          firstName:          firstName,
+          lastName:           lastName,
+          email:              email,
+          phone:              phone,
+          instagram:          instagram,
+          goals:              goals,
+          blockers:           blockers,
+          status:             'pending',
+          calendlyScheduled:  false
+        };
+
+        currentEnquiryId = enquiry.id;
+
+        var existing = readEnquiries();
+        existing.push(enquiry);
+        writeEnquiries(existing);
+
+        // Announce success to screen readers
+        if (liveRegion) liveRegion.textContent = 'Details saved. Proceeding to scheduling step.';
+
+        // Re-enable submit (for back navigation)
+        enqSubmit.disabled = false;
+        enqSubmit.innerHTML = 'Continue to Scheduling <svg class="icon icon-lg" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>';
+
+        showStep2(firstName, lastName, email, phone, instagram || '', goals, blockers);
+      });
+    }
+
+    // ---------------------------------------------------------------
+    // "Edit" button — go back to step 1 preserving values
+    // ---------------------------------------------------------------
+    var editBtn = document.getElementById('enq-edit-btn');
+    if (editBtn) {
+      editBtn.addEventListener('click', function () {
+        document.getElementById('enq-step-2').style.display = 'none';
+        document.getElementById('enq-step-1').style.display = 'block';
+        setProgress(1);
+
+        // Focus first field
+        var firstField = document.getElementById('enq-first-name');
+        if (firstField) {
+          firstField.focus();
+          document.getElementById('enq-step-1').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    }
+
+    // ---------------------------------------------------------------
+    // Calendly post-booking event listener
+    // ---------------------------------------------------------------
+    window.addEventListener('message', function (e) {
+      if (!e.data || e.data.event !== 'calendly.event_scheduled') return;
+
+      // Update localStorage record
+      if (currentEnquiryId) {
+        var enquiries = readEnquiries();
+        for (var i = 0; i < enquiries.length; i++) {
+          if (enquiries[i].id === currentEnquiryId) {
+            enquiries[i].calendlyScheduled = true;
+            enquiries[i].status = 'confirmed';
+            break;
+          }
+        }
+        writeEnquiries(enquiries);
+      }
+
+      // Show success card, hide Calendly embed
+      var container  = document.getElementById('enq-calendly-container');
+      var successCard = document.getElementById('enq-booked-success');
+      var fallback    = document.getElementById('enq-fallback-contact');
+
+      if (container)   container.style.display = 'none';
+      if (fallback)    fallback.style.display  = 'none';
+      if (successCard) {
+        successCard.style.display = 'block';
+        successCard.focus();
+        successCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      if (liveRegion) liveRegion.textContent = "You're booked! Check your email for the Google Meet invite.";
+    });
+
+  </script>
+</body>
+</html>

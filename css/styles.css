@@ -2123,3 +2123,360 @@ textarea.form-control { resize: vertical; min-height: 120px; }
     padding-block: clamp(3rem, 8vw, 6rem);
   }
 }
+
+/* ==========================================================================
+   === Discovery Call Enquiry Flow ===
+   Two-step booking: Step 1 = intake form, Step 2 = Calendly scheduler.
+   All classes prefixed .enq- to avoid conflicts with existing styles.
+   ========================================================================== */
+
+/* ---------- Progress Indicator ---------- */
+.enq-progress {
+  margin-bottom: var(--space-lg);
+}
+
+.enq-progress__track {
+  height: 4px;
+  background: var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: var(--space-md);
+}
+
+.enq-progress__fill {
+  height: 100%;
+  background: var(--gold);
+  border-radius: 4px;
+  width: 50%;
+  transition: width 0.4s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enq-progress__fill { transition: none; }
+}
+
+.enq-progress__steps {
+  display: flex;
+  gap: var(--space-lg);
+}
+
+.enq-step {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  opacity: 0.4;
+  transition: opacity var(--transition);
+}
+
+.enq-step--active,
+.enq-step--complete {
+  opacity: 1;
+}
+
+.enq-step__circle {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--gray);
+  background: var(--white);
+  transition: background var(--transition), border-color var(--transition), color var(--transition);
+}
+
+.enq-step--active .enq-step__circle {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--white);
+}
+
+.enq-step--complete .enq-step__circle {
+  background: var(--charcoal);
+  border-color: var(--charcoal);
+  color: var(--white);
+}
+
+.enq-step__label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--charcoal);
+}
+
+/* ---------- Panel Header ---------- */
+.enq-panel {
+  /* Inherits .booking-panel styles — just adds a bottom gap */
+  margin-bottom: var(--space-lg);
+}
+
+.enq-panel__header {
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.enq-panel__title {
+  font-size: clamp(1.3rem, 4vw, 1.7rem);
+  margin-bottom: var(--space-xs);
+}
+
+.enq-panel__subtitle {
+  font-size: 0.95rem;
+  color: var(--gray);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ---------- Required asterisk ---------- */
+.enq-required {
+  color: #d9534f;
+}
+
+/* ---------- Input prefix wrapper (@ symbol for Instagram) ---------- */
+.enq-input-prefix-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.enq-input-prefix {
+  position: absolute;
+  left: 1rem;
+  color: var(--gray);
+  font-size: 1rem;
+  font-weight: 500;
+  pointer-events: none;
+  user-select: none;
+  line-height: 1;
+}
+
+.enq-input-prefixed {
+  padding-left: 2rem; /* leave room for @ */
+}
+
+/* ---------- Field hints & errors ---------- */
+.enq-field-hint {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--gray-light);
+  margin-top: 0.3rem;
+  line-height: 1.4;
+}
+
+.enq-field-error {
+  display: block;
+  font-size: 0.82rem;
+  color: #b91c1c;
+  margin-top: 0.3rem;
+  min-height: 1.2em; /* reserve space to prevent layout shift */
+  line-height: 1.4;
+}
+
+/* State: input with validation error */
+.enq-input--error {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15) !important;
+}
+
+/* ---------- Textarea footer (error + char counter side by side) ---------- */
+.enq-textarea-footer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  margin-top: 0.3rem;
+}
+
+.enq-char-counter {
+  font-size: 0.78rem;
+  color: var(--gray-light);
+  white-space: nowrap;
+  flex-shrink: 0;
+  line-height: 1.4;
+}
+
+.enq-char-counter--warn {
+  color: #b45309;
+}
+
+.enq-char-counter--over {
+  color: #b91c1c;
+  font-weight: 600;
+}
+
+/* ---------- Privacy note ---------- */
+.enq-privacy-note {
+  font-size: 0.8rem;
+  color: var(--gray-light);
+  text-align: center;
+  margin-bottom: var(--space-md);
+  margin-top: 0;
+}
+
+/* ---------- Recap card (Step 2) ---------- */
+.enq-recap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  background: var(--light-bg);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  padding: var(--space-sm) var(--space-md);
+  margin-bottom: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.enq-recap__info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.enq-recap__info .icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  flex-shrink: 0;
+}
+
+.enq-recap__info strong {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--charcoal);
+}
+
+.enq-recap__info span {
+  font-size: 0.85rem;
+  color: var(--gray);
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.enq-recap__edit {
+  padding: 0.5rem 1.1rem;
+  font-size: 0.85rem;
+  min-height: 44px;
+  flex-shrink: 0;
+}
+
+/* ---------- Calendly embed wrapper ---------- */
+.enq-calendly-wrap {
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: var(--space-md);
+}
+
+.enq-calendly-wrap .calendly-inline-widget {
+  border-radius: var(--radius);
+}
+
+/* ---------- Calendly placeholder (not yet configured) ---------- */
+.enq-placeholder {
+  border: 2px dashed var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  text-align: center;
+  background: var(--light-bg);
+  margin-bottom: var(--space-lg);
+}
+
+.enq-placeholder__inner {
+  max-width: 420px;
+  margin-inline: auto;
+}
+
+.enq-placeholder__inner h3 {
+  margin-bottom: var(--space-sm);
+  font-size: 1.25rem;
+}
+
+.enq-placeholder__inner p {
+  font-size: 0.95rem;
+  margin-bottom: var(--space-sm);
+}
+
+/* ---------- Post-booking success card ---------- */
+.enq-success-card {
+  text-align: center;
+  padding: var(--space-xl) var(--space-lg);
+  background: var(--light-bg);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-soft);
+  margin-bottom: var(--space-md);
+}
+
+.enq-success-card:focus {
+  outline: none; /* visible focus managed by tabindex on heading inside */
+}
+
+.enq-success-card__inner {
+  max-width: 420px;
+  margin-inline: auto;
+}
+
+.enq-success-card__icon {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: var(--space-sm);
+  line-height: 1;
+}
+
+.enq-success-card__inner h3 {
+  font-size: 1.4rem;
+  margin-bottom: var(--space-sm);
+}
+
+.enq-success-card__inner p {
+  color: var(--gray);
+  margin-bottom: 0;
+}
+
+/* ---------- Fallback contact line ---------- */
+.enq-fallback-contact {
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--gray);
+  margin-top: var(--space-md);
+  margin-bottom: 0;
+}
+
+/* ---------- Mobile tweaks (360px) ---------- */
+@media (max-width: 479px) {
+  .enq-progress__steps {
+    gap: var(--space-md);
+  }
+
+  .enq-recap {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .enq-recap__edit {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .enq-placeholder {
+    padding: var(--space-lg) var(--space-md);
+  }
+
+  .enq-success-card {
+    padding: var(--space-lg) var(--space-md);
+  }
+}
+
+/* ---------- Reduced motion overrides ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .enq-step,
+  .enq-step__circle {
+    transition: none;
+  }
+}
