@@ -145,48 +145,133 @@
       <div id="admin-dashboard" style="display:none;">
 
         <div style="margin-bottom:var(--space-lg);">
-          <h1 style="font-size:1.75rem;margin-bottom:0.25rem;">Booking Dashboard</h1>
-          <p style="color:var(--gray);font-size:0.9rem;">All bookings submitted via the FitWithAnge booking form. Stored in browser localStorage.</p>
+          <h1 style="font-size:1.75rem;margin-bottom:0.25rem;">Admin Dashboard</h1>
+          <p style="color:var(--gray);font-size:0.9rem;">All leads and bookings stored in this browser's localStorage. Export CSV regularly.</p>
         </div>
 
         <div class="security-notice" role="alert">
-          ⚠️ <strong>Reminder:</strong> Bookings are stored in <em>this browser's</em> localStorage only — they are not synced to a server or other devices. Export to CSV regularly to back up your records. For a real backend, integrate with Formspree, Airtable, or a database.
+          ⚠️ <strong>Reminder:</strong> Records are stored in <em>this browser's</em> localStorage only — not synced across devices. Export to CSV regularly.
         </div>
 
-        <!-- Stats Row -->
-        <div style="display:grid;gap:var(--space-md);margin-bottom:var(--space-xl);" class="stats-row">
-          <div class="stat-card fade-in">
-            <span class="stat-number" id="booking-count" style="font-family:var(--font-heading);font-weight:700;color:var(--gold);display:block;">0</span>
-            <span style="font-size:0.85rem;color:var(--gray);">Total Bookings</span>
+        <!-- Tab switcher -->
+        <div class="admin-tabs" role="tablist" style="display:flex;gap:0;margin-bottom:var(--space-lg);border-bottom:2px solid var(--border);">
+          <button id="tab-enquiries" role="tab" aria-selected="true" aria-controls="panel-enquiries"
+            class="admin-tab admin-tab--active"
+            style="padding:0.75rem 1.5rem;border:none;background:none;font-family:var(--font-heading);font-size:1rem;font-weight:600;color:var(--gold);border-bottom:3px solid var(--gold);margin-bottom:-2px;cursor:pointer;">
+            Discovery Calls <span id="enq-tab-count" style="font-size:0.75rem;background:var(--gold);color:var(--charcoal);border-radius:999px;padding:0.1rem 0.5rem;margin-left:0.4rem;">0</span>
+          </button>
+          <button id="tab-bookings" role="tab" aria-selected="false" aria-controls="panel-bookings"
+            class="admin-tab"
+            style="padding:0.75rem 1.5rem;border:none;background:none;font-family:var(--font-heading);font-size:1rem;font-weight:600;color:var(--gray);border-bottom:3px solid transparent;margin-bottom:-2px;cursor:pointer;">
+            Old Bookings <span id="bk-tab-count" style="font-size:0.75rem;background:var(--border);color:var(--gray);border-radius:999px;padding:0.1rem 0.5rem;margin-left:0.4rem;">0</span>
+          </button>
+        </div>
+
+        <!-- ═══ ENQUIRIES PANEL ═══ -->
+        <div id="panel-enquiries" role="tabpanel" aria-labelledby="tab-enquiries">
+
+          <!-- Stats Row -->
+          <div style="display:grid;gap:var(--space-md);margin-bottom:var(--space-xl);" class="stats-row">
+            <div class="stat-card fade-in">
+              <span class="stat-number" id="enq-total-count" style="font-family:var(--font-heading);font-weight:700;color:var(--gold);display:block;">0</span>
+              <span style="font-size:0.85rem;color:var(--gray);">Total Enquiries</span>
+            </div>
+            <div class="stat-card fade-in">
+              <span class="stat-number" id="enq-pending-count" style="font-family:var(--font-heading);font-weight:700;color:#856404;display:block;">0</span>
+              <span style="font-size:0.85rem;color:var(--gray);">Awaiting Call</span>
+            </div>
+            <div class="stat-card fade-in">
+              <span class="stat-number" id="enq-scheduled-count" style="font-family:var(--font-heading);font-weight:700;color:#155724;display:block;">0</span>
+              <span style="font-size:0.85rem;color:var(--gray);">Call Scheduled</span>
+            </div>
           </div>
-          <div class="stat-card fade-in">
-            <span class="stat-number" id="pending-count" style="font-family:var(--font-heading);font-weight:700;color:#856404;display:block;">0</span>
-            <span style="font-size:0.85rem;color:var(--gray);">Pending</span>
+
+          <!-- Toolbar -->
+          <div class="admin-toolbar">
+            <div class="admin-toolbar-left">
+              <input type="search" id="enq-search" class="search-input" placeholder="Search by name, email, Instagram…" aria-label="Search enquiries" />
+              <select id="enq-filter-status" class="filter-select" aria-label="Filter by status">
+                <option value="all">All Statuses</option>
+                <option value="pending">Awaiting Call</option>
+                <option value="confirmed">Confirmed</option>
+              </select>
+            </div>
+            <button id="enq-export-csv" class="btn btn--dark" aria-label="Export enquiries to CSV">⬇ Export CSV</button>
           </div>
-          <div class="stat-card fade-in">
-            <span class="stat-number" id="confirmed-count" style="font-family:var(--font-heading);font-weight:700;color:#155724;display:block;">0</span>
-            <span style="font-size:0.85rem;color:var(--gray);">Confirmed</span>
+
+          <!-- Enquiries Table -->
+          <div class="admin-table-wrap">
+            <table class="admin-table" aria-label="Enquiries table">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th data-enq-col="timestamp" scope="col">Submitted ▼</th>
+                  <th data-enq-col="firstName" scope="col">Name</th>
+                  <th data-enq-col="email" scope="col">Email</th>
+                  <th data-enq-col="phone" scope="col">Phone</th>
+                  <th scope="col">Instagram</th>
+                  <th scope="col">Goals</th>
+                  <th scope="col">Blockers</th>
+                  <th scope="col">Calendly</th>
+                  <th data-enq-col="status" scope="col">Status</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="enquiries-tbody"></tbody>
+            </table>
+            <div id="enq-empty-state" style="display:none;text-align:center;padding:var(--space-xl);color:var(--gray);">
+              <div style="font-size:3rem;margin-bottom:var(--space-sm);">📭</div>
+              <h3 style="font-size:1.1rem;margin-bottom:0.5rem;">No enquiries yet</h3>
+              <p style="font-size:0.9rem;">When clients submit the form on <a href="enquire.html" style="color:var(--gold);">enquire.html</a>, they'll appear here.</p>
+            </div>
+          </div>
+
+          <!-- Sample enquiry helper -->
+          <div style="margin-top:var(--space-lg);padding:var(--space-md);background:var(--white);border-radius:var(--radius);border:1px dashed var(--border);">
+            <p style="font-size:0.85rem;color:var(--gray);margin-bottom:var(--space-sm);">
+              <strong>Developer Helper:</strong> Add a sample enquiry to test the dashboard.
+            </p>
+            <button id="add-test-enquiry" class="btn btn--outline" style="font-size:0.85rem;padding:0.5rem 1rem;">+ Add Sample Enquiry</button>
           </div>
         </div>
-        <style>
-          @media (min-width: 480px) { .stats-row { grid-template-columns: repeat(3,1fr) !important; } }
-        </style>
 
-        <!-- Toolbar -->
-        <div class="admin-toolbar">
-          <div class="admin-toolbar-left">
-            <input
-              type="search"
-              id="search-input"
-              class="search-input"
-              placeholder="Search by name, email…"
-              aria-label="Search bookings"
-            />
-            <select id="filter-status" class="filter-select" aria-label="Filter by status">
-              <option value="all">All Statuses</option>
-              <option value="pending">Pending</option>
-              <option value="confirmed">Confirmed</option>
-            </select>
+        <!-- ═══ BOOKINGS PANEL (legacy — book.html removed) ═══ -->
+        <div id="panel-bookings" role="tabpanel" aria-labelledby="tab-bookings" style="display:none;">
+
+          <!-- Stats Row -->
+          <div style="display:grid;gap:var(--space-md);margin-bottom:var(--space-xl);" class="stats-row">
+            <div class="stat-card fade-in">
+              <span class="stat-number" id="booking-count" style="font-family:var(--font-heading);font-weight:700;color:var(--gold);display:block;">0</span>
+              <span style="font-size:0.85rem;color:var(--gray);">Total Bookings</span>
+            </div>
+            <div class="stat-card fade-in">
+              <span class="stat-number" id="pending-count" style="font-family:var(--font-heading);font-weight:700;color:#856404;display:block;">0</span>
+              <span style="font-size:0.85rem;color:var(--gray);">Pending</span>
+            </div>
+            <div class="stat-card fade-in">
+              <span class="stat-number" id="confirmed-count" style="font-family:var(--font-heading);font-weight:700;color:#155724;display:block;">0</span>
+              <span style="font-size:0.85rem;color:var(--gray);">Confirmed</span>
+            </div>
+          </div>
+          <style>
+            @media (min-width: 480px) { .stats-row { grid-template-columns: repeat(3,1fr) !important; } }
+          </style>
+
+          <!-- Toolbar -->
+          <div class="admin-toolbar">
+            <div class="admin-toolbar-left">
+              <input
+                type="search"
+                id="search-input"
+                class="search-input"
+                placeholder="Search by name, email…"
+                aria-label="Search bookings"
+              />
+              <select id="filter-status" class="filter-select" aria-label="Filter by status">
+                <option value="all">All Statuses</option>
+                <option value="pending">Pending</option>
+                <option value="confirmed">Confirmed</option>
+              </select>
           </div>
           <button id="export-csv" class="btn btn--dark" aria-label="Export bookings to CSV">
             ⬇ Export CSV
@@ -217,7 +302,7 @@
           <div id="empty-state" style="display:none;">
             <div style="font-size:3rem;margin-bottom:var(--space-sm);" aria-hidden="true">📭</div>
             <h3 style="font-size:1.1rem;margin-bottom:0.5rem;">No bookings yet</h3>
-            <p style="font-size:0.9rem;">When clients submit the booking form on <a href="book.html" style="color:var(--gold);">book.html</a>, they'll appear here.</p>
+            <p style="font-size:0.9rem;">Legacy bookings from the old booking form. New enquiries appear in the Discovery Calls tab.</p>
           </div>
         </div>
 
@@ -231,6 +316,8 @@
           </button>
         </div>
 
+        </div><!-- /#panel-bookings -->
+
       </div><!-- /#admin-dashboard -->
 
     </div>
@@ -238,8 +325,9 @@
 
   <script src="js/main.js"></script>
   <script src="js/admin.js"></script>
+  <script src="js/admin-enquiries.js"></script>
   <script>
-    // Dev helper: add a sample booking for testing
+    // Dev helpers
     document.getElementById('add-test-booking')?.addEventListener('click', function () {
       const key = 'fitwithange_bookings';
       const bookings = JSON.parse(localStorage.getItem(key) || '[]');
@@ -258,6 +346,46 @@
       localStorage.setItem(key, JSON.stringify(bookings));
       location.reload();
     });
+
+    document.getElementById('add-test-enquiry')?.addEventListener('click', function () {
+      const key = 'fitwithange_enquiries';
+      const enquiries = JSON.parse(localStorage.getItem(key) || '[]');
+      enquiries.push({
+        id: 'enq_test_' + Date.now() + '_abc',
+        timestamp: new Date().toISOString(),
+        firstName: 'Sarah',
+        lastName: 'Johnson',
+        email: 'sarah.johnson@example.com',
+        phone: '+61 412 345 678',
+        instagram: 'sarah.fitness',
+        goals: 'I want to lose about 10kg, build lean muscle and feel confident at the gym. I also want to understand how to eat well without being on a strict diet.',
+        blockers: 'I struggle with consistency and don\'t know where to start. I\'ve tried a few programs before but always fall off after 2-3 weeks.',
+        status: 'pending',
+        calendlyScheduled: false
+      });
+      localStorage.setItem(key, JSON.stringify(enquiries));
+      location.reload();
+    });
+
+    // Tab switching
+    const tabEnq = document.getElementById('tab-enquiries');
+    const tabBk  = document.getElementById('tab-bookings');
+    const panelEnq = document.getElementById('panel-enquiries');
+    const panelBk  = document.getElementById('panel-bookings');
+
+    function activateTab(active, inactive, show, hide) {
+      active.setAttribute('aria-selected', 'true');
+      active.style.color = 'var(--gold)';
+      active.style.borderBottomColor = 'var(--gold)';
+      inactive.setAttribute('aria-selected', 'false');
+      inactive.style.color = 'var(--gray)';
+      inactive.style.borderBottomColor = 'transparent';
+      show.style.display = 'block';
+      hide.style.display = 'none';
+    }
+
+    tabEnq?.addEventListener('click', () => activateTab(tabEnq, tabBk, panelEnq, panelBk));
+    tabBk?.addEventListener('click',  () => activateTab(tabBk,  tabEnq, panelBk,  panelEnq));
   </script>
 </body>
 </html>
