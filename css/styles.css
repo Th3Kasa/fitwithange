@@ -115,6 +115,7 @@ body {
   background: var(--white);
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden; /* prevent horizontal scroll on mobile */
 }
 
 img {
@@ -146,22 +147,22 @@ h1, h2, h3, h4, h5, h6 {
   font-feature-settings: "liga", "ss01";
 }
 
-/* Display headings: tight letter-spacing per 2026 convention */
+/* Display headings: fluid clamp — prevents overflow on 360px screens */
 h1 {
-  font-size: clamp(2.25rem, 5vw + 1rem, 4.5rem);
+  font-size: clamp(2rem, 7vw, 3.5rem);
   letter-spacing: -0.02em;
 }
 h2 {
-  font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
   letter-spacing: -0.015em;
 }
-h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
+h3 { font-size: clamp(1.2rem, 4vw, 1.6rem); }
 h4 { font-size: 1.1rem; }
 
-p { color: var(--gray); line-height: 1.75; }
+p { color: var(--gray); line-height: 1.75; font-size: 1rem; }
 
 .lead {
-  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  font-size: clamp(1rem, 3.5vw, 1.25rem);
   color: var(--gray);
   line-height: 1.8;
 }
@@ -199,7 +200,7 @@ p { color: var(--gray); line-height: 1.75; }
   width: 100%;
   max-width: var(--max-width);
   margin-inline: auto;
-  padding-inline: var(--space-sm);
+  padding-inline: clamp(1rem, 4vw, 1.5rem);
 }
 
 @media (min-width: 768px) {
@@ -207,7 +208,7 @@ p { color: var(--gray); line-height: 1.75; }
 }
 
 .section {
-  padding-block: clamp(3rem, 8vw, 6rem);
+  padding-block: clamp(2.5rem, 8vw, 4rem);
 }
 
 .section--light { background: var(--light-bg); }
@@ -369,7 +370,7 @@ p { color: var(--gray); line-height: 1.75; }
 
 .announcement-bar__close {
   position: absolute;
-  right: 0.75rem;
+  right: 0;
   top: 50%;
   transform: translateY(-50%);
   background: none;
@@ -378,11 +379,12 @@ p { color: var(--gray); line-height: 1.75; }
   color: var(--charcoal);
   font-size: 1rem;
   line-height: 1;
-  padding: 0.25rem;
+  /* large invisible padding for 44×44 touch target */
+  padding: 0.75rem;
   opacity: 0.6;
   transition: opacity var(--transition);
-  min-width: 28px;
-  min-height: 28px;
+  min-width: 44px;
+  min-height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -530,10 +532,10 @@ p { color: var(--gray); line-height: 1.75; }
   font-size: 1.2rem;
   font-weight: 500;
   color: var(--charcoal);
-  padding: var(--space-xs) 0;
+  padding: 0.875rem var(--space-xs);
   border-bottom: 1px solid var(--border-soft);
   transition: color var(--transition);
-  min-height: 44px;
+  min-height: 56px; /* comfortable thumb target */
   display: flex;
   align-items: center;
 }
@@ -549,7 +551,7 @@ p { color: var(--gray); line-height: 1.75; }
 /* ---------- Hero ---------- */
 .hero {
   position: relative;
-  min-height: 88vh;
+  min-height: 80vh; /* reduced from 88vh to avoid CTA going below fold */
   display: flex;
   align-items: center;
   background: linear-gradient(135deg, var(--charcoal) 0%, #2d2420 60%, #3a2a1e 100%);
@@ -606,6 +608,24 @@ p { color: var(--gray); line-height: 1.75; }
   flex-wrap: wrap;
   gap: var(--space-sm);
   align-items: center;
+  flex-direction: column; /* stack vertically on mobile by default */
+  align-items: stretch;   /* full-width tap targets */
+}
+
+.hero-cta .btn {
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+}
+
+@media (min-width: 540px) {
+  .hero-cta {
+    flex-direction: row;
+    align-items: center;
+  }
+  .hero-cta .btn {
+    width: auto;
+  }
 }
 
 .hero-stats {
@@ -958,16 +978,16 @@ p { color: var(--gray); line-height: 1.75; }
 
 .form-control {
   width: 100%;
-  padding: 0.875rem 1rem;
+  padding: 0.75rem 1rem;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   background: var(--white);
   color: var(--charcoal);
-  font-size: 1rem; /* prevents iOS zoom */
+  font-size: 1rem; /* CRITICAL: prevents iOS auto-zoom on focus */
   transition: border-color var(--transition), box-shadow var(--transition);
   appearance: none;
   -webkit-appearance: none;
-  min-height: 44px;
+  min-height: 48px; /* thumb-friendly touch target */
 }
 
 .form-control:focus {
@@ -1008,6 +1028,7 @@ textarea.form-control { resize: vertical; min-height: 120px; }
   justify-content: center;
   font-size: 1rem;
   padding: 1rem;
+  min-height: 56px; /* extra thumb-friendly submit */
 }
 
 /* ---------- Toast / Alert ---------- */
@@ -1054,8 +1075,8 @@ textarea.form-control { resize: vertical; min-height: 120px; }
   margin-bottom: 0;
 }
 
-@media (max-width: 600px) {
-  .ig-real-grid { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 539px) {
+  .ig-real-grid { grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
 }
 
 .ig-real-tile {
@@ -1458,9 +1479,11 @@ textarea.form-control { resize: vertical; min-height: 120px; }
   font-size: 0.9rem;
   color: rgba(255, 255, 255, 0.7);
   transition: color var(--transition);
-  min-height: 28px;
+  min-height: 44px; /* touch target */
   display: flex;
   align-items: center;
+  padding: 0.25rem 0;
+  line-height: 1.6;
 }
 
 .footer-links a:hover { color: var(--gold); }
@@ -1722,8 +1745,9 @@ textarea.form-control { resize: vertical; min-height: 120px; }
 @media (max-width: 900px) {
   .gallery-grid { grid-template-columns: repeat(2, 1fr); }
 }
-@media (max-width: 560px) {
-  .gallery-grid { grid-template-columns: 1fr; gap: 1rem; }
+@media (max-width: 540px) {
+  /* 2 columns on narrow mobile — matches IG grid for visual consistency */
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
 }
 
 /* ── Card ── */
@@ -1874,4 +1898,228 @@ textarea.form-control { resize: vertical; min-height: 120px; }
 @media (max-width: 560px) {
   .credential-band__sep { display: none; }
   .credential-band__list { gap: 0.75rem; }
+}
+
+/* ==========================================================================
+   MOBILE ENHANCEMENTS — applied below 768px
+   ========================================================================== */
+
+/* ── Announcement bar: smaller text, graceful wrap, big tap target ── */
+@media (max-width: 767px) {
+  .announcement-bar {
+    font-size: 0.8rem;
+    padding-block: 0.6rem;
+    padding-inline: 0.75rem;
+    padding-right: 48px; /* space for the × button */
+    text-align: left;
+  }
+
+  .announcement-bar p {
+    white-space: normal; /* allow text to wrap on small screens */
+  }
+}
+
+/* ── Hero: tighter padding, ensure CTA stays above fold ── */
+@media (max-width: 767px) {
+  .hero {
+    min-height: 70vh;
+    padding-block: clamp(3rem, 10vw, 5rem);
+  }
+
+  .hero-content {
+    padding-block: var(--space-md);
+  }
+
+  .hero-eyebrow {
+    font-size: 0.72rem;
+    padding: 0.35rem 0.85rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .hero .lead {
+    margin-bottom: var(--space-md);
+  }
+
+  .hero-stats {
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+    padding-top: var(--space-md);
+  }
+}
+
+/* ── Services / pricing cards: full-width single column ── */
+@media (max-width: 767px) {
+  .services-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .pricing-card .btn {
+    width: 100%;
+    justify-content: center;
+    min-height: 48px;
+  }
+}
+
+/* ── Gallery card overlay: always visible on touch devices ── */
+@media (hover: none) {
+  .gallery-card__hover-overlay {
+    opacity: 0.7; /* always visible on touch screens */
+  }
+
+  .ig-real-tile__overlay {
+    opacity: 0.55; /* always visible on touch screens */
+  }
+}
+
+/* ── Footer: centred single-column layout ── */
+@media (max-width: 639px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+    text-align: center;
+  }
+
+  .footer-brand p { text-align: center; }
+
+  .footer-links {
+    align-items: center;
+  }
+
+  .footer-links a {
+    justify-content: center;
+  }
+
+  .social-row {
+    justify-content: center;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--space-xs);
+  }
+
+  .credential-badges {
+    justify-content: center;
+  }
+}
+
+/* ── Form: submit button full-width, gap between fields ── */
+@media (max-width: 767px) {
+  .form-group {
+    margin-bottom: 1rem; /* consistent gap prevents mis-taps */
+  }
+
+  button[type="submit"].btn,
+  .form-submit {
+    width: 100%;
+    min-height: 56px;
+    justify-content: center;
+  }
+
+  /* Force form rows to single column on mobile */
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Book page: expect-grid stays reasonable on mobile ── */
+@media (max-width: 639px) {
+  .expect-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* ── Page hero: reduce vertical padding on small screens ── */
+@media (max-width: 767px) {
+  .page-hero {
+    padding-block: clamp(2rem, 7vw, 3.5rem);
+  }
+
+  .about-hero {
+    padding-block: clamp(2rem, 7vw, 3.5rem);
+  }
+}
+
+/* ── Nav links: ensure adequate touch targets on desktop nav in-btn ── */
+@media (min-width: 768px) {
+  .nav-links a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
+/* ── Safe area insets for notched phones (iPhone X+) ── */
+@supports (padding: env(safe-area-inset-bottom)) {
+  .site-footer {
+    padding-bottom: calc(var(--space-md) + env(safe-area-inset-bottom));
+  }
+
+  .mobile-nav {
+    padding-bottom: calc(var(--space-lg) + env(safe-area-inset-bottom));
+  }
+}
+
+/* ── Focus visible: visible on mobile too ── */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+
+/* ── Pricing card enquire button: always full-width ── */
+.pricing-card > .btn:last-child,
+.pricing-card > a.btn {
+  width: 100%;
+  justify-content: center;
+  min-height: 48px;
+  margin-top: auto;
+}
+
+/* ── Booking panel: comfortable padding on mobile ── */
+@media (max-width: 767px) {
+  .booking-panel {
+    padding: var(--space-md);
+  }
+
+  .booking-options {
+    gap: var(--space-lg);
+  }
+}
+
+/* ── Responsive Tweaks (existing, extended) ── */
+@media (max-width: 480px) {
+  .hero-stats { gap: var(--space-md); }
+  .stat-number { font-size: 1.5rem; }
+  .pricing-price .amount { font-size: 2rem; }
+  .btn--lg { padding: 0.9rem 1.5rem; }
+
+  /* Gallery gap: very tight on smallest screens */
+  .gallery-grid { gap: 0.5rem; }
+  .ig-real-grid { gap: 0.35rem; }
+}
+
+/* ── Prevent white-space nowrap from causing overflow on mobile ── */
+@media (max-width: 767px) {
+  .btn {
+    white-space: normal; /* allow button text to wrap if needed */
+    text-align: center;
+  }
+
+  .hero-cta .btn {
+    white-space: nowrap; /* hero CTAs stay on one line each */
+  }
+
+  .pricing-badge {
+    font-size: 0.65rem;
+    white-space: normal;
+    text-align: center;
+  }
+}
+
+/* ── Section padding: at desktop restore the full rhythm ── */
+@media (min-width: 768px) {
+  .section {
+    padding-block: clamp(3rem, 8vw, 6rem);
+  }
 }
