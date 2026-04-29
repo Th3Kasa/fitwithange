@@ -14,8 +14,8 @@
   3. Create a new Event Type:
        Name:      "Discovery Call"
        Duration:  30 minutes
-       Days:      Monday â€“ Friday
-       Hours:     9:00 AM â€“ 4:00 PM (Sydney time)
+       Days:      Monday "“ Friday
+       Hours:     9:00 AM "“ 4:00 PM (Sydney time)
        Location:  Google Meet (auto-generated link)
 
   4. In that Event Type â†’ "Invitee Questions", add FOUR custom
@@ -26,7 +26,7 @@
        a4  â†’  Blockers (what's stopping you)
      (Calendly labels these a1, a2, a3, a4 in the URL prefill)
 
-  5. Copy the event's sharing URL â€” it looks like:
+  5. Copy the event's sharing URL "” it looks like:
        https://calendly.com/YOUR-USERNAME/discovery-call
      Then paste it as the value of CALENDLY_URL in the <script>
      block near the bottom of this file (replace the placeholder).
@@ -35,7 +35,7 @@
   UNTIL CALENDLY_URL IS CONFIGURED:
   Step 2 automatically shows a friendly placeholder card instead of
   the embed widget. The enquiry is still saved to localStorage so
-  you receive it â€” Angelina, just check admin.html to see submissions.
+  you receive it "” Angelina, just check admin.html to see submissions.
   ====================================================================
 -->
 <html lang="en-AU">
@@ -43,16 +43,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Book a Free Discovery Call | FitWithAnge Sydney</title>
-  <meta name="description" content="Book a free 20â€“30 minute Discovery Call with Angelina Farag â€” Exercise Physiologist, Sydney. Share your goals, see if we're a great fit, no pressure." />
+  <meta name="description" content="Book a free 20"“30 minute Discovery Call with Angelina Farag "” Exercise Physiologist, Sydney. Share your goals, see if we're a great fit, no pressure." />
 
   <meta property="og:type"        content="website" />
   <meta property="og:url"         content="https://fitwithange.vercel.app/enquire" />
   <meta property="og:site_name"   content="FitWithAnge" />
   <meta property="og:locale"      content="en_AU" />
   <meta property="og:title"       content="Book a Free Discovery Call | FitWithAnge Sydney" />
-  <meta property="og:description" content="Book a free Discovery Call with Angelina Farag, Exercise Physiologist. Share your goals and let's chat â€” no pressure, no obligation." />
+  <meta property="og:description" content="Book a free Discovery Call with Angelina Farag, Exercise Physiologist. Share your goals and let's chat "” no pressure, no obligation." />
   <meta property="og:image"       content="https://fitwithange.vercel.app/assets/img/angelina.jpg" />
-  <meta property="og:image:alt"   content="Angelina Farag â€” Exercise Physiologist and Personal Trainer, Sydney" />
+  <meta property="og:image:alt"   content="Angelina Farag "” Exercise Physiologist and Personal Trainer, Sydney" />
 
   <meta name="twitter:card"        content="summary_large_image" />
   <meta name="twitter:title"       content="Book a Free Discovery Call | FitWithAnge Sydney" />
@@ -94,7 +94,7 @@
 
   <!-- ANNOUNCEMENT BAR -->
   <div class="announcement-bar" id="announcement-bar" role="region" aria-label="Partner offer">
-    <p>Activewear partner: <a href="https://clubathletica.com.au/?sca_ref=10453730.MFEqJltNbf" target="_blank" rel="noopener sponsored">Club Athletica DC</a> â€” use code <strong>ANGEX10</strong> for a discount</p>
+    <p>Activewear partner: <a href="https://clubathletica.com.au/?sca_ref=10453730.MFEqJltNbf" target="_blank" rel="noopener sponsored">Club Athletica DC</a> "” use code <strong>ANGEX10</strong> for a discount</p>
     <button class="announcement-bar__close" aria-label="Dismiss announcement" onclick="dismissBar()">
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -135,12 +135,12 @@
       <div class="container">
         <nav aria-label="Breadcrumb" class="breadcrumb">
           <a href="index.html">Home</a>
-          <span class="sep" aria-hidden="true">â€º</span>
+          <span class="sep" aria-hidden="true">"º</span>
           <span aria-current="page">Book a Discovery Call</span>
         </nav>
         <span class="section-label">Free &amp; No Obligation</span>
         <h1>Book Your Free<br><em style="color:var(--gold);font-style:italic;">Discovery Call</em></h1>
-        <p class="lead">A complimentary 20â€“30 minute video chat with Angelina to talk goals, see if we're a great fit, and explore next steps â€” privately and without pressure.</p>
+        <p class="lead">A complimentary 20"“30 minute video chat with Angelina to talk goals, see if we're a great fit, and explore next steps "” privately and without pressure.</p>
       </div>
     </section>
 
@@ -178,7 +178,7 @@
           <div class="enq-panel__header">
             <h2 id="enq-form-heading" class="enq-panel__title">Tell Us About Yourself</h2>
             <p class="enq-panel__subtitle">Fill in the form below and Angelina will have everything she needs before your call.</p>
-            <p id="enq-backend-pending" class="enq-panel__subtitle" style="display:none;color:#888;font-size:0.8rem;margin-top:0.25rem;">Backend setup pending â€” your enquiry will be saved locally until configured. See SETUP.md.</p>
+            <p id="enq-backend-pending" class="enq-panel__subtitle" style="display:none;color:#888;font-size:0.8rem;margin-top:0.25rem;">Backend setup pending "” your enquiry will be saved locally until configured. See SETUP.md.</p>
           </div>
 
           <form id="enq-form" novalidate aria-labelledby="enq-form-heading">
@@ -310,7 +310,7 @@
                 id="enq-goals"
                 name="goals"
                 rows="5"
-                placeholder="e.g. Lose body fat, build lean muscle, improve my energy levels, feel confident in my bodyâ€¦"
+                placeholder="e.g. Lose body fat, build lean muscle, improve my energy levels, feel confident in my body"¦"
                 required
                 aria-required="true"
                 aria-describedby="enq-goals-error enq-goals-counter"
@@ -333,7 +333,7 @@
                 id="enq-blockers"
                 name="blockers"
                 rows="5"
-                placeholder="e.g. Unsure where to start, tried programs before and lost motivation, need accountabilityâ€¦"
+                placeholder="e.g. Unsure where to start, tried programs before and lost motivation, need accountability"¦"
                 required
                 aria-required="true"
                 aria-describedby="enq-blockers-error enq-blockers-counter"
@@ -374,7 +374,7 @@
 
           <div class="enq-panel__header">
             <h2 id="enq-scheduler-heading" class="enq-panel__title" tabindex="-1">Pick a Time That Works for You</h2>
-            <p class="enq-panel__subtitle">All times shown in your local timezone. Angelina is based in Sydney, Australia (AEST/AEDT) and is available Monâ€“Fri, 9 AM â€“ 4 PM.</p>
+            <p class="enq-panel__subtitle">All times shown in your local timezone. Angelina is based in Sydney, Australia (AEST/AEDT) and is available Mon"“Fri, 9 AM "“ 4 PM.</p>
           </div>
 
           <!-- Recap card -->
@@ -415,7 +415,7 @@
             <div class="enq-success-card__inner">
               <span class="enq-success-card__icon" aria-hidden="true">&#x2705;</span>
               <h3>You're booked!</h3>
-              <p>Check your email for the Google Meet invite. Talk soon â€” Angelina.</p>
+              <p>Check your email for the Google Meet invite. Talk soon "” Angelina.</p>
               <a href="index.html" class="btn btn--primary" style="margin-top:var(--space-md);">Back to Home</a>
             </div>
           </div>
@@ -449,7 +449,7 @@
               </svg>
             </a>
           </div>
-          <p class="footer-partner">Activewear partner: <a href="https://clubathletica.com.au/?sca_ref=10453730.MFEqJltNbf" target="_blank" rel="noopener sponsored">Club Athletica DC</a> â€” use code <strong>ANGEX10</strong></p>
+          <p class="footer-partner">Activewear partner: <a href="https://clubathletica.com.au/?sca_ref=10453730.MFEqJltNbf" target="_blank" rel="noopener sponsored">Club Athletica DC</a> "” use code <strong>ANGEX10</strong></p>
         </div>
         <nav aria-label="Footer quick links">
           <p class="footer-heading">Quick Links</p>
@@ -523,17 +523,17 @@
       return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/.test(val.trim());
     }
 
-    // Name: letters, hyphens, apostrophes, spaces; 2â€“50 chars
+    // Name: letters, hyphens, apostrophes, spaces; 2"“50 chars
     function isValidName(val) {
       return /^[a-zA-ZÃ€-Ã–Ã˜-Ã¶Ã¸-Ã¿'\- ]{2,50}$/.test(val.trim());
     }
 
-    // Phone: 8â€“20 chars, allows + digits spaces dashes parens
+    // Phone: 8"“20 chars, allows + digits spaces dashes parens
     function isValidPhone(val) {
       return /^[+\d][+\d\s\-().]{6,19}$/.test(val.trim()) && val.replace(/\D/g, '').length >= 7;
     }
 
-    // Instagram: 1â€“30 chars, [a-zA-Z0-9._] (strip leading @ before checking)
+    // Instagram: 1"“30 chars, [a-zA-Z0-9._] (strip leading @ before checking)
     function isValidInstagram(val) {
       var handle = val.replace(/^@+/, '');
       if (handle === '') return true; // optional field
@@ -568,17 +568,17 @@
           break;
         case 'enq-phone':
           if (!val.trim()) { msg = 'Phone number is required.'; }
-          else if (!isValidPhone(val)) { msg = 'Please enter a valid phone number (8â€“20 digits, international format OK).'; }
+          else if (!isValidPhone(val)) { msg = 'Please enter a valid phone number (8"“20 digits, international format OK).'; }
           break;
         case 'enq-instagram':
           if (!isValidInstagram(val)) { msg = 'Instagram handles can only contain letters, numbers, underscores, and periods (max 30 characters).'; }
           break;
         case 'enq-goals':
-          if (!val.trim()) { msg = 'Please share your goals â€” this helps Angelina prepare for your call.'; }
+          if (!val.trim()) { msg = 'Please share your goals "” this helps Angelina prepare for your call.'; }
           else if (val.trim().length < 20) { msg = 'Please give a little more detail (at least 20 characters).'; }
           break;
         case 'enq-blockers':
-          if (!val.trim()) { msg = 'Please share what\'s been holding you back â€” there\'s no wrong answer.'; }
+          if (!val.trim()) { msg = 'Please share what\'s been holding you back "” there\'s no wrong answer.'; }
           else if (val.trim().length < 20) { msg = 'Please give a little more detail (at least 20 characters).'; }
           break;
       }
@@ -729,7 +729,7 @@
         }
 
       } else {
-        // Not configured yet â€” show friendly placeholder
+        // Not configured yet "” show friendly placeholder
         container.style.display = 'none';
         placeholder.style.display = 'block';
       }
@@ -764,7 +764,7 @@
         // Honeypot check
         var honeypot = document.getElementById('enq-honeypot');
         if (honeypot && honeypot.value) {
-          // Bot detected â€” silently succeed (do nothing)
+          // Bot detected "” silently succeed (do nothing)
           return;
         }
 
@@ -808,7 +808,7 @@
 
         // Loading state
         enqSubmit.disabled = true;
-        enqSubmit.textContent = 'Submittingâ€¦';
+        enqSubmit.textContent = 'Submitting"¦';
 
         // Submit via fwa API (with localStorage fallback when fwa unavailable)
         (async function () {
@@ -833,7 +833,7 @@
               if (liveRegion) {
                 liveRegion.textContent = 'Submission failed. Please try again.';
               }
-              // Restore submit button â€” do NOT advance to step 2
+              // Restore submit button "” do NOT advance to step 2
               enqSubmit.disabled = false;
               enqSubmit.innerHTML = 'Continue to Scheduling <svg class="icon icon-lg" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>';
               return;
@@ -842,7 +842,7 @@
             enquiryId = result.id;
 
           } else {
-            // fwa not available â€” fall back to direct localStorage write
+            // fwa not available "” fall back to direct localStorage write
             var enquiry = {
               id:                generateId(),
               timestamp:         new Date().toISOString(),
@@ -877,7 +877,7 @@
     }
 
     // ---------------------------------------------------------------
-    // "Edit" button â€” go back to step 1 preserving values
+    // "Edit" button "” go back to step 1 preserving values
     // ---------------------------------------------------------------
     var editBtn = document.getElementById('enq-edit-btn');
     if (editBtn) {
@@ -901,7 +901,7 @@
     window.addEventListener('message', function (e) {
       if (!e.data || e.data.event !== 'calendly.event_scheduled') return;
 
-      // Update backend record via fwa (defensive â€” updateEnquiry may not exist yet)
+      // Update backend record via fwa (defensive "” updateEnquiry may not exist yet)
       if (currentEnquiryId && window.fwa && typeof window.fwa.updateEnquiry === 'function') {
         window.fwa.updateEnquiry(currentEnquiryId, { calendlyScheduled: true, status: 'confirmed' });
       }
