@@ -65,6 +65,7 @@
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#d4a574" />
   <link rel="stylesheet" href="css/styles.css" />
+  <script src="js/supabase-client.js"></script>
 
   <script type="application/ld+json">
   {
@@ -177,6 +178,7 @@
           <div class="enq-panel__header">
             <h2 id="enq-form-heading" class="enq-panel__title">Tell Us About Yourself</h2>
             <p class="enq-panel__subtitle">Fill in the form below and Angelina will have everything she needs before your call.</p>
+            <p id="enq-backend-pending" class="enq-panel__subtitle" style="display:none;color:#888;font-size:0.8rem;margin-top:0.25rem;">Backend setup pending — your enquiry will be saved locally until configured. See SETUP.md.</p>
           </div>
 
           <form id="enq-form" novalidate aria-labelledby="enq-form-heading">
@@ -351,6 +353,8 @@
               </svg>
               Your details are kept strictly private and never shared.
             </p>
+
+            <span class="enq-field-error" id="enq-submit-error" role="alert" aria-live="polite" style="display:block;margin-bottom:0.75rem;"></span>
 
             <button type="submit" id="enq-submit" class="btn btn--primary btn--lg form-submit">
               Continue to Scheduling
@@ -741,6 +745,18 @@
     // Track enquiry id for post-booking update
     var currentEnquiryId = null;
 
+    // Backend-pending indicator: show when fwa is present but not configured
+    (function () {
+      var pendingEl = document.getElementById('enq-backend-pending');
+      if (!pendingEl) return;
+      if (window.fwa && typeof window.fwa.isConfigured === 'function') {
+        if (!window.fwa.isConfigured()) {
+          pendingEl.style.display = 'block';
+        }
+      }
+      // If fwa is absent entirely, hide the banner (degrade silently)
+    })();
+
     if (enqForm) {
       enqForm.addEventListener('submit', function (e) {
         e.preventDefault();
@@ -786,39 +802,77 @@
         var goals      = document.getElementById('enq-goals').value.trim();
         var blockers   = document.getElementById('enq-blockers').value.trim();
 
-        // Disable submit during "processing"
+        // Clear any previous submit-level error
+        var submitErrEl = document.getElementById('enq-submit-error');
+        if (submitErrEl) submitErrEl.textContent = '';
+
+        // Loading state
         enqSubmit.disabled = true;
-        enqSubmit.textContent = 'Saving…';
+        enqSubmit.textContent = 'Submitting…';
 
-        // Save to localStorage
-        var enquiry = {
-          id:                 generateId(),
-          timestamp:          new Date().toISOString(),
-          firstName:          firstName,
-          lastName:           lastName,
-          email:              email,
-          phone:              phone,
-          instagram:          instagram,
-          goals:              goals,
-          blockers:           blockers,
-          status:             'pending',
-          calendlyScheduled:  false
-        };
+        // Submit via fwa API (with localStorage fallback when fwa unavailable)
+        (async function () {
+          var enquiryId = null;
 
-        currentEnquiryId = enquiry.id;
+          if (window.fwa && typeof window.fwa.createEnquiry === 'function') {
+            var result = await window.fwa.createEnquiry({
+              firstName: firstName,
+              lastName:  lastName,
+              email:     email,
+              phone:     phone,
+              instagram: instagram || null,
+              goals:     goals,
+              blockers:  blockers
+            });
 
-        var existing = readEnquiries();
-        existing.push(enquiry);
-        writeEnquiries(existing);
+            if (result.error) {
+              // Show inline error above submit button
+              if (submitErrEl) {
+                submitErrEl.textContent = 'Something went wrong submitting your enquiry. Please try again, or DM @fitwith_ange on Instagram if it persists.';
+              }
+              if (liveRegion) {
+                liveRegion.textContent = 'Submission failed. Please try again.';
+              }
+              // Restore submit button — do NOT advance to step 2
+              enqSubmit.disabled = false;
+              enqSubmit.innerHTML = 'Continue to Scheduling <svg class="icon icon-lg" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>';
+              return;
+            }
 
-        // Announce success to screen readers
-        if (liveRegion) liveRegion.textContent = 'Details saved. Proceeding to scheduling step.';
+            enquiryId = result.id;
 
-        // Re-enable submit (for back navigation)
-        enqSubmit.disabled = false;
-        enqSubmit.innerHTML = 'Continue to Scheduling <svg class="icon icon-lg" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>';
+          } else {
+            // fwa not available — fall back to direct localStorage write
+            var enquiry = {
+              id:                generateId(),
+              timestamp:         new Date().toISOString(),
+              firstName:         firstName,
+              lastName:          lastName,
+              email:             email,
+              phone:             phone,
+              instagram:         instagram,
+              goals:             goals,
+              blockers:          blockers,
+              status:            'pending',
+              calendlyScheduled: false
+            };
+            enquiryId = enquiry.id;
+            var existing = readEnquiries();
+            existing.push(enquiry);
+            writeEnquiries(existing);
+          }
 
-        showStep2(firstName, lastName, email, phone, instagram || '', goals, blockers);
+          currentEnquiryId = enquiryId;
+
+          // Announce success to screen readers
+          if (liveRegion) liveRegion.textContent = 'Details saved. Proceeding to scheduling step.';
+
+          // Restore submit (for back navigation)
+          enqSubmit.disabled = false;
+          enqSubmit.innerHTML = 'Continue to Scheduling <svg class="icon icon-lg" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>';
+
+          showStep2(firstName, lastName, email, phone, instagram || '', goals, blockers);
+        })();
       });
     }
 
@@ -847,7 +901,12 @@
     window.addEventListener('message', function (e) {
       if (!e.data || e.data.event !== 'calendly.event_scheduled') return;
 
-      // Update localStorage record
+      // Update backend record via fwa (defensive — updateEnquiry may not exist yet)
+      if (currentEnquiryId && window.fwa && typeof window.fwa.updateEnquiry === 'function') {
+        window.fwa.updateEnquiry(currentEnquiryId, { calendlyScheduled: true, status: 'confirmed' });
+      }
+
+      // Also update localStorage record (keeps admin.html in sync for local fallback)
       if (currentEnquiryId) {
         var enquiries = readEnquiries();
         for (var i = 0; i < enquiries.length; i++) {
