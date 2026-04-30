@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <!--
   ====================================================================
   SETUP INSTRUCTIONS FOR ANGELINA
@@ -8,7 +8,7 @@
 
   1. Sign up free at https://calendly.com (use your business email)
 
-  2. In Calendly â†’ Profile Settings â†’ Timezone â†’ select
+  2. In Calendly → Profile Settings → Timezone → select
      "Australia/Sydney" so all availability shows in AEST/AEDT.
 
   3. Create a new Event Type:
@@ -18,15 +18,15 @@
        Hours:     9:00 AM — 4:00 PM (Sydney time)
        Location:  Google Meet (auto-generated link)
 
-  4. In that Event Type â†’ "Invitee Questions", add FOUR custom
+  4. In that Event Type → "Invitee Questions", add FOUR custom
      questions so the prefill parameters work:
-       a1  â†’  Phone number
-       a2  â†’  Instagram handle (optional)
-       a3  â†’  Goals (what you want to achieve)
-       a4  â†’  Blockers (what's stopping you)
+       a1  →  Phone number
+       a2  →  Instagram handle (optional)
+       a3  →  Goals (what you want to achieve)
+       a4  →  Blockers (what's stopping you)
      (Calendly labels these a1, a2, a3, a4 in the URL prefill)
 
-  5. Copy the event's sharing URL "” it looks like:
+  5. Copy the event's sharing URL — it looks like:
        https://calendly.com/YOUR-USERNAME/discovery-call
      Then paste it as the value of CALENDLY_URL in the <script>
      block near the bottom of this file (replace the placeholder).
@@ -35,7 +35,7 @@
   UNTIL CALENDLY_URL IS CONFIGURED:
   Step 2 automatically shows a friendly placeholder card instead of
   the embed widget. The enquiry is still saved to localStorage so
-  you receive it "” Angelina, just check admin.html to see submissions.
+  you receive it — Angelina, just check admin.html to see submissions.
   ====================================================================
 -->
 <html lang="en-AU">
@@ -43,16 +43,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Book a Free Discovery Call | FitWithAnge Sydney</title>
-  <meta name="description" content="Book a free 20—30 minute Discovery Call with Angelina Farag "” Exercise Physiologist, Sydney. Share your goals, see if we're a great fit, no pressure." />
+  <meta name="description" content="Book a free 20–30 minute Discovery Call with Angelina Farag — Exercise Physiologist, Sydney. Share your goals, see if we're a great fit, no pressure." />
 
   <meta property="og:type"        content="website" />
   <meta property="og:url"         content="https://fitwithange.vercel.app/enquire" />
   <meta property="og:site_name"   content="FitWithAnge" />
   <meta property="og:locale"      content="en_AU" />
   <meta property="og:title"       content="Book a Free Discovery Call | FitWithAnge Sydney" />
-  <meta property="og:description" content="Book a free Discovery Call with Angelina Farag, Exercise Physiologist. Share your goals and let's chat "” no pressure, no obligation." />
+  <meta property="og:description" content="Book a free Discovery Call with Angelina Farag, Exercise Physiologist. Share your goals and let's chat — no pressure, no obligation." />
   <meta property="og:image"       content="https://fitwithange.vercel.app/assets/img/angelina.jpg" />
-  <meta property="og:image:alt"   content="Angelina Farag "” Exercise Physiologist and Personal Trainer, Sydney" />
+  <meta property="og:image:alt"   content="Angelina Farag — Exercise Physiologist and Personal Trainer, Sydney" />
 
   <meta name="twitter:card"        content="summary_large_image" />
   <meta name="twitter:title"       content="Book a Free Discovery Call | FitWithAnge Sydney" />
@@ -60,8 +60,12 @@
   <meta name="twitter:image"       content="https://fitwithange.vercel.app/assets/img/angelina.jpg" />
 
   <link rel="canonical" href="https://fitwithange.vercel.app/enquire" />
+
+  <!-- Fonts preconnect -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" />
+
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#d4a574" />
   <link rel="stylesheet" href="css/styles.css" />
@@ -87,33 +91,569 @@
     ]
   }
   </script>
+
+  <style>
+    /* ── enquire.html page-scoped styles ── */
+
+    /* ── Hero ── */
+    .enq-hero {
+      padding-block: clamp(4.5rem, 12vh, 9rem) clamp(2.5rem, 6vh, 4rem);
+      background: var(--paper);
+      position: relative;
+    }
+    .enq-hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold) 40%, transparent);
+      opacity: 0.3;
+    }
+    .enq-hero__inner { max-width: 700px; }
+    .enq-hero h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--charcoal);
+      margin-block: 1rem 1.25rem;
+    }
+    .enq-hero__sub {
+      font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+      color: var(--gray);
+      max-width: 460px;
+      line-height: 1.7;
+      margin-bottom: 1.75rem;
+    }
+
+    /* Reassurance pills */
+    .enq-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+    .enq-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.4rem 0.9rem;
+      border: 1px solid var(--border-soft);
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--charcoal);
+      background: transparent;
+    }
+    .enq-pill::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+
+    /* ── Split layout — info card + form ── */
+    .enq-split {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(2.5rem, 6vw, 5rem);
+      align-items: start;
+    }
+    @media (min-width: 900px) {
+      .enq-split {
+        grid-template-columns: 2fr 3fr;
+      }
+    }
+
+    /* ── Info card (left 40%) ── */
+    .enq-info-card {
+      background: var(--cream);
+      border: 1px solid var(--border-gold-soft);
+      border-radius: 6px;
+      padding: clamp(2rem, 4vw, 2.75rem);
+      position: sticky;
+      top: calc(var(--header-h) + 2rem);
+    }
+    .enq-info-card__chapter {
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.25rem;
+      display: block;
+    }
+    .enq-info-card__quote {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+      color: var(--charcoal);
+      line-height: 1.55;
+      margin: 0 0 0.75rem;
+      padding-left: 1.25rem;
+      border-left: 2px solid var(--gold);
+    }
+    .enq-info-card__attribution {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--gray-light);
+      padding-left: 1.25rem;
+      margin-bottom: 2rem;
+      display: block;
+    }
+
+    .enq-info-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+    .enq-info-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+      color: var(--charcoal);
+      line-height: 1.55;
+    }
+    .enq-info-list li::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+      margin-top: 0.5em;
+    }
+
+    .enq-info-card__response {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.85rem 1rem;
+      background: var(--paper);
+      border-radius: 4px;
+      font-size: 0.82rem;
+      color: var(--gray);
+      line-height: 1.45;
+    }
+    .enq-info-card__response-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #5cb85c;
+      flex-shrink: 0;
+      box-shadow: 0 0 0 3px rgba(92,184,92,0.2);
+    }
+
+    /* Trust strip */
+    .enq-trust-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      padding-block: 1.75rem;
+      border-bottom: 1px solid var(--border-soft);
+      margin-bottom: 2rem;
+    }
+    .enq-trust-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--gray);
+      letter-spacing: 0.02em;
+    }
+    .enq-trust-pill::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+
+    /* ── ARIA live + progress indicator ── */
+    .enq-progress {
+      margin-bottom: 2rem;
+    }
+    .enq-progress__track { display: none; }
+    .enq-progress__steps {
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+    .enq-step {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex: 1;
+    }
+    .enq-step:not(:last-child)::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border-soft);
+      margin-inline: 0.5rem;
+    }
+    .enq-step--complete:not(:last-child)::after {
+      background: var(--gold);
+    }
+    .enq-step__circle {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      border: 1.5px solid var(--border-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--gray);
+      background: var(--paper);
+      flex-shrink: 0;
+      transition: border-color 0.3s, color 0.3s, background 0.3s;
+    }
+    .enq-step--active .enq-step__circle {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(212,165,116,0.08);
+    }
+    .enq-step--complete .enq-step__circle {
+      border-color: var(--charcoal);
+      background: var(--charcoal);
+      color: #fff;
+    }
+    .enq-step__label {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--gray);
+      white-space: nowrap;
+    }
+    .enq-step--active .enq-step__label {
+      color: var(--charcoal);
+      font-weight: 600;
+    }
+    .enq-step--complete .enq-step__label {
+      color: var(--charcoal);
+    }
+
+    /* ── Form panel ── */
+    .booking-panel {
+      background: var(--paper);
+      border: 1px solid var(--border-soft);
+      border-radius: 8px;
+      padding: clamp(2rem, 4vw, 3rem);
+    }
+
+    .enq-panel__header { margin-bottom: 2rem; }
+
+    .enq-editorial-chapter {
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+    .enq-editorial-heading {
+      font-family: var(--font-heading);
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 700;
+      color: var(--charcoal);
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+    }
+    .enq-editorial-sub {
+      font-size: 0.95rem;
+      color: var(--gray);
+      line-height: 1.65;
+    }
+
+    /* Editorial form field overrides */
+    .enq-form .form-label {
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--charcoal);
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    .enq-form .form-control {
+      font-size: 1rem;
+      padding: 0.85rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: #fff;
+      color: var(--charcoal);
+      width: 100%;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      accent-color: var(--gold);
+    }
+    .enq-form .form-control:focus {
+      outline: none;
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(212,165,116,0.18);
+    }
+    .enq-form .form-control::placeholder {
+      color: var(--gray-light);
+      font-style: italic;
+    }
+    .enq-form textarea.form-control {
+      resize: vertical;
+      min-height: 120px;
+    }
+    .enq-form .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    @media (max-width: 480px) {
+      .enq-form .form-row { grid-template-columns: 1fr; }
+    }
+    .enq-form .form-group { margin-bottom: 1.5rem; }
+
+    .enq-required { color: var(--rust); }
+
+    .enq-field-error {
+      display: block;
+      font-size: 0.8rem;
+      color: #c0392b;
+      margin-top: 0.35rem;
+      min-height: 1.2em;
+    }
+    .enq-field-hint {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--gray-light);
+      margin-top: 0.3rem;
+      font-style: italic;
+    }
+    .enq-input--error {
+      border-color: #c0392b !important;
+    }
+
+    /* Instagram prefix wrapper */
+    .enq-input-prefix-wrap {
+      position: relative;
+    }
+    .enq-input-prefix {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gray-light);
+      font-weight: 500;
+      font-size: 1rem;
+      pointer-events: none;
+      user-select: none;
+    }
+    .enq-input-prefixed { padding-left: 1.75rem !important; }
+
+    /* Textarea footer */
+    .enq-textarea-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.5rem;
+      margin-top: 0.3rem;
+    }
+    .enq-char-counter {
+      font-size: 0.75rem;
+      color: var(--gray-light);
+      flex-shrink: 0;
+    }
+    .enq-char-counter--warn { color: var(--rust); }
+    .enq-char-counter--over { color: #c0392b; font-weight: 600; }
+
+    /* Privacy row */
+    .enq-privacy-divider {
+      margin-block: 1.5rem 1rem;
+      border: none;
+      border-top: 1px solid var(--border-soft);
+    }
+    .enq-privacy-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.82rem;
+      color: var(--gray);
+      line-height: 1.4;
+      margin-bottom: 1.25rem;
+    }
+
+    /* Recap card on Step 2 */
+    .enq-recap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      background: var(--cream);
+      border-radius: 4px;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .enq-recap__info {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .enq-recap__info strong {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--charcoal);
+    }
+    .enq-recap__info span {
+      font-size: 0.82rem;
+      color: var(--gray);
+    }
+    .enq-recap__edit {
+      font-size: 0.8rem;
+      padding: 0.4rem 0.85rem;
+    }
+
+    /* Calendly heading */
+    .enq-cal-heading {
+      font-family: var(--font-heading);
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700;
+      color: var(--charcoal);
+      line-height: 1.2;
+      margin-bottom: 0.35rem;
+    }
+    .enq-cal-sub {
+      font-size: 0.9rem;
+      color: var(--gray);
+      margin-bottom: 1.5rem;
+      line-height: 1.55;
+    }
+
+    /* Calendly widget container */
+    .enq-calendly-wrap { margin-top: 0.5rem; }
+
+    /* Placeholder card when Calendly not configured */
+    .enq-placeholder {
+      background: var(--cream);
+      border-radius: 6px;
+      padding: clamp(2rem, 5vw, 3rem);
+      text-align: center;
+    }
+    .enq-placeholder__inner h3 {
+      font-family: var(--font-heading);
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--charcoal);
+      margin-block: 0.75rem 0.5rem;
+    }
+    .enq-placeholder__inner p {
+      font-size: 0.9rem;
+      color: var(--gray);
+      line-height: 1.65;
+      max-width: 400px;
+      margin-inline: auto;
+    }
+
+    /* Post-booking success card */
+    .enq-success-card {
+      background: var(--cream);
+      border-radius: 6px;
+      padding: clamp(2rem, 5vw, 3rem);
+      text-align: center;
+    }
+    .enq-success-card__inner { max-width: 380px; margin-inline: auto; }
+    .enq-success-card__icon { font-size: 2.5rem; display: block; margin-bottom: 0.75rem; }
+    .enq-success-card__inner h3 {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--charcoal);
+      margin-bottom: 0.5rem;
+    }
+    .enq-success-card__inner p {
+      font-size: 0.9rem;
+      color: var(--gray);
+      line-height: 1.65;
+    }
+
+    /* Post-booking confirm note */
+    .enq-cal-confirm-note {
+      font-size: 0.82rem;
+      color: var(--gray);
+      margin-top: 1.25rem;
+      line-height: 1.55;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+    .enq-cal-confirm-note::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+      margin-top: 0.5em;
+    }
+
+    /* Fallback contact link */
+    .enq-fallback-contact {
+      font-size: 0.82rem;
+      color: var(--gray);
+      margin-top: 0.75rem;
+    }
+
+    /* Backend-pending notice */
+    .enq-panel__subtitle {
+      font-size: 0.8rem;
+      color: var(--gray-light);
+      margin-top: 0.25rem;
+    }
+  </style>
 </head>
 <body>
 
   <a href="#main-content" class="skip-link">Skip to content</a>
 
   <!-- ANNOUNCEMENT BAR -->
-  <div class="announcement-bar" id="announcement-bar" role="region" aria-label="Partner offer">
-    <p>Activewear partner: <a href="https://clubathletica.com.au/?sca_ref=10453730.MFEqJltNbf" target="_blank" rel="noopener sponsored">Club Athletica DC</a> "” use code <strong>ANGEX10</strong> for a discount</p>
-    <button class="announcement-bar__close" aria-label="Dismiss announcement" onclick="dismissBar()">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-    </button>
+  <div class="announcement-bar" id="announcement-bar" role="region" aria-label="Site announcement">
+    <p>
+      Partner discount — use code <strong>ANGEX10</strong> at
+      <a href="https://clubathletica.com.au/?sca_ref=10453730.MFEqJltNbf" target="_blank" rel="noopener sponsored">Club Athletica DC</a>
+      for 10% off activewear.
+    </p>
+    <button
+      class="announcement-bar__close"
+      onclick="dismissBar()"
+      aria-label="Dismiss announcement"
+    >&#10005;</button>
   </div>
 
   <header class="site-header" role="banner">
     <div class="header-inner">
-      <a href="/" class="site-logo" aria-label="FitWithAnge Home">FitWith<span>Ange</span></a>
-      <nav class="nav-links" aria-label="Main navigation">
+      <a href="/" class="site-logo" aria-label="FitWithAnge — home">FitWith<span>Ange</span></a>
+      <nav class="nav-links" role="navigation" aria-label="Main navigation">
         <a href="/">Home</a>
-        <a href="about">About</a>
-        <a href="services">Services</a>
-        <a href="gallery">Gallery</a>
-        <a href="contact">Contact</a>
-        <a href="enquire" class="btn btn--primary active" style="padding:0.6rem 1.25rem;">Book a Free Enquiry</a>
+        <a href="/about">About</a>
+        <a href="/services">Services</a>
+        <a href="/gallery">Gallery</a>
+        <a href="/contact">Contact</a>
+        <a href="/enquire" class="btn btn--primary active" style="border-radius:50px; padding:0.6rem 1.25rem; font-size:0.8rem;">Book a Free Enquiry</a>
       </nav>
-      <button class="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-nav">
+      <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-nav">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -121,366 +661,442 @@
 
   <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
     <a href="/">Home</a>
-    <a href="about">About</a>
-    <a href="services">Services</a>
-    <a href="gallery">Gallery</a>
-    <a href="contact">Contact</a>
-    <a href="enquire" class="btn btn--primary">Book a Free Enquiry</a>
+    <a href="/about">About</a>
+    <a href="/services">Services</a>
+    <a href="/gallery">Gallery</a>
+    <a href="/contact">Contact</a>
+    <a href="/enquire" class="btn btn--primary">Book a Free Enquiry</a>
   </nav>
 
   <main id="main-content">
 
-    <!-- PAGE HERO -->
-    <section class="page-hero" aria-label="Discovery call booking hero">
+    <!-- ═══════════════════════════════════════════════════
+         HERO
+    ═══════════════════════════════════════════════════ -->
+    <section class="enq-hero" aria-label="Discovery call booking hero">
       <div class="container">
-        <nav aria-label="Breadcrumb" class="breadcrumb">
-          <a href="index.html">Home</a>
-          <span class="sep" aria-hidden="true">"º</span>
-          <span aria-current="page">Book a Discovery Call</span>
-        </nav>
-        <span class="section-label">Free &amp; No Obligation</span>
-        <h1>Book Your Free<br><em style="color:var(--gold);font-style:italic;">Discovery Call</em></h1>
-        <p class="lead">A complimentary 20—30 minute video chat with Angelina to talk goals, see if we're a great fit, and explore next steps "” privately and without pressure.</p>
+        <div class="enq-hero__inner fade-in">
+          <nav aria-label="Breadcrumb" class="breadcrumb">
+            <a href="/">Home</a>
+            <span class="sep" aria-hidden="true">&middot;</span>
+            <span aria-current="page">Book a Discovery Call</span>
+          </nav>
+          <span class="label-caps" style="color:var(--gold);display:block;margin-block:1.25rem 0.75rem;">Get Started</span>
+          <h1>Let&rsquo;s<br /><em class="italic-accent">talk.</em></h1>
+          <p class="enq-hero__sub">
+            A complimentary 20&ndash;30 minute video call with Angelina.
+            No script, no hard sell &mdash; just an honest conversation about where you are
+            and what&rsquo;s possible.
+          </p>
+          <div class="enq-pills" role="list" aria-label="Session details">
+            <span class="enq-pill" role="listitem">Free</span>
+            <span class="enq-pill" role="listitem">20&ndash;30 min</span>
+            <span class="enq-pill" role="listitem">Online &mdash; Google Meet</span>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- DISCOVERY CALL FLOW -->
-    <section class="section" aria-labelledby="enquiry-flow-heading">
-      <div class="container" style="max-width:680px;">
+    <!-- ═══════════════════════════════════════════════════
+         SPLIT LAYOUT: INFO CARD + BOOKING FLOW
+    ═══════════════════════════════════════════════════ -->
+    <section class="section" style="padding-top:clamp(2.5rem,6vh,4rem);" aria-labelledby="enquiry-flow-heading">
+      <div class="container">
 
         <h2 id="enquiry-flow-heading" class="visually-hidden">Discovery Call Booking Flow</h2>
 
-        <!-- ARIA live region for validation announcements -->
-        <div id="enq-live-region" role="status" aria-live="polite" aria-atomic="true" class="visually-hidden"></div>
+        <div class="enq-split split-uneven">
 
-        <!-- PROGRESS INDICATOR -->
-        <div class="enq-progress" aria-label="Booking progress" role="progressbar" aria-valuemin="1" aria-valuemax="2" aria-valuenow="1" id="enq-progress">
-          <div class="enq-progress__track">
-            <div class="enq-progress__fill" id="enq-progress-fill"></div>
-          </div>
-          <div class="enq-progress__steps" aria-hidden="true">
-            <div class="enq-step enq-step--active" id="enq-step-1-indicator">
-              <div class="enq-step__circle">1</div>
-              <span class="enq-step__label">Your Details</span>
+          <!-- ── LEFT: Editorial info card ── -->
+          <aside class="enq-info-card reveal-up" aria-label="What to expect">
+            <span class="enq-info-card__chapter label-caps">What to expect</span>
+
+            <blockquote class="enq-info-card__quote">
+              &ldquo;I want to understand your life, not just your goals. That&rsquo;s
+              where every good programme begins.&rdquo;
+            </blockquote>
+            <span class="enq-info-card__attribution">&mdash; Angelina Farag, EP &amp; PT</span>
+
+            <ul class="enq-info-list" role="list">
+              <li>We&rsquo;ll talk through your training history, current lifestyle, and what you actually want &mdash; not what you think you should want.</li>
+              <li>Angelina will be direct about which programme suits you, and honest if something else would serve you better.</li>
+              <li>You&rsquo;ll leave with clarity, not a sales pitch.</li>
+              <li>The call is free and there&rsquo;s no obligation to continue.</li>
+            </ul>
+
+            <div class="enq-info-card__response" role="note" aria-label="Response time">
+              <span class="enq-info-card__response-dot" aria-hidden="true"></span>
+              <span>Responses within <strong>24 hours</strong> &mdash; usually same day.</span>
             </div>
-            <div class="enq-step" id="enq-step-2-indicator">
-              <div class="enq-step__circle">2</div>
-              <span class="enq-step__label">Pick a Time</span>
+          </aside>
+
+          <!-- ── RIGHT: Booking flow ── -->
+          <div class="enq-booking-col">
+
+            <!-- Trust strip -->
+            <div class="enq-trust-strip fade-in" aria-label="Credentials">
+              <span class="enq-trust-pill">Bachelor of Exercise Physiology</span>
+              <span class="enq-trust-pill">University of Sydney</span>
+              <span class="enq-trust-pill">Martin Place, Sydney</span>
             </div>
-          </div>
-        </div>
 
-        <!-- =========================================================
-             STEP 1: INTAKE FORM
-             ========================================================= -->
-        <div id="enq-step-1" class="booking-panel enq-panel">
+            <!-- ARIA live region -->
+            <div id="enq-live-region" role="status" aria-live="polite" aria-atomic="true" class="visually-hidden"></div>
 
-          <div class="enq-panel__header">
-            <h2 id="enq-form-heading" class="enq-panel__title">Tell Us About Yourself</h2>
-            <p class="enq-panel__subtitle">Fill in the form below and Angelina will have everything she needs before your call.</p>
-            <p id="enq-backend-pending" class="enq-panel__subtitle" style="display:none;color:#888;font-size:0.8rem;margin-top:0.25rem;">Backend setup pending "” your enquiry will be saved locally until configured. See SETUP.md.</p>
-          </div>
-
-          <form id="enq-form" novalidate aria-labelledby="enq-form-heading">
-
-            <!-- Honeypot (hidden from real users) -->
-            <input
-              type="text"
-              name="website"
-              id="enq-honeypot"
-              style="display:none;"
-              tabindex="-1"
-              aria-hidden="true"
-              autocomplete="off"
-            />
-
-            <!-- Name row -->
-            <div class="form-row">
-              <div class="form-group">
-                <label class="form-label" for="enq-first-name">
-                  First Name <span aria-hidden="true" class="enq-required">*</span>
-                </label>
-                <input
-                  class="form-control"
-                  type="text"
-                  id="enq-first-name"
-                  name="firstName"
-                  autocomplete="given-name"
-                  placeholder="Jane"
-                  required
-                  aria-required="true"
-                  aria-describedby="enq-first-name-error"
-                  minlength="2"
-                  maxlength="50"
-                />
-                <span class="enq-field-error" id="enq-first-name-error" role="alert" aria-live="polite"></span>
+            <!-- PROGRESS INDICATOR -->
+            <div class="enq-progress" aria-label="Booking progress" role="progressbar" aria-valuemin="1" aria-valuemax="2" aria-valuenow="1" id="enq-progress">
+              <div class="enq-progress__track">
+                <div class="enq-progress__fill" id="enq-progress-fill"></div>
               </div>
-
-              <div class="form-group">
-                <label class="form-label" for="enq-last-name">
-                  Last Name <span aria-hidden="true" class="enq-required">*</span>
-                </label>
-                <input
-                  class="form-control"
-                  type="text"
-                  id="enq-last-name"
-                  name="lastName"
-                  autocomplete="family-name"
-                  placeholder="Smith"
-                  required
-                  aria-required="true"
-                  aria-describedby="enq-last-name-error"
-                  minlength="2"
-                  maxlength="50"
-                />
-                <span class="enq-field-error" id="enq-last-name-error" role="alert" aria-live="polite"></span>
+              <div class="enq-progress__steps" aria-hidden="true">
+                <div class="enq-step enq-step--active" id="enq-step-1-indicator">
+                  <div class="enq-step__circle">1</div>
+                  <span class="enq-step__label">Your Details</span>
+                </div>
+                <div class="enq-step" id="enq-step-2-indicator">
+                  <div class="enq-step__circle">2</div>
+                  <span class="enq-step__label">Pick a Time</span>
+                </div>
               </div>
             </div>
 
-            <!-- Email -->
-            <div class="form-group">
-              <label class="form-label" for="enq-email">
-                Email Address <span aria-hidden="true" class="enq-required">*</span>
-              </label>
-              <input
-                class="form-control"
-                type="email"
-                id="enq-email"
-                name="email"
-                autocomplete="email"
-                inputmode="email"
-                placeholder="jane@example.com"
-                required
-                aria-required="true"
-                aria-describedby="enq-email-error"
-              />
-              <span class="enq-field-error" id="enq-email-error" role="alert" aria-live="polite"></span>
-            </div>
+            <!-- =====================================================
+                 STEP 1: INTAKE FORM
+                 ===================================================== -->
+            <div id="enq-step-1" class="booking-panel enq-panel">
 
-            <!-- Phone -->
-            <div class="form-group">
-              <label class="form-label" for="enq-phone">
-                Phone Number <span aria-hidden="true" class="enq-required">*</span>
-              </label>
-              <input
-                class="form-control"
-                type="tel"
-                id="enq-phone"
-                name="phone"
-                autocomplete="tel"
-                inputmode="tel"
-                placeholder="+61 4XX XXX XXX"
-                required
-                aria-required="true"
-                aria-describedby="enq-phone-error enq-phone-hint"
-              />
-              <span class="enq-field-hint" id="enq-phone-hint">Include country code for international numbers (e.g. +61 for Australia)</span>
-              <span class="enq-field-error" id="enq-phone-error" role="alert" aria-live="polite"></span>
-            </div>
+              <div class="enq-panel__header">
+                <span class="enq-editorial-chapter chapter-number">01 / 02</span>
+                <h2 id="enq-form-heading" class="enq-editorial-heading">Tell us about yourself</h2>
+                <p class="enq-editorial-sub">Angelina reads every submission before your call. The more you share, the more useful your 30 minutes will be.</p>
+                <p id="enq-backend-pending" class="enq-panel__subtitle" style="display:none;">Backend setup pending — your enquiry will be saved locally until configured. See SETUP.md.</p>
+              </div>
 
-            <!-- Instagram (optional) -->
-            <div class="form-group">
-              <label class="form-label" for="enq-instagram">
-                Instagram Handle <span style="color:var(--gray-light);font-weight:400;font-size:0.8rem;">(optional)</span>
-              </label>
-              <div class="enq-input-prefix-wrap">
-                <span class="enq-input-prefix" aria-hidden="true">@</span>
+              <form id="enq-form" class="enq-form" novalidate aria-labelledby="enq-form-heading">
+
+                <!-- Honeypot (hidden from real users) -->
                 <input
-                  class="form-control enq-input-prefixed"
                   type="text"
-                  id="enq-instagram"
-                  name="instagram"
+                  name="website"
+                  id="enq-honeypot"
+                  style="display:none;"
+                  tabindex="-1"
+                  aria-hidden="true"
                   autocomplete="off"
-                  inputmode="url"
-                  placeholder="yourhandle"
-                  aria-describedby="enq-instagram-error"
-                  maxlength="31"
                 />
+
+                <!-- Name row -->
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label" for="enq-first-name">
+                      First Name <span aria-hidden="true" class="enq-required">*</span>
+                    </label>
+                    <input
+                      class="form-control"
+                      type="text"
+                      id="enq-first-name"
+                      name="firstName"
+                      autocomplete="given-name"
+                      placeholder="Jane"
+                      required
+                      aria-required="true"
+                      aria-describedby="enq-first-name-error"
+                      minlength="2"
+                      maxlength="50"
+                    />
+                    <span class="enq-field-error" id="enq-first-name-error" role="alert" aria-live="polite"></span>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="enq-last-name">
+                      Last Name <span aria-hidden="true" class="enq-required">*</span>
+                    </label>
+                    <input
+                      class="form-control"
+                      type="text"
+                      id="enq-last-name"
+                      name="lastName"
+                      autocomplete="family-name"
+                      placeholder="Smith"
+                      required
+                      aria-required="true"
+                      aria-describedby="enq-last-name-error"
+                      minlength="2"
+                      maxlength="50"
+                    />
+                    <span class="enq-field-error" id="enq-last-name-error" role="alert" aria-live="polite"></span>
+                  </div>
+                </div>
+
+                <!-- Email -->
+                <div class="form-group">
+                  <label class="form-label" for="enq-email">
+                    Email Address <span aria-hidden="true" class="enq-required">*</span>
+                  </label>
+                  <input
+                    class="form-control"
+                    type="email"
+                    id="enq-email"
+                    name="email"
+                    autocomplete="email"
+                    inputmode="email"
+                    placeholder="jane@example.com"
+                    required
+                    aria-required="true"
+                    aria-describedby="enq-email-error"
+                  />
+                  <span class="enq-field-error" id="enq-email-error" role="alert" aria-live="polite"></span>
+                </div>
+
+                <!-- Phone -->
+                <div class="form-group">
+                  <label class="form-label" for="enq-phone">
+                    Phone Number <span aria-hidden="true" class="enq-required">*</span>
+                  </label>
+                  <input
+                    class="form-control"
+                    type="tel"
+                    id="enq-phone"
+                    name="phone"
+                    autocomplete="tel"
+                    inputmode="tel"
+                    placeholder="+61 4XX XXX XXX"
+                    required
+                    aria-required="true"
+                    aria-describedby="enq-phone-error enq-phone-hint"
+                  />
+                  <span class="enq-field-hint" id="enq-phone-hint">Include country code for international numbers (e.g. +61 for Australia)</span>
+                  <span class="enq-field-error" id="enq-phone-error" role="alert" aria-live="polite"></span>
+                </div>
+
+                <!-- Instagram (optional) -->
+                <div class="form-group">
+                  <label class="form-label" for="enq-instagram">
+                    Instagram Handle <span style="color:var(--gray-light);font-weight:400;font-size:0.78rem;text-transform:none;letter-spacing:0;">(optional)</span>
+                  </label>
+                  <div class="enq-input-prefix-wrap">
+                    <span class="enq-input-prefix" aria-hidden="true">@</span>
+                    <input
+                      class="form-control enq-input-prefixed"
+                      type="text"
+                      id="enq-instagram"
+                      name="instagram"
+                      autocomplete="off"
+                      inputmode="url"
+                      placeholder="yourhandle"
+                      aria-describedby="enq-instagram-error"
+                      maxlength="31"
+                    />
+                  </div>
+                  <span class="enq-field-error" id="enq-instagram-error" role="alert" aria-live="polite"></span>
+                </div>
+
+                <!-- Goals textarea -->
+                <div class="form-group">
+                  <label class="form-label" for="enq-goals">
+                    What are you hoping to achieve? <span aria-hidden="true" class="enq-required">*</span>
+                  </label>
+                  <textarea
+                    class="form-control"
+                    id="enq-goals"
+                    name="goals"
+                    rows="5"
+                    placeholder="e.g. Build genuine strength, lose body fat without crash dieting, feel confident and energised again&hellip;"
+                    required
+                    aria-required="true"
+                    aria-describedby="enq-goals-error enq-goals-counter"
+                    minlength="20"
+                    maxlength="1000"
+                  ></textarea>
+                  <div class="enq-textarea-footer">
+                    <span class="enq-field-error" id="enq-goals-error" role="alert" aria-live="polite"></span>
+                    <span class="enq-char-counter" id="enq-goals-counter" aria-live="polite" aria-atomic="true">0 / 1000</span>
+                  </div>
+                </div>
+
+                <!-- Blockers textarea -->
+                <div class="form-group">
+                  <label class="form-label" for="enq-blockers">
+                    What&rsquo;s been getting in the way? <span aria-hidden="true" class="enq-required">*</span>
+                  </label>
+                  <textarea
+                    class="form-control"
+                    id="enq-blockers"
+                    name="blockers"
+                    rows="5"
+                    placeholder="e.g. Unsure where to start, tried programmes before and lost motivation, need real accountability&hellip;"
+                    required
+                    aria-required="true"
+                    aria-describedby="enq-blockers-error enq-blockers-counter"
+                    minlength="20"
+                    maxlength="1000"
+                  ></textarea>
+                  <div class="enq-textarea-footer">
+                    <span class="enq-field-error" id="enq-blockers-error" role="alert" aria-live="polite"></span>
+                    <span class="enq-char-counter" id="enq-blockers-counter" aria-live="polite" aria-atomic="true">0 / 1000</span>
+                  </div>
+                </div>
+
+                <hr class="enq-privacy-divider" />
+                <p class="enq-privacy-row">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" style="width:1rem;height:1rem;color:var(--gold);flex-shrink:0;">
+                    <rect x="3" y="11" width="18" height="11" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                  </svg>
+                  Your details are kept strictly private and never shared.
+                </p>
+
+                <span class="enq-field-error" id="enq-submit-error" role="alert" aria-live="polite" style="display:block;margin-bottom:0.75rem;margin-top:0.75rem;"></span>
+
+                <button type="submit" id="enq-submit" class="btn btn--primary btn--lg btn--magnetic" style="margin-top:0.5rem;">
+                  Continue to Scheduling
+                  <svg class="icon icon-lg" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                  </svg>
+                </button>
+
+              </form>
+            </div><!-- /enq-step-1 -->
+
+
+            <!-- =====================================================
+                 STEP 2: CALENDLY SCHEDULER
+                 ===================================================== -->
+            <div id="enq-step-2" class="booking-panel enq-panel" style="display:none;">
+
+              <div class="enq-panel__header">
+                <span class="enq-editorial-chapter chapter-number">02 / 02</span>
+                <h2 id="enq-scheduler-heading" class="enq-cal-heading" tabindex="-1">
+                  Pick a time<br /><em class="italic-accent">that works for you.</em>
+                </h2>
+                <p class="enq-cal-sub">All times shown in your local timezone. Angelina is based in Sydney, Australia (AEST/AEDT) and is available Mon&ndash;Fri, 9&nbsp;AM&nbsp;&ndash;&nbsp;4&nbsp;PM.</p>
               </div>
-              <span class="enq-field-error" id="enq-instagram-error" role="alert" aria-live="polite"></span>
-            </div>
 
-            <!-- Goals textarea -->
-            <div class="form-group">
-              <label class="form-label" for="enq-goals">
-                What goals are you wanting to achieve? <span aria-hidden="true" class="enq-required">*</span>
-              </label>
-              <textarea
-                class="form-control"
-                id="enq-goals"
-                name="goals"
-                rows="5"
-                placeholder="e.g. Lose body fat, build lean muscle, improve my energy levels, feel confident in my body"¦"
-                required
-                aria-required="true"
-                aria-describedby="enq-goals-error enq-goals-counter"
-                minlength="20"
-                maxlength="1000"
-              ></textarea>
-              <div class="enq-textarea-footer">
-                <span class="enq-field-error" id="enq-goals-error" role="alert" aria-live="polite"></span>
-                <span class="enq-char-counter" id="enq-goals-counter" aria-live="polite" aria-atomic="true">0 / 1000</span>
+              <!-- Recap card -->
+              <div class="enq-recap" id="enq-recap" aria-label="Your submitted details">
+                <div class="enq-recap__info">
+                  <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" style="color:var(--gold);flex-shrink:0;">
+                    <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                    <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                  </svg>
+                  <div>
+                    <strong id="enq-recap-name"></strong>
+                    <span id="enq-recap-email"></span>
+                  </div>
+                </div>
+                <button type="button" id="enq-edit-btn" class="btn btn--outline enq-recap__edit" aria-label="Go back and edit your details">
+                  Edit
+                </button>
               </div>
-            </div>
 
-            <!-- Blockers textarea -->
-            <div class="form-group">
-              <label class="form-label" for="enq-blockers">
-                What's stopping you from achieving these goals? <span aria-hidden="true" class="enq-required">*</span>
-              </label>
-              <textarea
-                class="form-control"
-                id="enq-blockers"
-                name="blockers"
-                rows="5"
-                placeholder="e.g. Unsure where to start, tried programs before and lost motivation, need accountability"¦"
-                required
-                aria-required="true"
-                aria-describedby="enq-blockers-error enq-blockers-counter"
-                minlength="20"
-                maxlength="1000"
-              ></textarea>
-              <div class="enq-textarea-footer">
-                <span class="enq-field-error" id="enq-blockers-error" role="alert" aria-live="polite"></span>
-                <span class="enq-char-counter" id="enq-blockers-counter" aria-live="polite" aria-atomic="true">0 / 1000</span>
+              <!-- Calendly embed container (or fallback) -->
+              <div id="enq-calendly-container" class="enq-calendly-wrap"></div>
+
+              <!-- Fallback shown when CALENDLY_URL not configured -->
+              <div id="enq-calendly-placeholder" class="enq-placeholder" style="display:none;" role="region" aria-label="Scheduling placeholder">
+                <div class="enq-placeholder__inner">
+                  <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" style="width:2.5rem;height:2.5rem;color:var(--gold);margin:0 auto var(--space-sm);display:block;">
+                    <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                    <path d="M3 9h18M9 3v3M15 3v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+                  </svg>
+                  <h3>Scheduler Coming Soon</h3>
+                  <p>Your enquiry has been received. Angelina will email you within 24 hours to arrange a time for your Discovery Call.</p>
+                  <p style="font-size:0.875rem;margin-top:0.75rem;">In the meantime, <a href="https://www.instagram.com/fitwith_ange/" target="_blank" rel="noopener" style="color:var(--gold);font-weight:600;">DM @fitwith_ange on Instagram</a> if you have any questions.</p>
+                </div>
               </div>
-            </div>
 
-            <p class="enq-privacy-note">
-              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" style="width:1rem;height:1rem;color:var(--gold);vertical-align:middle;margin-right:0.3rem;">
-                <rect x="3" y="11" width="18" height="11" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/>
-                <path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-              </svg>
-              Your details are kept strictly private and never shared.
-            </p>
-
-            <span class="enq-field-error" id="enq-submit-error" role="alert" aria-live="polite" style="display:block;margin-bottom:0.75rem;"></span>
-
-            <button type="submit" id="enq-submit" class="btn btn--primary btn--lg form-submit">
-              Continue to Scheduling
-              <svg class="icon icon-lg" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-              </svg>
-            </button>
-
-          </form>
-        </div><!-- /enq-step-1 -->
-
-
-        <!-- =========================================================
-             STEP 2: CALENDLY SCHEDULER
-             ========================================================= -->
-        <div id="enq-step-2" class="booking-panel enq-panel" style="display:none;">
-
-          <div class="enq-panel__header">
-            <h2 id="enq-scheduler-heading" class="enq-panel__title" tabindex="-1">Pick a Time That Works for You</h2>
-            <p class="enq-panel__subtitle">All times shown in your local timezone. Angelina is based in Sydney, Australia (AEST/AEDT) and is available Mon—Fri, 9 AM — 4 PM.</p>
-          </div>
-
-          <!-- Recap card -->
-          <div class="enq-recap" id="enq-recap" aria-label="Your submitted details">
-            <div class="enq-recap__info">
-              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" style="color:var(--gold);flex-shrink:0;">
-                <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/>
-                <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-              </svg>
-              <div>
-                <strong id="enq-recap-name"></strong>
-                <span id="enq-recap-email"></span>
+              <!-- Post-booking success card -->
+              <div id="enq-booked-success" class="enq-success-card" style="display:none;" role="region" aria-label="Booking confirmed" aria-live="polite">
+                <div class="enq-success-card__inner">
+                  <span class="enq-success-card__icon" aria-hidden="true">&#x2705;</span>
+                  <h3>You&rsquo;re booked.</h3>
+                  <p>Check your email for the Google Meet invite. Talk soon &mdash; Angelina.</p>
+                  <a href="/" class="btn btn--primary btn--magnetic" style="margin-top:var(--space-md);">Back to Home</a>
+                </div>
               </div>
-            </div>
-            <button type="button" id="enq-edit-btn" class="btn btn--outline enq-recap__edit" aria-label="Go back and edit your details">
-              Edit
-            </button>
-          </div>
 
-          <!-- Calendly embed container (or fallback) -->
-          <div id="enq-calendly-container" class="enq-calendly-wrap"></div>
+              <p class="enq-cal-confirm-note">
+                After booking you&rsquo;ll receive a confirmation email with the Google Meet link.
+              </p>
 
-          <!-- Fallback shown when CALENDLY_URL not configured -->
-          <div id="enq-calendly-placeholder" class="enq-placeholder" style="display:none;" role="region" aria-label="Scheduling placeholder">
-            <div class="enq-placeholder__inner">
-              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" style="width:2.5rem;height:2.5rem;color:var(--gold);margin:0 auto var(--space-sm);">
-                <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/>
-                <path d="M3 9h18M9 3v3M15 3v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-              </svg>
-              <h3>Scheduler Coming Soon</h3>
-              <p>Your enquiry has been received! Angelina will email you within 24 hours to arrange a convenient time for your Discovery Call.</p>
-              <p style="font-size:0.875rem;">In the meantime, feel free to <a href="https://www.instagram.com/fitwith_ange/" target="_blank" rel="noopener" style="color:var(--gold);font-weight:600;">DM @fitwith_ange on Instagram</a> if you have any questions.</p>
-            </div>
-          </div>
+              <p class="enq-fallback-contact" id="enq-fallback-contact">
+                Having trouble?
+                <a href="mailto:contact@fitwithange.com.au" style="color:var(--gold);font-weight:600;">Email Angelina directly</a>
+              </p>
 
-          <!-- Post-booking success card (shown after Calendly fires event) -->
-          <div id="enq-booked-success" class="enq-success-card" style="display:none;" role="region" aria-label="Booking confirmed" aria-live="polite">
-            <div class="enq-success-card__inner">
-              <span class="enq-success-card__icon" aria-hidden="true">&#x2705;</span>
-              <h3>You're booked!</h3>
-              <p>Check your email for the Google Meet invite. Talk soon "” Angelina.</p>
-              <a href="index.html" class="btn btn--primary" style="margin-top:var(--space-md);">Back to Home</a>
-            </div>
-          </div>
+            </div><!-- /enq-step-2 -->
 
-          <!-- Fallback contact link -->
-          <p class="enq-fallback-contact" id="enq-fallback-contact">
-            Having trouble?
-            <a href="mailto:contact@fitwithange.com.au" style="color:var(--gold);font-weight:600;">Email Angelina directly</a>
-          </p>
+          </div><!-- /.enq-booking-col -->
 
-        </div><!-- /enq-step-2 -->
+        </div><!-- /.enq-split -->
 
       </div>
     </section>
 
   </main>
 
+  <!-- FOOTER -->
   <footer class="site-footer" role="contentinfo">
     <div class="container">
       <div class="footer-grid">
+
         <div class="footer-brand">
-          <div class="site-logo">FitWith<span>Ange</span></div>
-          <p>Helping women build strength and transform their bodies through intelligent, personalised coaching.</p>
-          <div class="social-row">
-            <a href="https://www.instagram.com/fitwith_ange/" target="_blank" rel="noopener noreferrer"
-               class="social-icon" aria-label="Follow @fitwith_ange on Instagram">
-              <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="currentColor" stroke-width="1.5" fill="none"/>
-                <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/>
-                <circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>
+          <a href="/" class="site-logo" aria-label="FitWithAnge — home">FitWith<span>Ange</span></a>
+          <p>Science-backed coaching for women who train with purpose. Exercise Physiology &amp; Personal Training — online &amp; in-person at Martin Place, Sydney.</p>
+          <div class="social-row" aria-label="Social media links">
+            <a class="social-icon" href="https://www.instagram.com/fitwith_ange/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                <circle cx="12" cy="12" r="4"/>
+                <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+              </svg>
+            </a>
+            <a class="social-icon" href="https://www.tiktok.com/@fitwithange" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.82a8.18 8.18 0 0 0 4.78 1.52V6.9a4.85 4.85 0 0 1-1.01-.21z"/>
               </svg>
             </a>
           </div>
-          <p class="footer-partner">Activewear partner: <a href="https://clubathletica.com.au/?sca_ref=10453730.MFEqJltNbf" target="_blank" rel="noopener sponsored">Club Athletica DC</a> "” use code <strong>ANGEX10</strong></p>
+          <p class="footer-partner">Partner: <a href="https://clubathletica.com.au/?sca_ref=10453730.MFEqJltNbf" target="_blank" rel="noopener sponsored">Club Athletica DC</a> — use code <strong>ANGEX10</strong> for 10% off.</p>
         </div>
-        <nav aria-label="Footer quick links">
-          <p class="footer-heading">Quick Links</p>
-          <ul class="footer-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="services.html">Services</a></li>
-            <li><a href="gallery.html">Gallery</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="enquire">Book a Call</a></li>
-          </ul>
-        </nav>
+
         <div>
-          <p class="footer-heading">Get in Touch</p>
-          <ul class="footer-links">
-            <li><a href="https://www.instagram.com/fitwith_ange/" target="_blank" rel="noopener">Instagram</a></li>
-            <li><a href="enquire">Book a free enquiry</a></li>
+          <span class="footer-heading">Quick links</span>
+          <ul class="footer-links" role="list">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/services">Services</a></li>
+            <li><a href="/gallery">Gallery</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/enquire">Book a Free Enquiry</a></li>
           </ul>
         </div>
+
+        <div>
+          <span class="footer-heading">Get in touch</span>
+          <ul class="footer-links" role="list">
+            <li><a href="mailto:hello@fitwithange.com.au">hello@fitwithange.com.au</a></li>
+            <li><a href="https://www.instagram.com/fitwith_ange/" target="_blank" rel="noopener">@fitwith_ange</a></li>
+            <li><span style="color:rgba(255,255,255,0.45);font-size:0.85rem;line-height:1.6;display:block;padding-block:0.25rem;">Martin Place, Sydney&nbsp;NSW</span></li>
+          </ul>
+          <div style="margin-top:var(--space-md);">
+            <a href="/enquire" class="btn btn--primary btn--magnetic">Book a Free Enquiry</a>
+          </div>
+        </div>
+
       </div>
       <div class="footer-bottom">
-        <p>&copy; <span class="current-year">2026</span> FitWithAnge &middot; Angelina Farag. All rights reserved.</p>
-        <p>Sydney, NSW, Australia</p>
+        <span>&copy; <span class="current-year"></span> FitWithAnge. All rights reserved.</span>
+        <span>Sydney, NSW, Australia</span>
       </div>
     </div>
   </footer>
 
-  <!-- Calendly widget script (loads async, only used when CALENDLY_URL is configured) -->
+  <!-- Calendly widget script -->
   <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
 
-  <script src="js/main.js"></script>
+  <script src="js/main.js" defer></script>
+  <script src="js/motion-fx.js" defer></script>
   <script>
     // ---------------------------------------------------------------
     // CONFIGURE THIS: Replace with your real Calendly event URL
@@ -518,25 +1134,21 @@
       return 'enq_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
     }
 
-    // Robust email regex (per RFC 5322 simplified, not just type=email)
     function isValidEmail(val) {
       return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/.test(val.trim());
     }
 
-    // Name: letters, hyphens, apostrophes, spaces; 2—50 chars
     function isValidName(val) {
-      return /^[a-zA-ZÃ€-Ã–Ã˜-Ã¶Ã¸-Ã¿'\- ]{2,50}$/.test(val.trim());
+      return /^[a-zA-ZÀ-ÖØ-öø-ÿ'\- ]{2,50}$/.test(val.trim());
     }
 
-    // Phone: 8—20 chars, allows + digits spaces dashes parens
     function isValidPhone(val) {
       return /^[+\d][+\d\s\-().]{6,19}$/.test(val.trim()) && val.replace(/\D/g, '').length >= 7;
     }
 
-    // Instagram: 1—30 chars, [a-zA-Z0-9._] (strip leading @ before checking)
     function isValidInstagram(val) {
       var handle = val.replace(/^@+/, '');
-      if (handle === '') return true; // optional field
+      if (handle === '') return true;
       return /^[a-zA-Z0-9._]{1,30}$/.test(handle);
     }
 
@@ -574,11 +1186,11 @@
           if (!isValidInstagram(val)) { msg = 'Instagram handles can only contain letters, numbers, underscores, and periods (max 30 characters).'; }
           break;
         case 'enq-goals':
-          if (!val.trim()) { msg = 'Please share your goals "” this helps Angelina prepare for your call.'; }
+          if (!val.trim()) { msg = 'Please share your goals — this helps Angelina prepare for your call.'; }
           else if (val.trim().length < 20) { msg = 'Please give a little more detail (at least 20 characters).'; }
           break;
         case 'enq-blockers':
-          if (!val.trim()) { msg = 'Please share what\'s been holding you back "” there\'s no wrong answer.'; }
+          if (!val.trim()) { msg = 'Please share what\'s been holding you back — there\'s no wrong answer.'; }
           else if (val.trim().length < 20) { msg = 'Please give a little more detail (at least 20 characters).'; }
           break;
       }
@@ -600,43 +1212,33 @@
     }
 
     // ---------------------------------------------------------------
-    // Blur listeners (per-field inline errors after user leaves field)
+    // Blur listeners
     // ---------------------------------------------------------------
     var fieldIds = ['enq-first-name', 'enq-last-name', 'enq-email', 'enq-phone', 'enq-instagram', 'enq-goals', 'enq-blockers'];
 
     fieldIds.forEach(function (id) {
       var el = document.getElementById(id);
       if (!el) return;
-
-      // Show error on blur
-      el.addEventListener('blur', function () {
-        validateField(id, true);
-      });
-
-      // Clear error while typing (once the field was already invalid)
+      el.addEventListener('blur', function () { validateField(id, true); });
       el.addEventListener('input', function () {
         var errEl = document.getElementById(id + '-error');
-        if (errEl && errEl.textContent) {
-          validateField(id, true);
-        }
+        if (errEl && errEl.textContent) { validateField(id, true); }
       });
     });
 
     // ---------------------------------------------------------------
-    // Live character counters for textareas
+    // Live character counters
     // ---------------------------------------------------------------
     function bindCharCounter(textareaId, counterId, max) {
       var ta = document.getElementById(textareaId);
       var counter = document.getElementById(counterId);
       if (!ta || !counter) return;
-
       function update() {
         var len = ta.value.length;
         counter.textContent = len + ' / ' + max;
         counter.classList.toggle('enq-char-counter--warn', len > max * 0.9);
         counter.classList.toggle('enq-char-counter--over', len >= max);
       }
-
       ta.addEventListener('input', update);
       update();
     }
@@ -654,7 +1256,6 @@
       var prog = document.getElementById('enq-progress');
 
       if (prog) prog.setAttribute('aria-valuenow', step);
-
       if (fill) fill.style.width = step === 1 ? '50%' : '100%';
 
       if (s1 && s2) {
@@ -674,28 +1275,23 @@
     // Show Step 2
     // ---------------------------------------------------------------
     function showStep2(firstName, lastName, email, phone, instagram, goals, blockers) {
-      // Update recap card
       var recapName  = document.getElementById('enq-recap-name');
       var recapEmail = document.getElementById('enq-recap-email');
       if (recapName)  recapName.textContent  = firstName + ' ' + lastName;
       if (recapEmail) recapEmail.textContent  = email;
 
-      // Switch panels
       document.getElementById('enq-step-1').style.display = 'none';
       var step2 = document.getElementById('enq-step-2');
       step2.style.display = 'block';
 
-      // Focus management
       var heading = document.getElementById('enq-scheduler-heading');
       if (heading) {
         heading.focus();
-        // Smooth scroll to top of panel
         step2.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
 
       setProgress(2);
 
-      // Decide: embed Calendly or show placeholder
       var isConfigured = CALENDLY_URL.indexOf('REPLACE-WITH') === -1;
       var container = document.getElementById('enq-calendly-container');
       var placeholder = document.getElementById('enq-calendly-placeholder');
@@ -704,7 +1300,6 @@
         placeholder.style.display = 'none';
         container.style.display = 'block';
 
-        // Build prefill URL
         var goalsTrunc    = goals.substring(0, 250);
         var blockersTrunc = blockers.substring(0, 250);
         var igDisplay     = instagram ? instagram : '';
@@ -717,19 +1312,16 @@
           + '&a3='    + encodeURIComponent(goalsTrunc)
           + '&a4='    + encodeURIComponent(blockersTrunc);
 
-        // Create Calendly inline widget
         container.innerHTML =
           '<div class="calendly-inline-widget"' +
           ' data-url="' + prefillUrl + '"' +
           ' style="min-width:320px;height:700px;"></div>';
 
-        // If widget.js already loaded, init; otherwise it auto-inits on load
         if (window.Calendly && window.Calendly.initInlineWidgets) {
           window.Calendly.initInlineWidgets();
         }
 
       } else {
-        // Not configured yet "” show friendly placeholder
         container.style.display = 'none';
         placeholder.style.display = 'block';
       }
@@ -738,37 +1330,27 @@
     // ---------------------------------------------------------------
     // Form submit handler
     // ---------------------------------------------------------------
-    var enqForm   = document.getElementById('enq-form');
-    var enqSubmit = document.getElementById('enq-submit');
+    var enqForm    = document.getElementById('enq-form');
+    var enqSubmit  = document.getElementById('enq-submit');
     var liveRegion = document.getElementById('enq-live-region');
 
-    // Track enquiry id for post-booking update
     var currentEnquiryId = null;
 
-    // Backend-pending indicator: show when fwa is present but not configured
     (function () {
       var pendingEl = document.getElementById('enq-backend-pending');
       if (!pendingEl) return;
       if (window.fwa && typeof window.fwa.isConfigured === 'function') {
-        if (!window.fwa.isConfigured()) {
-          pendingEl.style.display = 'block';
-        }
+        if (!window.fwa.isConfigured()) { pendingEl.style.display = 'block'; }
       }
-      // If fwa is absent entirely, hide the banner (degrade silently)
     })();
 
     if (enqForm) {
       enqForm.addEventListener('submit', function (e) {
         e.preventDefault();
 
-        // Honeypot check
         var honeypot = document.getElementById('enq-honeypot');
-        if (honeypot && honeypot.value) {
-          // Bot detected "” silently succeed (do nothing)
-          return;
-        }
+        if (honeypot && honeypot.value) return;
 
-        // Validate all fields (show all errors at once)
         var allValid = true;
         var firstErrorId = null;
 
@@ -781,18 +1363,15 @@
         });
 
         if (!allValid) {
-          // Announce first error
           var firstErrText = document.getElementById(firstErrorId + '-error');
           if (liveRegion && firstErrText) {
             liveRegion.textContent = 'Please fix the following: ' + firstErrText.textContent;
           }
-          // Focus first invalid field
           var firstField = document.getElementById(firstErrorId);
           if (firstField) firstField.focus();
           return;
         }
 
-        // Collect values
         var firstName  = document.getElementById('enq-first-name').value.trim();
         var lastName   = document.getElementById('enq-last-name').value.trim();
         var email      = document.getElementById('enq-email').value.trim();
@@ -802,15 +1381,12 @@
         var goals      = document.getElementById('enq-goals').value.trim();
         var blockers   = document.getElementById('enq-blockers').value.trim();
 
-        // Clear any previous submit-level error
         var submitErrEl = document.getElementById('enq-submit-error');
         if (submitErrEl) submitErrEl.textContent = '';
 
-        // Loading state
         enqSubmit.disabled = true;
-        enqSubmit.textContent = 'Submitting"¦';
+        enqSubmit.textContent = 'Submitting…';
 
-        // Submit via fwa API (with localStorage fallback when fwa unavailable)
         (async function () {
           var enquiryId = null;
 
@@ -826,14 +1402,10 @@
             });
 
             if (result.error) {
-              // Show inline error above submit button
               if (submitErrEl) {
-                submitErrEl.textContent = 'Something went wrong submitting your enquiry. Please try again, or DM @fitwith_ange on Instagram if it persists.';
+                submitErrEl.textContent = 'Something went wrong. Please try again, or DM @fitwith_ange on Instagram if it persists.';
               }
-              if (liveRegion) {
-                liveRegion.textContent = 'Submission failed. Please try again.';
-              }
-              // Restore submit button "” do NOT advance to step 2
+              if (liveRegion) liveRegion.textContent = 'Submission failed. Please try again.';
               enqSubmit.disabled = false;
               enqSubmit.innerHTML = 'Continue to Scheduling <svg class="icon icon-lg" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>';
               return;
@@ -842,7 +1414,6 @@
             enquiryId = result.id;
 
           } else {
-            // fwa not available "” fall back to direct localStorage write
             var enquiry = {
               id:                generateId(),
               timestamp:         new Date().toISOString(),
@@ -864,10 +1435,8 @@
 
           currentEnquiryId = enquiryId;
 
-          // Announce success to screen readers
           if (liveRegion) liveRegion.textContent = 'Details saved. Proceeding to scheduling step.';
 
-          // Restore submit (for back navigation)
           enqSubmit.disabled = false;
           enqSubmit.innerHTML = 'Continue to Scheduling <svg class="icon icon-lg" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>';
 
@@ -877,7 +1446,7 @@
     }
 
     // ---------------------------------------------------------------
-    // "Edit" button "” go back to step 1 preserving values
+    // "Edit" button
     // ---------------------------------------------------------------
     var editBtn = document.getElementById('enq-edit-btn');
     if (editBtn) {
@@ -885,8 +1454,6 @@
         document.getElementById('enq-step-2').style.display = 'none';
         document.getElementById('enq-step-1').style.display = 'block';
         setProgress(1);
-
-        // Focus first field
         var firstField = document.getElementById('enq-first-name');
         if (firstField) {
           firstField.focus();
@@ -896,17 +1463,15 @@
     }
 
     // ---------------------------------------------------------------
-    // Calendly post-booking event listener
+    // Calendly post-booking event
     // ---------------------------------------------------------------
     window.addEventListener('message', function (e) {
       if (!e.data || e.data.event !== 'calendly.event_scheduled') return;
 
-      // Update backend record via fwa (defensive "” updateEnquiry may not exist yet)
       if (currentEnquiryId && window.fwa && typeof window.fwa.updateEnquiry === 'function') {
         window.fwa.updateEnquiry(currentEnquiryId, { calendlyScheduled: true, status: 'confirmed' });
       }
 
-      // Also update localStorage record (keeps admin.html in sync for local fallback)
       if (currentEnquiryId) {
         var enquiries = readEnquiries();
         for (var i = 0; i < enquiries.length; i++) {
@@ -919,13 +1484,12 @@
         writeEnquiries(enquiries);
       }
 
-      // Show success card, hide Calendly embed
-      var container  = document.getElementById('enq-calendly-container');
+      var container   = document.getElementById('enq-calendly-container');
       var successCard = document.getElementById('enq-booked-success');
       var fallback    = document.getElementById('enq-fallback-contact');
 
-      if (container)   container.style.display = 'none';
-      if (fallback)    fallback.style.display  = 'none';
+      if (container)   container.style.display   = 'none';
+      if (fallback)    fallback.style.display     = 'none';
       if (successCard) {
         successCard.style.display = 'block';
         successCard.focus();

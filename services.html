@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en-AU">
 <head>
   <meta charset="UTF-8" />
@@ -15,20 +15,22 @@
   <meta property="og:image"       content="https://fitwithange.vercel.app/assets/img/angelina.jpg" />
   <meta property="og:image:alt"   content="Angelina Farag — Exercise Physiologist and Personal Trainer, Sydney" />
 
-  <!-- Twitter Card -->
   <meta name="twitter:card"        content="summary_large_image" />
   <meta name="twitter:title"       content="Online &amp; In-Person Coaching Programmes | FitWithAnge — Sydney" />
   <meta name="twitter:description" content="Online coaching and face-to-face PT at Martin Place, Sydney with Exercise Physiologist Angelina Farag." />
   <meta name="twitter:image"       content="https://fitwithange.vercel.app/assets/img/angelina.jpg" />
 
   <link rel="canonical" href="https://fitwithange.vercel.app/services" />
+
+  <!-- Fonts preconnect -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" />
+
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#d4a574" />
   <link rel="stylesheet" href="css/styles.css" />
 
-  <!-- JSON-LD: Person -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -45,7 +47,6 @@
   }
   </script>
 
-  <!-- JSON-LD: BreadcrumbList -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -66,33 +67,402 @@
     ]
   }
   </script>
+
+  <style>
+    /* ── services.html page-scoped styles ── */
+
+    /* ── Hero ── */
+    .svc-hero {
+      padding-block: clamp(5rem, 14vh, 10rem) clamp(3rem, 8vh, 5rem);
+      background: var(--paper);
+      overflow: hidden;
+      position: relative;
+    }
+    .svc-hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold) 40%, transparent);
+      opacity: 0.35;
+    }
+    .svc-hero__inner { max-width: 840px; }
+    .svc-hero__lead {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--gray);
+      max-width: 520px;
+      line-height: 1.7;
+      margin-top: 1.5rem;
+    }
+
+    /* ── Pricing note ── */
+    .pricing-band {
+      padding-block: clamp(2rem, 5vh, 3rem);
+      text-align: center;
+    }
+    .pricing-band__text {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--charcoal);
+      max-width: 560px;
+      margin-inline: auto;
+      line-height: 1.65;
+    }
+    .dot-rule {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      max-width: 280px;
+      margin: 1.25rem auto;
+    }
+    .dot-rule::before,
+    .dot-rule::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      border-top: 1px dotted var(--gold);
+    }
+    .dot-rule__gem {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+
+    /* ── Service tier cards ── */
+    .svc-tiers {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(4rem, 10vh, 7rem);
+    }
+
+    .svc-tier {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      align-items: start;
+      position: relative;
+    }
+    @media (min-width: 768px) {
+      .svc-tier {
+        grid-template-columns: 1fr 1fr;
+        gap: clamp(3rem, 6vw, 6rem);
+        align-items: center;
+      }
+      .svc-tier--offset {
+        /* middle card: indent the content column for asymmetry */
+        grid-template-columns: 5fr 7fr;
+      }
+      .svc-tier--reverse .svc-tier__visual { order: 2; }
+      .svc-tier--reverse .svc-tier__content { order: 1; }
+    }
+
+    /* Visual column — image or illustrated placeholder */
+    .svc-tier__visual {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      border-radius: 4px;
+    }
+    .svc-tier__visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    /* grain overlay */
+    .svc-tier__visual::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1;
+    }
+    /* featured card: gold offset frame */
+    .svc-tier--featured .svc-tier__visual {
+      box-shadow: var(--shadow-frame);
+    }
+
+    .svc-tier__placeholder {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(145deg, var(--cream) 0%, rgba(212,165,116,0.18) 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--gray);
+      text-align: center;
+      padding: 2rem;
+    }
+    .svc-tier__placeholder-glyph {
+      font-size: 2rem;
+      opacity: 0.3;
+      font-style: normal;
+    }
+
+    /* Content column */
+    .svc-tier__chapter {
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.6rem;
+    }
+    .svc-tier__name {
+      font-family: var(--font-heading);
+      font-size: clamp(1.7rem, 3.5vw, 2.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--charcoal);
+      margin-bottom: 0.4rem;
+    }
+    .svc-tier__meta {
+      font-size: 0.82rem;
+      color: var(--gray-light);
+      letter-spacing: 0.04em;
+      margin-bottom: 1.25rem;
+      font-style: italic;
+    }
+    .svc-tier__desc {
+      font-size: clamp(0.95rem, 1.5vw, 1rem);
+      color: var(--gray);
+      line-height: 1.75;
+      margin-bottom: 1.75rem;
+    }
+
+    .svc-tier__includes-label {
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--charcoal);
+      margin-bottom: 0.85rem;
+    }
+    .svc-tier__list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 2.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .svc-tier__list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+      font-size: 0.95rem;
+      color: var(--charcoal);
+      line-height: 1.55;
+    }
+    .svc-tier__list li::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+      margin-top: 0.5em;
+    }
+
+    /* featured badge */
+    .svc-tier__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.3rem 0.85rem;
+      background: var(--charcoal);
+      color: var(--gold);
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border-radius: 50px;
+      margin-bottom: 1rem;
+    }
+
+    /* ── Method marquee strip ── */
+    .method-strip {
+      padding-block: 2.5rem;
+      border-block: 1px solid var(--border-soft);
+      overflow: hidden;
+    }
+
+    /* ── Process section ── */
+    .process-header {
+      margin-bottom: clamp(2.5rem, 6vh, 4.5rem);
+      max-width: 560px;
+    }
+    .process-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+    @media (min-width: 640px)  { .process-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .process-grid { grid-template-columns: repeat(4, 1fr); } }
+
+    .process-step {
+      padding: clamp(1.5rem, 3vw, 2.25rem) clamp(1.25rem, 2.5vw, 2rem);
+      border-top: 2px solid var(--gold);
+      position: relative;
+    }
+    @media (min-width: 640px) {
+      .process-step:nth-child(odd) { border-right: 1px solid var(--border-soft); }
+    }
+    @media (min-width: 1024px) {
+      .process-step { border-right: 1px solid var(--border-soft); }
+      .process-step:last-child { border-right: none; }
+    }
+    .process-step__num {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      color: var(--gold);
+      opacity: 0.28;
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+    .process-step__title {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--charcoal);
+      margin-bottom: 0.6rem;
+    }
+    .process-step__desc {
+      font-size: 0.9rem;
+      color: var(--gray);
+      line-height: 1.65;
+    }
+
+    /* ── FAQ ── */
+    .faq-header { margin-bottom: clamp(2rem, 5vh, 3.5rem); }
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+    }
+    .faq-list details {
+      border-bottom: 1px solid var(--border-soft);
+    }
+    .faq-list details:first-child {
+      border-top: 1px solid var(--border-soft);
+    }
+    .faq-list summary {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.35rem 0;
+      cursor: pointer;
+      list-style: none;
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--charcoal);
+      gap: 1rem;
+    }
+    .faq-list summary::-webkit-details-marker { display: none; }
+    .faq-list summary::after {
+      content: '+';
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: var(--gold);
+      flex-shrink: 0;
+      transition: transform 0.3s var(--ease-out-expo);
+      line-height: 1;
+    }
+    .faq-list details[open] summary::after {
+      transform: rotate(45deg);
+    }
+    .faq-list details p {
+      padding: 0 0 1.35rem;
+      font-size: 0.95rem;
+      color: var(--gray);
+      line-height: 1.75;
+      max-width: 600px;
+    }
+
+    /* ── Final CTA ── */
+    .svc-cta {
+      text-align: center;
+      padding-block: clamp(5rem, 12vh, 8rem);
+    }
+    .svc-cta__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    .svc-cta__eyebrow::before,
+    .svc-cta__eyebrow::after {
+      content: '';
+      width: 2rem;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.5;
+    }
+    .svc-cta__heading {
+      font-family: var(--font-heading);
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 700;
+      color: var(--charcoal);
+      line-height: 1.12;
+      margin-block: 0 1.25rem;
+    }
+    .svc-cta__sub {
+      font-size: clamp(0.95rem, 1.8vw, 1.05rem);
+      color: var(--gray);
+      max-width: 480px;
+      margin-inline: auto;
+      margin-bottom: 2.25rem;
+      line-height: 1.7;
+    }
+  </style>
 </head>
 <body>
 
-  <a href="#main-content" class="skip-link">Skip to content</a>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <!-- ANNOUNCEMENT BAR -->
-  <div class="announcement-bar" id="announcement-bar" role="region" aria-label="Partner offer">
-    <p>Activewear partner: <a href="https://clubathletica.com.au/?sca_ref=10453730.MFEqJltNbf" target="_blank" rel="noopener sponsored">Club Athletica DC</a> — use code <strong>ANGEX10</strong> for a discount</p>
-    <button class="announcement-bar__close" aria-label="Dismiss announcement" onclick="dismissBar()">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-    </button>
+  <div class="announcement-bar" id="announcement-bar" role="region" aria-label="Site announcement">
+    <p>
+      Partner discount — use code <strong>ANGEX10</strong> at
+      <a href="https://clubathletica.com.au/?sca_ref=10453730.MFEqJltNbf" target="_blank" rel="noopener sponsored">Club Athletica DC</a>
+      for 10% off activewear.
+    </p>
+    <button
+      class="announcement-bar__close"
+      onclick="dismissBar()"
+      aria-label="Dismiss announcement"
+    >&#10005;</button>
   </div>
 
   <header class="site-header" role="banner">
     <div class="header-inner">
-      <a href="/" class="site-logo" aria-label="FitWithAnge Home">FitWith<span>Ange</span></a>
-      <nav class="nav-links" aria-label="Main navigation">
+      <a href="/" class="site-logo" aria-label="FitWithAnge — home">FitWith<span>Ange</span></a>
+      <nav class="nav-links" role="navigation" aria-label="Main navigation">
         <a href="/">Home</a>
-        <a href="about">About</a>
-        <a href="services" class="active">Services</a>
-        <a href="gallery">Gallery</a>
-        <a href="contact">Contact</a>
-        <a href="enquire" target="_blank" rel="noopener" class="btn btn--primary" style="padding:0.6rem 1.25rem;">Book a Free Enquiry</a>
+        <a href="/about">About</a>
+        <a href="/services" class="active">Services</a>
+        <a href="/gallery">Gallery</a>
+        <a href="/contact">Contact</a>
+        <a href="/enquire" class="btn btn--primary btn--magnetic" style="border-radius:50px; padding:0.6rem 1.25rem; font-size:0.8rem;">
+          Book a Free Enquiry
+        </a>
       </nav>
-      <button class="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-nav">
+      <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-nav">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -100,291 +470,420 @@
 
   <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
     <a href="/">Home</a>
-    <a href="about">About</a>
-    <a href="services">Services</a>
-    <a href="gallery">Gallery</a>
-    <a href="contact">Contact</a>
-    <a href="enquire" target="_blank" rel="noopener" class="btn btn--primary">Book a Free Enquiry</a>
+    <a href="/about">About</a>
+    <a href="/services">Services</a>
+    <a href="/gallery">Gallery</a>
+    <a href="/contact">Contact</a>
+    <a href="/enquire" class="btn btn--primary">Book a Free Enquiry</a>
   </nav>
 
   <main id="main-content">
 
-    <!-- PAGE HERO -->
-    <section class="page-hero" aria-label="Services page hero">
+    <!-- ═══════════════════════════════════════════════════
+         HERO
+    ═══════════════════════════════════════════════════ -->
+    <section class="svc-hero" aria-label="Services page hero">
       <div class="container">
-        <nav aria-label="Breadcrumb" class="breadcrumb">
-          <a href="/">Home</a>
-          <span class="sep" aria-hidden="true">"º</span>
-          <span aria-current="page">Services</span>
-        </nav>
-        <span class="section-label">What's Included</span>
-        <h1>Services</h1>
-        <p class="lead">Science-backed coaching built around your goals — online or face to face.</p>
-      </div>
-    </section>
-
-    <!-- SERVICES CARDS -->
-    <section class="section" aria-labelledby="services-intro">
-      <div class="container">
-        <div class="text-center" style="margin-bottom:var(--space-xl);">
-          <h2 id="services-intro" class="section-title">Coaching That Fits Your Life</h2>
-          <p class="section-subtitle">
-            Every client gets a personalised programme built around their goals, schedule, and lifestyle — no cookie-cutter plans.
+        <div class="svc-hero__inner fade-in">
+          <nav aria-label="Breadcrumb" class="breadcrumb">
+            <a href="/">Home</a>
+            <span class="sep" aria-hidden="true">·</span>
+            <span aria-current="page">Services</span>
+          </nav>
+          <span class="label-caps" style="color:var(--gold);display:block;margin-block:1.25rem 1rem;">Coaching Programmes</span>
+          <h1 class="display-hero">
+            Programmes<br /><em class="italic-accent">built with</em><br />purpose.
+          </h1>
+          <p class="svc-hero__lead">
+            Science-backed coaching designed around your life — not a generic template.
+            Online, in-person at Martin Place, or a 12-week transformation that runs deeper than the gym.
           </p>
-          <p style="margin-top:var(--space-sm);font-style:italic;color:var(--gray);">Pricing is personalised to your goals — reach out to discuss.</p>
-        </div>
-
-        <div style="display:grid;gap:var(--space-md);" class="services-grid">
-
-          <!-- Online Coaching -->
-          <article class="pricing-card fade-in" id="online">
-            <h3>Online Coaching</h3>
-            <p>1:1 remote programming and regular check-ins — train anywhere in the world with a fully customised plan and direct access to Ange. Perfect for those who want expert coaching without location limits.</p>
-            <ul class="pricing-features" role="list">
-              <li>
-                <svg class="chk icon" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M2 7l4 4 6-7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                Custom training programme built around you
-              </li>
-              <li>
-                <svg class="chk icon" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M2 7l4 4 6-7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                Personalised nutrition guidance
-              </li>
-              <li>
-                <svg class="chk icon" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M2 7l4 4 6-7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                Regular check-in &amp; feedback
-              </li>
-              <li>
-                <svg class="chk icon" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M2 7l4 4 6-7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                Form video review
-              </li>
-              <li>
-                <svg class="chk icon" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M2 7l4 4 6-7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                Ongoing messaging support
-              </li>
-              <li>
-                <svg class="chk icon" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M2 7l4 4 6-7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                Progress tracking &amp; programme updates
-              </li>
-            </ul>
-            <a href="enquire" target="_blank" rel="noopener" class="btn btn--primary" style="width:100%;justify-content:center;">Enquire Now</a>
-          </article>
-
-          <!-- Face to Face -->
-          <article class="pricing-card fade-in" id="inperson">
-            <h3>Face to Face PT <span style="display:block;font-size:0.85rem;font-weight:400;color:var(--gray);margin-top:0.2rem;">Martin Place, Sydney</span></h3>
-            <p>In-person coaching at Martin Place in Sydney's CBD. Every session is designed around your goals, with real-time form correction, hands-on cueing, and full accountability.</p>
-            <ul class="pricing-features" role="list">
-              <li>
-                <svg class="chk icon" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M2 7l4 4 6-7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                Fully personalised session structure
-              </li>
-              <li>
-                <svg class="chk icon" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M2 7l4 4 6-7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                Real-time form correction &amp; cueing
-              </li>
-              <li>
-                <svg class="chk icon" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M2 7l4 4 6-7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                Session notes &amp; progress tracking
-              </li>
-              <li>
-                <svg class="chk icon" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M2 7l4 4 6-7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                Support between sessions
-              </li>
-              <li>
-                <svg class="chk icon" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M2 7l4 4 6-7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                Regular programme review
-              </li>
-            </ul>
-            <a href="enquire" target="_blank" rel="noopener" class="btn btn--primary" style="width:100%;justify-content:center;">Enquire Now</a>
-          </article>
-
         </div>
       </div>
     </section>
 
-    <style>
-      @media (min-width: 768px) {
-        .services-grid { grid-template-columns: repeat(2, 1fr) !important; }
-      }
-    </style>
-
-    <!-- BUILT WITH PURPOSE -->
-    <section class="section section--charcoal" id="transform" aria-labelledby="transform-heading">
+    <!-- ═══════════════════════════════════════════════════
+         PRICING NOTE BAND
+    ═══════════════════════════════════════════════════ -->
+    <div class="section--cream pricing-band" role="note">
       <div class="container">
-        <div style="display:grid;gap:var(--space-xl);align-items:center;" class="transform-grid">
-          <div>
-            <span class="section-label">Signature Programme</span>
-            <h2 id="transform-heading" class="section-title" style="color:var(--white);">
-              Built With Purpose Program
-            </h2>
-            <p style="color:rgba(255,255,255,0.7);margin-bottom:var(--space-md);">
-              Angelina's signature 12-week transformation — a fully structured, phased program designed to deliver real results. Science-backed programming, nutrition guidance, and a plan built around your life. Not a crash diet. A complete reset: body, habits, and mindset.
-            </p>
-            <p style="color:rgba(255,255,255,0.7);margin-bottom:var(--space-lg);">
-              Spaces are strictly limited to ensure every participant gets the attention they deserve.
-            </p>
-            <a href="enquire" target="_blank" rel="noopener" class="btn btn--primary btn--lg">Apply Now — Limited Spots</a>
-          </div>
-
-          <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-lg);padding:var(--space-lg);">
-            <p style="color:rgba(255,255,255,0.7);font-style:italic;margin-bottom:var(--space-md);">Pricing is personalised to your goals — reach out to discuss.</p>
-            <p style="color:var(--gold);font-size:0.8rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:var(--space-sm);">What's Included:</p>
-            <ul style="list-style:none;display:flex;flex-direction:column;gap:0.6rem;">
-              <li style="color:rgba(255,255,255,0.8);font-size:0.9rem;display:flex;gap:0.6rem;align-items:flex-start;">
-                <svg class="icon" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="color:var(--gold);margin-top:3px;flex-shrink:0;"><path d="M2 7l4 4 6-7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                12 fully programmed training weeks (4 phases)
-              </li>
-              <li style="color:rgba(255,255,255,0.8);font-size:0.9rem;display:flex;gap:0.6rem;align-items:flex-start;">
-                <svg class="icon" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="color:var(--gold);margin-top:3px;flex-shrink:0;"><path d="M2 7l4 4 6-7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                Custom nutrition plan + weekly adjustments
-              </li>
-              <li style="color:rgba(255,255,255,0.8);font-size:0.9rem;display:flex;gap:0.6rem;align-items:flex-start;">
-                <svg class="icon" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="color:var(--gold);margin-top:3px;flex-shrink:0;"><path d="M2 7l4 4 6-7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                Bi-weekly 1:1 coaching calls
-              </li>
-              <li style="color:rgba(255,255,255,0.8);font-size:0.9rem;display:flex;gap:0.6rem;align-items:flex-start;">
-                <svg class="icon" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="color:var(--gold);margin-top:3px;flex-shrink:0;"><path d="M2 7l4 4 6-7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                Private community &amp; accountability group
-              </li>
-              <li style="color:rgba(255,255,255,0.8);font-size:0.9rem;display:flex;gap:0.6rem;align-items:flex-start;">
-                <svg class="icon" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="color:var(--gold);margin-top:3px;flex-shrink:0;"><path d="M2 7l4 4 6-7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                Mindset &amp; habit coaching module
-              </li>
-              <li style="color:rgba(255,255,255,0.8);font-size:0.9rem;display:flex;gap:0.6rem;align-items:flex-start;">
-                <svg class="icon" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="color:var(--gold);margin-top:3px;flex-shrink:0;"><path d="M2 7l4 4 6-7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                Recipe pack &amp; meal prep guide
-              </li>
-              <li style="color:rgba(255,255,255,0.8);font-size:0.9rem;display:flex;gap:0.6rem;align-items:flex-start;">
-                <svg class="icon" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="color:var(--gold);margin-top:3px;flex-shrink:0;"><path d="M2 7l4 4 6-7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                Weekly form video reviews
-              </li>
-              <li style="color:rgba(255,255,255,0.8);font-size:0.9rem;display:flex;gap:0.6rem;align-items:flex-start;">
-                <svg class="icon" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="color:var(--gold);margin-top:3px;flex-shrink:0;"><path d="M2 7l4 4 6-7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                Full progress tracking &amp; body composition review
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <style>
-      @media (min-width: 768px) {
-        .transform-grid { grid-template-columns: 1.1fr 1fr !important; }
-      }
-    </style>
-
-    <!-- FAQ -->
-    <section class="section section--light" aria-labelledby="faq-heading">
-      <div class="container" style="max-width:760px;">
-        <div class="text-center" style="margin-bottom:var(--space-xl);">
-          <span class="section-label">Questions</span>
-          <h2 id="faq-heading" class="section-title">Frequently Asked</h2>
-        </div>
-
-        <div style="display:flex;flex-direction:column;gap:var(--space-md);">
-          <details style="background:var(--white);border-radius:var(--radius);border:1px solid var(--border-soft);padding:var(--space-md);">
-            <summary style="font-weight:600;cursor:pointer;color:var(--charcoal);list-style:none;display:flex;justify-content:space-between;align-items:center;">
-              Do I need any experience to work with you?
-              <span style="color:var(--gold);font-size:1.2rem;" aria-hidden="true">+</span>
-            </summary>
-            <p style="margin-top:var(--space-sm);font-size:0.95rem;">
-              Not at all. I work with complete beginners through to experienced lifters. Your programme is built around your current level and progresses at the right pace for you.
-            </p>
-          </details>
-
-          <details style="background:var(--white);border-radius:var(--radius);border:1px solid var(--border-soft);padding:var(--space-md);">
-            <summary style="font-weight:600;cursor:pointer;color:var(--charcoal);list-style:none;display:flex;justify-content:space-between;align-items:center;">
-              What equipment do I need for online coaching?
-              <span style="color:var(--gold);font-size:1.2rem;" aria-hidden="true">+</span>
-            </summary>
-            <p style="margin-top:var(--space-sm);font-size:0.95rem;">
-              It depends on your goals. I can programme for a commercial gym, a home gym with limited equipment, or even fully bodyweight. We'll discuss this on your free discovery call.
-            </p>
-          </details>
-
-          <details style="background:var(--white);border-radius:var(--radius);border:1px solid var(--border-soft);padding:var(--space-md);">
-            <summary style="font-weight:600;cursor:pointer;color:var(--charcoal);list-style:none;display:flex;justify-content:space-between;align-items:center;">
-              How quickly will I see results?
-              <span style="color:var(--gold);font-size:1.2rem;" aria-hidden="true">+</span>
-            </summary>
-            <p style="margin-top:var(--space-sm);font-size:0.95rem;">
-              Most clients notice strength improvements within 2"“3 weeks. Visible body composition changes typically begin around 4"“6 weeks with consistent training and nutrition. Results depend on your consistency, starting point, and goals.
-            </p>
-          </details>
-
-          <details style="background:var(--white);border-radius:var(--radius);border:1px solid var(--border-soft);padding:var(--space-md);">
-            <summary style="font-weight:600;cursor:pointer;color:var(--charcoal);list-style:none;display:flex;justify-content:space-between;align-items:center;">
-              Can I cancel or pause my coaching?
-              <span style="color:var(--gold);font-size:1.2rem;" aria-hidden="true">+</span>
-            </summary>
-            <p style="margin-top:var(--space-sm);font-size:0.95rem;">
-              Monthly coaching has no lock-in — you can cancel with 30 days notice. I also offer pause options for travel, illness, or life events. The 12-Week Programme is a fixed commitment but can be paused in genuine emergencies.
-            </p>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="section section--blush" style="text-align:center;" aria-labelledby="services-cta-heading">
-      <div class="container" style="max-width:580px;">
-        <span class="section-label">Not Sure Which is Right For You?</span>
-        <h2 id="services-cta-heading" class="section-title">Let's Figure It Out Together</h2>
-        <p class="section-subtitle" style="margin-inline:auto;margin-bottom:var(--space-lg);">
-          Book a free 20-minute discovery call. I'll listen to your goals and recommend exactly what I think will work best for you — no pressure, no hard sell.
+        <div class="dot-rule"><span class="dot-rule__gem"></span></div>
+        <p class="pricing-band__text">
+          Pricing is personal — every programme is shaped around your goals, schedule, and lifestyle.
+          Reach out and we&rsquo;ll talk through what fits.
         </p>
-        <a href="enquire" target="_blank" rel="noopener" class="btn btn--primary btn--lg">Book a Free Enquiry</a>
+        <div class="dot-rule"><span class="dot-rule__gem"></span></div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════
+         THREE SERVICE TIERS
+    ═══════════════════════════════════════════════════ -->
+    <section class="section" aria-labelledby="offerings-heading" id="offerings">
+      <div class="container">
+        <h2 id="offerings-heading" class="visually-hidden">Coaching Offerings</h2>
+
+        <div class="svc-tiers">
+
+          <!-- ── TIER 01: Face-to-Face PT ── -->
+          <article class="svc-tier reveal-up editorial-card" id="inperson" aria-labelledby="svc-heading-01">
+            <div class="svc-tier__visual img-mask-arch img-grain">
+              <div class="svc-tier__placeholder">
+                <span class="svc-tier__placeholder-glyph">&#9675;</span>
+                In-person training<br />at Martin Place
+              </div>
+            </div>
+            <div class="svc-tier__content">
+              <p class="svc-tier__chapter chapter-number">01 / 03</p>
+              <h3 class="svc-tier__name" id="svc-heading-01">
+                Face-to-Face<br />Personal Training
+              </h3>
+              <p class="svc-tier__meta">Anytime Fitness &middot; Martin Place, Sydney CBD</p>
+              <p class="svc-tier__desc">
+                In-person coaching at the heart of Sydney&rsquo;s CBD. Every session is built for
+                your goals, with real-time form correction, hands-on cueing, and the kind of
+                accountability that only comes from being in the room together.
+              </p>
+              <p class="svc-tier__includes-label">What&rsquo;s included</p>
+              <ul class="svc-tier__list" role="list">
+                <li>Fully personalised session structure</li>
+                <li>Real-time form correction &amp; hands-on cueing</li>
+                <li>Session notes &amp; progress tracking</li>
+                <li>Support &amp; accountability between sessions</li>
+                <li>Regular programme review &amp; progression</li>
+              </ul>
+              <a href="/enquire" class="btn btn--primary btn--magnetic">
+                Book a discovery call &rarr;
+              </a>
+            </div>
+          </article>
+
+          <!-- ── TIER 02: Online Coaching (offset/featured) ── -->
+          <article class="svc-tier svc-tier--offset svc-tier--reverse svc-tier--featured reveal-up editorial-card" id="online" aria-labelledby="svc-heading-02">
+            <div class="svc-tier__visual img-mask-arch img-frame img-grain">
+              <div class="svc-tier__placeholder">
+                <span class="svc-tier__placeholder-glyph">&#9675;</span>
+                Remote coaching —<br />train anywhere
+              </div>
+            </div>
+            <div class="svc-tier__content">
+              <span class="svc-tier__badge">Most popular</span>
+              <p class="svc-tier__chapter chapter-number">02 / 03</p>
+              <h3 class="svc-tier__name" id="svc-heading-02">
+                Online<br />Coaching
+              </h3>
+              <p class="svc-tier__meta">1:1 remote &middot; Anywhere in the world</p>
+              <p class="svc-tier__desc">
+                Fully customised programming and weekly check-ins delivered wherever you are.
+                Direct access to Ange, video form reviews, and a plan that evolves as you do.
+                Everything you get from an in-person coach — without the location constraint.
+              </p>
+              <p class="svc-tier__includes-label">What&rsquo;s included</p>
+              <ul class="svc-tier__list" role="list">
+                <li>Custom training programme built around you</li>
+                <li>Personalised nutrition guidance</li>
+                <li>Weekly check-in &amp; feedback</li>
+                <li>Form video review</li>
+                <li>Ongoing messaging support &amp; programme updates</li>
+              </ul>
+              <a href="/enquire" class="btn btn--primary btn--magnetic">
+                Book a discovery call &rarr;
+              </a>
+            </div>
+          </article>
+
+          <!-- ── TIER 03: Built With Purpose Programme ── -->
+          <article class="svc-tier reveal-up editorial-card" id="transform" aria-labelledby="svc-heading-03">
+            <div class="svc-tier__visual img-mask-arch img-grain">
+              <div class="svc-tier__placeholder">
+                <span class="svc-tier__placeholder-glyph">&#9675;</span>
+                12-week Built<br />With Purpose
+              </div>
+            </div>
+            <div class="svc-tier__content">
+              <p class="svc-tier__chapter chapter-number">03 / 03</p>
+              <h3 class="svc-tier__name" id="svc-heading-03">
+                Built With Purpose<br /><em class="italic-accent">Programme</em>
+              </h3>
+              <p class="svc-tier__meta">Angelina&rsquo;s signature 12-week transformation &middot; Limited spots</p>
+              <p class="svc-tier__desc">
+                A fully structured, phased 12-week programme built to deliver real, lasting change.
+                Science-backed training, nutrition guidance, and a plan that respects your life.
+                Not a crash diet. Not a generic challenge. A complete reset — body, habits, and
+                how you think about both. Spaces are strictly limited.
+              </p>
+              <p class="svc-tier__includes-label">What&rsquo;s included</p>
+              <ul class="svc-tier__list" role="list">
+                <li>12 fully programmed training weeks across 4 phases</li>
+                <li>Custom nutrition plan with weekly adjustments</li>
+                <li>Bi-weekly 1:1 coaching calls</li>
+                <li>Weekly form video reviews &amp; feedback</li>
+                <li>Full progress tracking &amp; body composition review</li>
+              </ul>
+              <a href="/enquire" class="btn btn--primary btn--magnetic">
+                Apply now — limited spots &rarr;
+              </a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════
+         METHOD MARQUEE
+    ═══════════════════════════════════════════════════ -->
+    <div class="method-strip" aria-hidden="true">
+      <div class="marquee">
+        <div class="marquee__track">
+          <span class="marquee__item label-caps">Evidence-based</span>
+          <span class="marquee__item" style="color:var(--gold);padding-inline:0.5rem;">&middot;</span>
+          <span class="marquee__item label-caps">1:1 attention</span>
+          <span class="marquee__item" style="color:var(--gold);padding-inline:0.5rem;">&middot;</span>
+          <span class="marquee__item label-caps">Strength first</span>
+          <span class="marquee__item" style="color:var(--gold);padding-inline:0.5rem;">&middot;</span>
+          <span class="marquee__item label-caps">Weekly check-ins</span>
+          <span class="marquee__item" style="color:var(--gold);padding-inline:0.5rem;">&middot;</span>
+          <span class="marquee__item label-caps">Sustainable progress</span>
+          <span class="marquee__item" style="color:var(--gold);padding-inline:0.5rem;">&middot;</span>
+          <span class="marquee__item label-caps">Built with purpose</span>
+          <span class="marquee__item" style="color:var(--gold);padding-inline:0.5rem;">&middot;</span>
+          <span class="marquee__item label-caps">Exercise physiology</span>
+          <span class="marquee__item" style="color:var(--gold);padding-inline:0.5rem;">&middot;</span>
+          <span class="marquee__item label-caps">Evidence-based</span>
+          <span class="marquee__item" style="color:var(--gold);padding-inline:0.5rem;">&middot;</span>
+          <span class="marquee__item label-caps">1:1 attention</span>
+          <span class="marquee__item" style="color:var(--gold);padding-inline:0.5rem;">&middot;</span>
+          <span class="marquee__item label-caps">Strength first</span>
+          <span class="marquee__item" style="color:var(--gold);padding-inline:0.5rem;">&middot;</span>
+          <span class="marquee__item label-caps">Weekly check-ins</span>
+          <span class="marquee__item" style="color:var(--gold);padding-inline:0.5rem;">&middot;</span>
+          <span class="marquee__item label-caps">Sustainable progress</span>
+          <span class="marquee__item" style="color:var(--gold);padding-inline:0.5rem;">&middot;</span>
+          <span class="marquee__item label-caps">Built with purpose</span>
+          <span class="marquee__item" style="color:var(--gold);padding-inline:0.5rem;">&middot;</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════
+         PROCESS — HOW IT WORKS
+    ═══════════════════════════════════════════════════ -->
+    <section class="section section--cream" aria-labelledby="process-heading">
+      <div class="container">
+
+        <div class="process-header">
+          <span class="label-caps" style="color:var(--gold);display:block;margin-bottom:0.75rem;">Process</span>
+          <h2 id="process-heading" style="font-family:var(--font-heading);font-size:clamp(2rem,4.5vw,3rem);font-weight:700;color:var(--charcoal);line-height:1.15;">
+            How it<br /><em class="italic-accent">works.</em>
+          </h2>
+        </div>
+
+        <div class="process-grid reveal-stagger">
+
+          <div class="process-step">
+            <p class="process-step__num" aria-hidden="true">01</p>
+            <h3 class="process-step__title">Discovery call</h3>
+            <p class="process-step__desc">
+              A free 20&ndash;30 minute video chat. Angelina wants to understand your goals, history,
+              schedule, and what you&rsquo;ve tried before — no pressure, just an honest conversation.
+            </p>
+          </div>
+
+          <div class="process-step">
+            <p class="process-step__num" aria-hidden="true">02</p>
+            <h3 class="process-step__title">Programme design</h3>
+            <p class="process-step__desc">
+              Your fully personalised plan is built from scratch — training, nutrition guidance, and
+              a structure designed around your life, not a template draped over it.
+            </p>
+          </div>
+
+          <div class="process-step">
+            <p class="process-step__num" aria-hidden="true">03</p>
+            <h3 class="process-step__title">Weekly coaching</h3>
+            <p class="process-step__desc">
+              Regular check-ins, form video reviews, and ongoing adjustments. Direct access to Ange
+              whenever you need it — not a chatbot, not a portal ticket.
+            </p>
+          </div>
+
+          <div class="process-step">
+            <p class="process-step__num" aria-hidden="true">04</p>
+            <h3 class="process-step__title">Long-term progression</h3>
+            <p class="process-step__desc">
+              Results built to last. As your capacity grows, so does your programme — adapting to
+              where you are, not where you were six weeks ago.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════
+         EDITORIAL DIVIDER
+    ═══════════════════════════════════════════════════ -->
+    <div class="divider-editorial" role="separator" aria-hidden="true"></div>
+
+    <!-- ═══════════════════════════════════════════════════
+         FAQ
+    ═══════════════════════════════════════════════════ -->
+    <section class="section" aria-labelledby="faq-heading">
+      <div class="container" style="max-width:740px;">
+
+        <div class="faq-header reveal-up">
+          <span class="label-caps" style="color:var(--gold);display:block;margin-bottom:0.75rem;">Questions</span>
+          <h2 id="faq-heading" style="font-family:var(--font-heading);font-size:clamp(2rem,4.5vw,3rem);font-weight:700;color:var(--charcoal);line-height:1.15;">
+            Frequently asked.
+          </h2>
+        </div>
+
+        <div class="faq-list reveal-fade">
+
+          <details>
+            <summary>Do I need a gym membership?</summary>
+            <p>
+              For face-to-face PT, sessions are at Anytime Fitness Martin Place — you&rsquo;ll need
+              access. For online coaching, Angelina programmes around wherever you train: commercial
+              gym, home setup, limited equipment, or fully bodyweight. Discuss it on your call.
+            </p>
+          </details>
+
+          <details>
+            <summary>How long until I see results?</summary>
+            <p>
+              Most clients notice strength improvements within 2&ndash;3 weeks. Visible body
+              composition changes typically appear around 4&ndash;6 weeks with consistent training and
+              nutrition. You&rsquo;ll feel different long before you look different — and that shift
+              matters.
+            </p>
+          </details>
+
+          <details>
+            <summary>Do you work with beginners?</summary>
+            <p>
+              Absolutely. Complete beginners through to experienced lifters. Your programme is built
+              around your current level and progresses at the right pace for you — no assumption of
+              prior experience, no embarrassment, no shortcuts.
+            </p>
+          </details>
+
+          <details>
+            <summary>Online vs face-to-face — how do I choose?</summary>
+            <p>
+              If you&rsquo;re in Sydney CBD and want hands-on coaching energy, face-to-face is
+              ideal. If you travel, work remotely, or want flexibility to train on your own
+              schedule, online delivers the same quality of personalisation. The discovery call
+              exists precisely to figure out which one fits your life.
+            </p>
+          </details>
+
+          <details>
+            <summary>Can I pause or cancel coaching?</summary>
+            <p>
+              Monthly coaching has no lock-in &mdash; cancel with 30 days&rsquo; notice. Pause options
+              are available for travel, illness, or life events. The 12-Week Built With Purpose
+              Programme is a fixed commitment, but can be paused in genuine emergencies.
+            </p>
+          </details>
+
+          <details>
+            <summary>Is nutrition guidance included?</summary>
+            <p>
+              All programmes include personalised nutrition guidance as a core component — not a
+              bolt-on. Angelina is an accredited Exercise Physiologist, not a dietitian, so guidance
+              is evidence-based and goal-focused rather than clinical treatment. If you need clinical
+              dietary management she&rsquo;ll refer you appropriately.
+            </p>
+          </details>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════
+         FINAL CTA
+    ═══════════════════════════════════════════════════ -->
+    <section class="section--cream svc-cta reveal-up" aria-labelledby="svc-cta-heading">
+      <div class="container" style="max-width:580px;">
+        <div class="svc-cta__eyebrow">
+          <span class="label-caps" style="color:var(--gold);">Ready to begin</span>
+        </div>
+        <h2 id="svc-cta-heading" class="svc-cta__heading">
+          A free call.<br /><em class="italic-accent">No pitch. No pressure.</em>
+        </h2>
+        <p class="svc-cta__sub">
+          20&ndash;30 minutes with Angelina. Tell her where you are, where you want to get to,
+          and she&rsquo;ll give you an honest recommendation — even if it&rsquo;s not one of her programmes.
+        </p>
+        <a href="/enquire" class="btn btn--primary btn--lg btn--magnetic">
+          Book a discovery call
+        </a>
       </div>
     </section>
 
   </main>
 
+  <!-- FOOTER -->
   <footer class="site-footer" role="contentinfo">
     <div class="container">
       <div class="footer-grid">
+
         <div class="footer-brand">
-          <div class="site-logo">FitWith<span>Ange</span></div>
-          <p>Helping women build strength and transform their bodies through intelligent, personalised coaching.</p>
-          <div class="social-row">
-            <a href="https://www.instagram.com/fitwith_ange/" target="_blank" rel="noopener noreferrer"
-               class="social-icon" aria-label="Follow @fitwith_ange on Instagram">
-              <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="currentColor" stroke-width="1.5" fill="none"/>
-                <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/>
-                <circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>
+          <a href="/" class="site-logo" aria-label="FitWithAnge — home">FitWith<span>Ange</span></a>
+          <p>Science-backed coaching for women who train with purpose. Exercise Physiology &amp; Personal Training — online &amp; in-person at Martin Place, Sydney.</p>
+          <div class="social-row" aria-label="Social media links">
+            <a class="social-icon" href="https://www.instagram.com/fitwith_ange/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                <circle cx="12" cy="12" r="4"/>
+                <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+              </svg>
+            </a>
+            <a class="social-icon" href="https://www.tiktok.com/@fitwithange" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.82a8.18 8.18 0 0 0 4.78 1.52V6.9a4.85 4.85 0 0 1-1.01-.21z"/>
               </svg>
             </a>
           </div>
-          <p class="footer-partner">Activewear partner: <a href="https://clubathletica.com.au/?sca_ref=10453730.MFEqJltNbf" target="_blank" rel="noopener sponsored">Club Athletica DC</a> — use code <strong>ANGEX10</strong></p>
+          <p class="footer-partner">Partner: <a href="https://clubathletica.com.au/?sca_ref=10453730.MFEqJltNbf" target="_blank" rel="noopener sponsored">Club Athletica DC</a> — use code <strong>ANGEX10</strong> for 10% off.</p>
         </div>
-        <nav aria-label="Footer quick links">
-          <p class="footer-heading">Quick Links</p>
-          <ul class="footer-links">
-            <li><a href="/">Home</a></li>
-            <li><a href="about">About</a></li>
-            <li><a href="services">Services</a></li>
-            <li><a href="gallery">Gallery</a></li>
-            <li><a href="contact">Contact</a></li>
-            <li><a href="enquire" target="_blank" rel="noopener">Book a Call</a></li>
-          </ul>
-        </nav>
+
         <div>
-          <p class="footer-heading">Get in Touch</p>
-          <ul class="footer-links">
-            <li><a href="https://www.instagram.com/fitwith_ange/" target="_blank" rel="noopener">Instagram</a></li>
-            <li><a href="enquire" target="_blank" rel="noopener">Book a free enquiry</a></li>
+          <span class="footer-heading">Quick links</span>
+          <ul class="footer-links" role="list">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/services">Services</a></li>
+            <li><a href="/gallery">Gallery</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/enquire">Book a Free Enquiry</a></li>
           </ul>
         </div>
+
+        <div>
+          <span class="footer-heading">Get in touch</span>
+          <ul class="footer-links" role="list">
+            <li><a href="mailto:hello@fitwithange.com.au">hello@fitwithange.com.au</a></li>
+            <li><a href="https://www.instagram.com/fitwith_ange/" target="_blank" rel="noopener">@fitwith_ange</a></li>
+            <li><span style="color:rgba(255,255,255,0.45);font-size:0.85rem;line-height:1.6;display:block;padding-block:0.25rem;">Martin Place, Sydney&nbsp;NSW</span></li>
+          </ul>
+          <div style="margin-top:var(--space-md);">
+            <a href="/enquire" class="btn btn--primary btn--magnetic">Book a Free Enquiry</a>
+          </div>
+        </div>
+
       </div>
       <div class="footer-bottom">
-        <p>&copy; <span class="current-year">2026</span> FitWithAnge · Angelina Farag. All rights reserved.</p>
-        <p>Sydney, NSW, Australia</p>
+        <span>&copy; <span class="current-year"></span> FitWithAnge. All rights reserved.</span>
+        <span>Sydney, NSW, Australia</span>
       </div>
     </div>
   </footer>
 
-  <script src="js/main.js"></script>
+  <script src="js/main.js" defer></script>
+  <script src="js/motion-fx.js" defer></script>
   <script>
     (function () {
       var bar = document.getElementById('announcement-bar');
@@ -395,5 +894,6 @@
       if (bar) { bar.style.display = 'none'; sessionStorage.setItem('announcementDismissed', '1'); }
     }
   </script>
+
 </body>
 </html>

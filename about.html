@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en-AU">
 <head>
   <meta charset="UTF-8" />
@@ -15,7 +15,6 @@
   <meta property="og:image"       content="https://fitwithange.vercel.app/assets/img/angelina.jpg" />
   <meta property="og:image:alt"   content="Angelina Farag — Exercise Physiologist and Personal Trainer, Sydney" />
 
-  <!-- Twitter Card -->
   <meta name="twitter:card"        content="summary_large_image" />
   <meta name="twitter:title"       content="About Angelina Farag — Exercise Physiologist Sydney | FitWithAnge" />
   <meta name="twitter:description" content="Meet Angelina Farag — Exercise Physiologist and Personal Trainer based at Martin Place, Sydney." />
@@ -24,6 +23,7 @@
   <link rel="canonical" href="https://fitwithange.vercel.app/about" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" />
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#d4a574" />
   <link rel="stylesheet" href="css/styles.css" />
@@ -66,263 +66,710 @@
     ]
   }
   </script>
+
+  <style>
+    /* ── Page hero — typographic only ── */
+    .about-hero {
+      padding-block: clamp(5rem, 12vh, 9rem) clamp(3rem, 7vh, 6rem);
+      overflow: hidden;
+    }
+
+    .about-hero__breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      color: var(--ink);
+      opacity: 0.5;
+      margin-bottom: var(--space-lg);
+      text-transform: uppercase;
+    }
+
+    .about-hero__breadcrumb a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .about-hero__breadcrumb a:hover { opacity: 1; text-decoration: underline; }
+    .about-hero__breadcrumb__sep { opacity: 0.4; }
+
+    .about-hero__eyebrow {
+      margin-bottom: var(--space-md);
+    }
+
+    .about-hero__name {
+      margin: 0 0 var(--space-md);
+      line-height: 0.9;
+      letter-spacing: -0.03em;
+      max-width: 14ch;
+    }
+
+    .about-hero__rule {
+      width: clamp(3rem, 8vw, 6rem);
+      height: 2px;
+      background: var(--gold, #d4a574);
+      border: none;
+      margin-block: var(--space-lg);
+    }
+
+    .about-hero__lead {
+      font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+      line-height: 1.8;
+      color: var(--ink);
+      max-width: 60ch;
+      opacity: 0.85;
+    }
+
+    /* ── Story section ── */
+    .story-section {
+      padding-block: clamp(4rem, 10vh, 8rem);
+    }
+
+    .story-text p {
+      font-size: clamp(1rem, 1.4vw, 1.1rem);
+      line-height: 1.85;
+      color: var(--ink);
+      opacity: 0.88;
+      margin-bottom: var(--space-md);
+    }
+
+    /* ── Philosophy timeline ── */
+    .philosophy-section {
+      padding-block: clamp(4rem, 10vh, 8rem);
+    }
+
+    .philosophy-intro {
+      max-width: 52ch;
+      margin-bottom: var(--space-2xl, 5rem);
+    }
+
+    .philosophy-timeline {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-xl);
+    }
+
+    @media (min-width: 760px) {
+      .philosophy-timeline {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-xl) var(--space-2xl, 5rem);
+      }
+
+      /* offset alternating rows for asymmetric feel */
+      .philosophy-timeline .timeline-item:nth-child(even) {
+        margin-top: var(--space-2xl, 5rem);
+      }
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-top: var(--space-sm);
+    }
+
+    .timeline-item__number {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(3.5rem, 8vw, 5.5rem);
+      font-weight: 700;
+      color: var(--gold, #d4a574);
+      opacity: 0.18;
+      line-height: 1;
+      margin-bottom: calc(-1 * var(--space-sm));
+      display: block;
+      letter-spacing: -0.04em;
+    }
+
+    .timeline-item__title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.25rem, 2.5vw, 1.6rem);
+      font-weight: 600;
+      color: var(--ink);
+      margin-block: var(--space-xs) var(--space-sm);
+    }
+
+    .timeline-item__body {
+      font-size: 0.97rem;
+      line-height: 1.75;
+      color: var(--ink);
+      opacity: 0.78;
+      max-width: 38ch;
+    }
+
+    /* ── Credentials grid ── */
+    .credentials-section {
+      padding-block: clamp(4rem, 10vh, 8rem);
+    }
+
+    .cred-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+      margin-top: var(--space-xl);
+    }
+
+    @media (min-width: 640px) {
+      .cred-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .cred-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .cred-badge {
+      padding: var(--space-lg);
+      border-top: 2px solid var(--gold, #d4a574);
+      background: transparent;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .cred-badge__label {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--rust, #a85a3a);
+    }
+
+    .cred-badge__title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1rem, 1.8vw, 1.2rem);
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.3;
+      margin: 0;
+    }
+
+    .cred-badge__detail {
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: var(--ink);
+      opacity: 0.6;
+      margin: 0;
+    }
+
+    /* ── Pull-quote section ── */
+    .pullquote-section {
+      padding-block: clamp(5rem, 12vh, 10rem);
+      text-align: center;
+    }
+
+    .pullquote-section .pull-quote {
+      max-width: 26ch;
+      margin-inline: auto;
+      font-size: clamp(1.75rem, 4.5vw, 3.25rem);
+    }
+
+    .pullquote-section .pull-quote p {
+      color: var(--ink);
+    }
+
+    .pullquote-section .pull-quote::before {
+      font-size: clamp(4rem, 10vw, 8rem);
+    }
+
+    /* ── Final CTA ── */
+    .final-cta {
+      padding-block: clamp(5rem, 12vh, 9rem);
+      text-align: center;
+    }
+
+    .final-cta__heading {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: var(--space-sm);
+      line-height: 1.15;
+    }
+
+    .final-cta__sub {
+      font-size: clamp(1rem, 1.5vw, 1.1rem);
+      color: var(--ink);
+      opacity: 0.7;
+      margin-bottom: var(--space-xl);
+      max-width: 44ch;
+      margin-inline: auto;
+      line-height: 1.7;
+    }
+
+    .final-cta__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      justify-content: center;
+    }
+  </style>
 </head>
 <body>
 
-  <a href="#main-content" class="skip-link">Skip to content</a>
-
   <!-- ANNOUNCEMENT BAR -->
-  <div class="announcement-bar" id="announcement-bar" role="region" aria-label="Partner offer">
-    <p>Activewear partner: <a href="https://clubathletica.com.au/?sca_ref=10453730.MFEqJltNbf" target="_blank" rel="noopener sponsored">Club Athletica DC</a> — use code <strong>ANGEX10</strong> for a discount</p>
-    <button class="announcement-bar__close" aria-label="Dismiss announcement" onclick="dismissBar()">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-    </button>
+  <div class="announcement-bar" id="announcement-bar" role="region" aria-label="Site announcement">
+    <p>
+      Partner discount &#8212; use code <strong>ANGEX10</strong> at
+      <a href="https://clubathletica.com.au/?sca_ref=10453730.MFEqJltNbf" target="_blank" rel="noopener sponsored">Club Athletica DC</a>
+      for 10% off activewear.
+    </p>
+    <button
+      class="announcement-bar__close"
+      onclick="dismissBar()"
+      aria-label="Dismiss announcement"
+    >&#10005;</button>
   </div>
 
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- HEADER -->
   <header class="site-header" role="banner">
     <div class="header-inner">
-      <a href="/" class="site-logo" aria-label="FitWithAnge Home">FitWith<span>Ange</span></a>
-      <nav class="nav-links" aria-label="Main navigation">
+      <a href="/" class="site-logo" aria-label="FitWithAnge — home">FitWith<span>Ange</span></a>
+      <nav class="nav-links" role="navigation" aria-label="Main navigation">
         <a href="/">Home</a>
-        <a href="about" class="active">About</a>
-        <a href="services">Services</a>
-        <a href="gallery">Gallery</a>
-        <a href="contact">Contact</a>
-        <a href="enquire" target="_blank" rel="noopener" class="btn btn--primary" style="padding:0.6rem 1.25rem;">Book a Free Enquiry</a>
+        <a href="/about" class="active">About</a>
+        <a href="/services">Services</a>
+        <a href="/gallery">Gallery</a>
+        <a href="/contact">Contact</a>
+        <a href="/enquire" class="btn btn--primary btn--magnetic" style="border-radius:50px; padding:0.6rem 1.25rem; font-size:0.8rem;">
+          Book a Free Enquiry
+        </a>
       </nav>
-      <button class="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-nav">
+      <button
+        class="hamburger"
+        aria-label="Toggle navigation menu"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+      >
         <span></span><span></span><span></span>
       </button>
     </div>
   </header>
 
+  <!-- MOBILE NAV -->
   <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
     <a href="/">Home</a>
-    <a href="about">About</a>
-    <a href="services">Services</a>
-    <a href="gallery">Gallery</a>
-    <a href="contact">Contact</a>
-    <a href="enquire" target="_blank" rel="noopener" class="btn btn--primary">Book a Free Enquiry</a>
+    <a href="/about">About</a>
+    <a href="/services">Services</a>
+    <a href="/gallery">Gallery</a>
+    <a href="/contact">Contact</a>
+    <a href="/enquire" class="btn btn--primary">Book a Free Enquiry</a>
   </nav>
 
   <main id="main-content">
 
-    <!-- PAGE HERO -->
-    <section class="page-hero" aria-label="About page hero">
+    <!-- ════════════════════════════════════════════
+         1. PAGE HERO — typographic, no image
+    ═══════════════════════════════════════════════ -->
+    <section class="about-hero" aria-label="About Angelina Farag">
       <div class="container">
-        <nav aria-label="Breadcrumb" class="breadcrumb">
+
+        <nav aria-label="Breadcrumb" class="about-hero__breadcrumb fade-in">
           <a href="/">Home</a>
-          <span class="sep" aria-hidden="true">"º</span>
+          <span class="about-hero__breadcrumb__sep" aria-hidden="true">&#8250;</span>
           <span aria-current="page">About</span>
         </nav>
-        <span class="section-label">Your Coach</span>
-        <h1>Meet Angelina Farag</h1>
-        <p class="lead">Exercise Physiologist · Bachelor of Exercise Physiology, University of Sydney · Online &amp; Face to Face · Built With Purpose</p>
-      </div>
-    </section>
 
-    <!-- BIO + PHOTO -->
-    <section class="section" aria-labelledby="bio-heading">
-      <div class="container">
-        <div style="display:grid;gap:var(--space-xl);align-items:start;" class="bio-grid">
-
-          <div>
-            <img
-              src="assets/img/angelina.jpg"
-              alt="Angelina Farag — Exercise Physiologist and Personal Trainer, Sydney"
-              loading="lazy"
-              decoding="async"
-              width="400"
-              height="533"
-              class="profile-photo"
-            />
-
-            <!-- Quick-stat badges -->
-            <div class="credential-badges">
-              <span class="credential-badge">Exercise Physiologist</span>
-              <span class="credential-badge">Bachelor of Exercise Physiology, USYD</span>
-              <span class="credential-badge">Online &amp; Face to Face · Martin Place, Sydney</span>
-            </div>
-          </div>
-
-          <div>
-            <span class="section-label">My Story</span>
-            <h2 id="bio-heading" class="section-title">Built With Purpose</h2>
-
-            <p style="margin-bottom:var(--space-md);">
-              Hi, I'm Ange — an Exercise Physiologist based in Sydney. I graduated with a Bachelor of Exercise Physiology from the University of Sydney, and I'm passionate about helping people build strength, move better, and feel confident in their bodies.
-            </p>
-            <p style="margin-bottom:var(--space-md);">
-              My approach is science-backed and personalised — no cookie-cutter programs, just purposeful training built around you and your goals. I offer both online and face to face coaching through my program <em>Built With Purpose</em>, training out of Martin Place in Sydney's CBD.
-            </p>
-
-            <div style="margin-top:var(--space-lg);">
-              <a href="enquire" target="_blank" rel="noopener" class="btn btn--primary">Book a Free Enquiry</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- MY WHY -->
-    <section class="section section--blush" aria-labelledby="why-heading">
-      <div class="container" style="max-width:760px;margin-inline:auto;text-align:center;">
-        <span class="section-label">My Why</span>
-        <h2 id="why-heading" class="section-title">"I want every woman to feel powerful in her body."</h2>
-        <p class="lead">
-          The fitness industry is full of noise — extreme diets, toxic before/afters,
-          and promises that breed insecurity. I built FitWithAnge to be the opposite of that.
-          A space where women are coached with respect, educated with evidence, and celebrated
-          for every win — no matter how small.
+        <p class="label-caps about-hero__eyebrow fade-in" style="color:var(--gold,#d4a574);">
+          Your Coach
         </p>
-      </div>
-    </section>
 
-    <!-- PHILOSOPHY / VALUES -->
-    <section class="section" aria-labelledby="philosophy-heading">
-      <div class="container">
-        <div class="text-center" style="margin-bottom:var(--space-xl);">
-          <span class="section-label">How I Coach</span>
-          <h2 id="philosophy-heading" class="section-title">My Coaching Philosophy</h2>
-        </div>
+        <h1 class="display-hero about-hero__name fade-in">
+          Meet<br>Angelina.
+        </h1>
 
-        <div class="values-grid">
-          <div class="value-item fade-in">
-            <div class="value-number" aria-hidden="true">01</div>
-            <div>
-              <h3>Strength First</h3>
-              <p>Progressive overload is the foundation of every programme I write. Build muscle, boost metabolism, and feel genuinely capable.</p>
-            </div>
-          </div>
+        <hr class="about-hero__rule fade-in" aria-hidden="true" />
 
-          <div class="value-item fade-in">
-            <div class="value-number" aria-hidden="true">02</div>
-            <div>
-              <h3>Sustainable Over Extreme</h3>
-              <p>Quick fixes don't last. Everything we do together is designed to become a lifestyle — not a 12-week sprint that ends in a rebound.</p>
-            </div>
-          </div>
-
-          <div class="value-item fade-in">
-            <div class="value-number" aria-hidden="true">03</div>
-            <div>
-              <h3>Education &amp; Autonomy</h3>
-              <p>I explain the why behind everything. My goal is for you to eventually not need me — because you understand your own body.</p>
-            </div>
-          </div>
-
-          <div class="value-item fade-in">
-            <div class="value-number" aria-hidden="true">04</div>
-            <div>
-              <h3>Whole-Person Approach</h3>
-              <p>Sleep, stress, hormones, mindset — they all affect results. I look at the full picture, not just sets and reps.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CERTIFICATIONS -->
-    <section class="section section--light" aria-labelledby="certs-heading">
-      <div class="container">
-        <div style="display:grid;gap:var(--space-xl);" class="certs-grid">
-          <div>
-            <span class="section-label">Qualifications</span>
-            <h2 id="certs-heading" class="section-title">Certifications &amp; Education</h2>
-            <p style="margin-bottom:var(--space-lg);">
-              I invest continuously in my professional development so you get coaching
-              backed by current, evidence-based practice.
-            </p>
-
-            <ul class="cert-list" role="list">
-              <li class="cert-item">
-                <svg class="icon cert-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <circle cx="12" cy="8" r="6" stroke="currentColor" stroke-width="1.5" fill="none"/>
-                  <path d="M8.5 15.5L6 22l6-3 6 3-2.5-6.5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                Bachelor of Exercise Physiology — University of Sydney
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <span class="section-label">The Approach</span>
-            <h2 class="section-title" style="font-size:clamp(1.2rem,2vw,1.6rem);">Science-Backed. Personalised. Purposeful.</h2>
-            <p style="margin-top:var(--space-lg);color:var(--gray);">
-              Every programme is built from scratch around the individual — their goals, their schedule, their starting point. No templates, no guesswork. Just intelligent, evidence-based coaching designed to get real results and build long-term habits.
-            </p>
-            <div style="margin-top:var(--space-lg);">
-              <a href="enquire" target="_blank" rel="noopener" class="btn btn--primary">Book a Free Enquiry</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="section section--charcoal" style="text-align:center;" aria-labelledby="about-cta-heading">
-      <div class="container" style="max-width:580px;">
-        <span class="section-label">Work With Me</span>
-        <h2 id="about-cta-heading" class="section-title" style="color:var(--white);">Ready to Work Together?</h2>
-        <p style="color:rgba(255,255,255,0.65);margin-bottom:var(--space-lg);">
-          Book a free 20-minute discovery call and let's talk about your goals.
+        <p class="about-hero__lead fade-in">
+          Exercise Physiologist. Bachelor&#8217;s degree, University of Sydney.
+          Personal Trainer at Anytime Fitness Martin Place. The person who will
+          build your strongest, most capable self &#8212; without the noise.
         </p>
-        <div style="display:flex;flex-wrap:wrap;gap:var(--space-sm);justify-content:center;">
-          <a href="enquire" target="_blank" rel="noopener" class="btn btn--primary btn--lg">Book a Free Enquiry</a>
-          <a href="services" class="btn btn--white btn--lg">View Services</a>
+
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+         DIVIDER
+    ═══════════════════════════════════════════════ -->
+    <div class="divider-editorial" aria-hidden="true">
+      <span class="divider-editorial__glyph">&#10022;</span>
+    </div>
+
+    <!-- ════════════════════════════════════════════
+         2. STICKY-IMAGE STORY
+    ═══════════════════════════════════════════════ -->
+    <section class="story-section" aria-labelledby="story-heading">
+      <div class="container">
+
+        <div class="split-uneven">
+
+          <!-- LEFT: sticky arch portrait -->
+          <div class="sticky-col" aria-hidden="true">
+            <div class="img-mask-arch img-grain" style="max-width:360px;">
+              <img
+                src="assets/img/angelina.jpg"
+                alt=""
+                loading="lazy"
+                decoding="async"
+                width="360"
+                height="480"
+                style="width:100%; height:auto; display:block;"
+              />
+            </div>
+          </div>
+
+          <!-- RIGHT: editorial copy -->
+          <div class="story-text">
+
+            <p class="chapter-number reveal-up">01&thinsp;/&thinsp;04 &#8212; Origin</p>
+            <p class="label-caps reveal-up" style="color:var(--gold,#d4a574); margin-block:var(--space-xs) var(--space-sm);">
+              The Story
+            </p>
+            <h2 id="story-heading" class="reveal-up" style="font-family:'Playfair Display',Georgia,serif; font-size:clamp(1.75rem,4vw,2.75rem); margin-bottom:var(--space-lg); font-weight:600;">
+              Built With Purpose
+            </h2>
+
+            <p class="reveal-up">
+              Ange graduated with a Bachelor of Exercise Physiology from the University of
+              Sydney &#8212; a degree that is not a weekend certificate, but four years of
+              anatomy, physiology, biomechanics, and clinical application. That foundation
+              shapes every session, every programme, every conversation.
+            </p>
+
+            <p class="reveal-up">
+              The fitness industry trades in insecurity. Extreme cuts, before-and-after
+              culture, the constant suggestion that you are not enough as you are.
+              FitWithAnge exists to counter all of it &#8212; a coaching practice built on
+              respect, evidence, and the conviction that women deserve better than generic
+              plans written for generic bodies.
+            </p>
+
+            <blockquote class="pull-quote reveal-up">
+              <p>Strength is not a look. It is a capacity &#8212; and it compounds.</p>
+            </blockquote>
+
+            <p class="reveal-up">
+              Working both online and face-to-face at Anytime Fitness Martin Place in
+              Sydney&#8217;s CBD, Ange coaches women at every stage &#8212; from first-time lifters
+              to experienced athletes looking for a smarter approach. The programme is called
+              <em>Built With Purpose</em> for a reason: nothing is arbitrary.
+            </p>
+
+            <p class="chapter-number reveal-up" style="margin-top:var(--space-xl);">02&thinsp;/&thinsp;04 &#8212; Method</p>
+
+            <p class="reveal-up">
+              Every programme is written from scratch. Periodised. Explained. Adjusted as
+              life shifts around it. The goal is not transformation for transformation&#8217;s sake
+              &#8212; it is building a body that performs, recovers, and feels genuinely yours.
+            </p>
+
+          </div>
+
         </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+         3. PHILOSOPHY TIMELINE
+    ═══════════════════════════════════════════════ -->
+    <section class="philosophy-section section--blush" aria-labelledby="philosophy-heading">
+      <div class="container">
+
+        <div class="philosophy-intro reveal-up">
+          <p class="label-caps" style="color:var(--gold,#d4a574); margin-bottom:var(--space-sm);">
+            How I Coach
+          </p>
+          <h2 id="philosophy-heading" style="font-family:'Playfair Display',Georgia,serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:600; margin-bottom:var(--space-sm); line-height:1.15;">
+            Four principles.<br>Every session.
+          </h2>
+          <p style="font-size:clamp(1rem,1.4vw,1.05rem); line-height:1.75; opacity:0.75; max-width:46ch;">
+            These are not values on a wall. They are the actual structure of how
+            the work gets done.
+          </p>
+        </div>
+
+        <div class="philosophy-timeline" aria-label="Coaching principles">
+
+          <!-- 01 -->
+          <div class="timeline-item reveal-up">
+            <span class="timeline-item__number" aria-hidden="true">01</span>
+            <h3 class="timeline-item__title">Strength First</h3>
+            <p class="timeline-item__body">
+              Progressive overload sits at the centre of every programme. Muscle is
+              the metabolic asset most women are told to fear &#8212; building it changes
+              body composition, bone density, and the way you move through the world.
+            </p>
+          </div>
+
+          <!-- 02 -->
+          <div class="timeline-item reveal-up">
+            <span class="timeline-item__number" aria-hidden="true">02</span>
+            <h3 class="timeline-item__title">Sustainable Over Extreme</h3>
+            <p class="timeline-item__body">
+              The most effective plan is the one you can actually maintain. No
+              crash phases, no unsustainable deficits. Everything is calibrated to
+              integrate with a full life &#8212; not replace it.
+            </p>
+          </div>
+
+          <!-- 03 -->
+          <div class="timeline-item reveal-up">
+            <span class="timeline-item__number" aria-hidden="true">03</span>
+            <h3 class="timeline-item__title">Education &amp; Autonomy</h3>
+            <p class="timeline-item__body">
+              Every prescription comes with an explanation. Understanding the why
+              behind your training means you can make intelligent decisions long after
+              the programme ends. That&#8217;s the actual goal.
+            </p>
+          </div>
+
+          <!-- 04 -->
+          <div class="timeline-item reveal-up">
+            <span class="timeline-item__number" aria-hidden="true">04</span>
+            <h3 class="timeline-item__title">Whole-Person Approach</h3>
+            <p class="timeline-item__body">
+              Sleep quality, hormonal fluctuations, stress load, life season &#8212; all
+              of it affects adaptation. Coaching that ignores context is just a
+              spreadsheet. This practice considers the full picture.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+         4. CREDENTIALS GRID
+    ═══════════════════════════════════════════════ -->
+    <section class="credentials-section section--cream" aria-labelledby="creds-heading">
+      <div class="container">
+
+        <p class="chapter-number reveal-up">03&thinsp;/&thinsp;04 &#8212; Credentials</p>
+        <p class="label-caps reveal-up" style="color:var(--gold,#d4a574); margin-block:var(--space-xs) var(--space-sm);">
+          Qualifications
+        </p>
+        <h2 id="creds-heading" class="reveal-up" style="font-family:'Playfair Display',Georgia,serif; font-size:clamp(1.75rem,4vw,2.75rem); font-weight:600; max-width:20ch; margin-bottom:var(--space-xs); line-height:1.15;">
+          Grounded in science,<br>applied in practice.
+        </h2>
+        <p class="reveal-up" style="max-width:50ch; line-height:1.75; opacity:0.75; margin-bottom:0;">
+          The degree is not a shorthand. It represents four years of clinical study at
+          one of Australia&#8217;s leading universities, underpinned by ESSA&#8209;aligned
+          scope of practice.
+        </p>
+
+        <div class="cred-grid reveal-stagger">
+
+          <div class="cred-badge">
+            <span class="cred-badge__label">Education</span>
+            <h3 class="cred-badge__title">Bachelor of Exercise Physiology</h3>
+            <p class="cred-badge__detail">University of Sydney</p>
+          </div>
+
+          <div class="cred-badge">
+            <span class="cred-badge__label">Specialisation</span>
+            <h3 class="cred-badge__title">Strength &amp; Conditioning Focus</h3>
+            <p class="cred-badge__detail">Women&#8217;s health, hormones &amp; behaviour change</p>
+          </div>
+
+          <div class="cred-badge">
+            <span class="cred-badge__label">Location</span>
+            <h3 class="cred-badge__title">Martin Place, Sydney CBD</h3>
+            <p class="cred-badge__detail">Face&#8209;to&#8209;face at Anytime Fitness Martin Place</p>
+          </div>
+
+          <div class="cred-badge">
+            <span class="cred-badge__label">Availability</span>
+            <h3 class="cred-badge__title">Online &amp; In-Person</h3>
+            <p class="cred-badge__detail">Programmes designed around your schedule and city</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+         DIVIDER
+    ═══════════════════════════════════════════════ -->
+    <div class="divider-editorial" aria-hidden="true">
+      <span class="divider-editorial__glyph">&#10022;</span>
+    </div>
+
+    <!-- ════════════════════════════════════════════
+         5. FULL-WIDTH PULL-QUOTE
+    ═══════════════════════════════════════════════ -->
+    <section class="pullquote-section" aria-label="Angelina's coaching philosophy">
+      <div class="container">
+        <p class="chapter-number reveal-up" style="text-align:center;">04&thinsp;/&thinsp;04 &#8212; Approach</p>
+        <blockquote class="pull-quote reveal-up">
+          <p>I want every woman to feel powerful in her body &#8212; not someday, but now.</p>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+         6. MARQUEE STRIP
+    ═══════════════════════════════════════════════ -->
+    <div class="marquee" aria-label="Credentials" role="marquee">
+      <div class="marquee__track" aria-hidden="true">
+        <span class="marquee__item">EXERCISE PHYSIOLOGY</span>
+        <span class="marquee__item">UNIVERSITY OF SYDNEY</span>
+        <span class="marquee__item">MARTIN PLACE</span>
+        <span class="marquee__item">1:1 COACHING</span>
+        <span class="marquee__item">ONLINE &amp; IN-PERSON</span>
+        <span class="marquee__item">BUILT WITH PURPOSE</span>
+        <span class="marquee__item">ESSA-ALIGNED</span>
+        <span class="marquee__item">STRENGTH FIRST</span>
+        <span class="marquee__item" aria-hidden="true">EXERCISE PHYSIOLOGY</span>
+        <span class="marquee__item" aria-hidden="true">UNIVERSITY OF SYDNEY</span>
+        <span class="marquee__item" aria-hidden="true">MARTIN PLACE</span>
+        <span class="marquee__item" aria-hidden="true">1:1 COACHING</span>
+        <span class="marquee__item" aria-hidden="true">ONLINE &amp; IN-PERSON</span>
+        <span class="marquee__item" aria-hidden="true">BUILT WITH PURPOSE</span>
+        <span class="marquee__item" aria-hidden="true">ESSA-ALIGNED</span>
+        <span class="marquee__item" aria-hidden="true">STRENGTH FIRST</span>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════
+         7. FINAL CTA
+    ═══════════════════════════════════════════════ -->
+    <section class="final-cta section--cream" aria-labelledby="cta-heading">
+      <div class="container" style="max-width:640px;">
+
+        <p class="label-caps reveal-up" style="color:var(--gold,#d4a574); margin-bottom:var(--space-sm);">
+          Work With Me
+        </p>
+
+        <h2 id="cta-heading" class="final-cta__heading reveal-up">
+          Ready to train<br>with purpose?
+        </h2>
+
+        <p class="final-cta__sub reveal-up">
+          Book a free 20-minute discovery call. No pitch, no pressure &#8212;
+          just an honest conversation about where you are and what&#8217;s possible.
+        </p>
+
+        <div class="final-cta__actions reveal-up">
+          <a href="/enquire" class="btn btn--primary btn--magnetic">
+            Book a Free Enquiry
+          </a>
+          <a href="/services" class="btn btn--ghost">
+            View Services
+          </a>
+        </div>
+
       </div>
     </section>
 
   </main>
 
+  <!-- ════════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════════ -->
   <footer class="site-footer" role="contentinfo">
     <div class="container">
+
       <div class="footer-grid">
+
+        <!-- Column 1: Brand + partner -->
         <div class="footer-brand">
-          <div class="site-logo">FitWith<span>Ange</span></div>
-          <p>Helping women build strength and transform their bodies through intelligent, personalised coaching.</p>
-          <div class="social-row">
-            <a href="https://www.instagram.com/fitwith_ange/" target="_blank" rel="noopener noreferrer"
-               class="social-icon" aria-label="Follow @fitwith_ange on Instagram">
-              <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="currentColor" stroke-width="1.5" fill="none"/>
-                <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/>
-                <circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>
+          <a href="/" class="site-logo" aria-label="FitWithAnge — home">
+            FitWith<span>Ange</span>
+          </a>
+          <p>
+            Science-backed coaching for women who train with purpose.
+            Exercise Physiology &amp; Personal Training &#8212; online &amp; in-person
+            at Martin Place, Sydney.
+          </p>
+
+          <div class="social-row" aria-label="Social media links">
+            <a
+              class="social-icon"
+              href="https://www.instagram.com/fitwith_ange/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Follow @fitwith_ange on Instagram"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                <circle cx="12" cy="12" r="4"/>
+                <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+              </svg>
+            </a>
+            <a
+              class="social-icon"
+              href="https://www.tiktok.com/@fitwithange"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="TikTok"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.82a8.18 8.18 0 0 0 4.78 1.52V6.9a4.85 4.85 0 0 1-1.01-.21z"/>
               </svg>
             </a>
           </div>
-          <p class="footer-partner">Activewear partner: <a href="https://clubathletica.com.au/?sca_ref=10453730.MFEqJltNbf" target="_blank" rel="noopener sponsored">Club Athletica DC</a> — use code <strong>ANGEX10</strong></p>
+
+          <p class="footer-partner">
+            Partner: <a href="https://clubathletica.com.au/?sca_ref=10453730.MFEqJltNbf" target="_blank" rel="noopener sponsored">Club Athletica DC</a>
+            &#8212; use code <strong>ANGEX10</strong> for 10% off.
+          </p>
         </div>
-        <nav aria-label="Footer quick links">
-          <p class="footer-heading">Quick Links</p>
-          <ul class="footer-links">
-            <li><a href="/">Home</a></li>
-            <li><a href="about">About</a></li>
-            <li><a href="services">Services</a></li>
-            <li><a href="gallery">Gallery</a></li>
-            <li><a href="contact">Contact</a></li>
-            <li><a href="enquire" target="_blank" rel="noopener">Book a Call</a></li>
-          </ul>
-        </nav>
+
+        <!-- Column 2: Quick links -->
         <div>
-          <p class="footer-heading">Get in Touch</p>
-          <ul class="footer-links">
-            <li><a href="https://www.instagram.com/fitwith_ange/" target="_blank" rel="noopener">Instagram</a></li>
-            <li><a href="enquire" target="_blank" rel="noopener">Book a free enquiry</a></li>
+          <span class="footer-heading">Quick links</span>
+          <ul class="footer-links" role="list">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/services">Services</a></li>
+            <li><a href="/gallery">Gallery</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/enquire">Book a Free Enquiry</a></li>
           </ul>
         </div>
+
+        <!-- Column 3: Get in touch -->
+        <div>
+          <span class="footer-heading">Get in touch</span>
+          <ul class="footer-links" role="list">
+            <li>
+              <a href="mailto:hello@fitwithange.com.au">hello@fitwithange.com.au</a>
+            </li>
+            <li>
+              <a href="https://www.instagram.com/fitwith_ange/" target="_blank" rel="noopener">@fitwith_ange</a>
+            </li>
+            <li>
+              <span style="color:rgba(255,255,255,0.45); font-size:0.85rem; line-height:1.6; display:block; padding-block:0.25rem;">
+                Martin Place, Sydney&nbsp;NSW
+              </span>
+            </li>
+          </ul>
+          <div style="margin-top:var(--space-md);">
+            <a href="/enquire" class="btn btn--primary btn--magnetic">
+              Book a Free Enquiry
+            </a>
+          </div>
+        </div>
+
       </div>
+
       <div class="footer-bottom">
-        <p>&copy; <span class="current-year">2026</span> FitWithAnge · Angelina Farag. All rights reserved.</p>
-        <p>Sydney, NSW, Australia</p>
+        <span>&copy; <span class="current-year"></span> FitWithAnge &middot; Angelina Farag. All rights reserved.</span>
+        <span>Sydney, NSW, Australia</span>
       </div>
+
     </div>
   </footer>
 
-  <script src="js/main.js"></script>
+  <script src="js/main.js" defer></script>
+  <script src="js/motion-fx.js" defer></script>
+
   <script>
     (function () {
       var bar = document.getElementById('announcement-bar');
@@ -333,5 +780,6 @@
       if (bar) { bar.style.display = 'none'; sessionStorage.setItem('announcementDismissed', '1'); }
     }
   </script>
+
 </body>
 </html>

@@ -1,29 +1,29 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en-AU">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Fitness Tips &amp; Posts | FitWithAnge Sydney</title>
-  <meta name="description" content="Browse real posts from @fitwith_ange — science-backed fitness tips, workouts, and nutrition content from Exercise Physiologist Angelina Farag in Sydney." />
+  <title>Training Gallery | FitWithAnge Sydney</title>
+  <meta name="description" content="Behind the scenes with Angelina Farag — real training moments, studio shots and science-backed content from Sydney Exercise Physiologist &amp; PT." />
 
   <meta property="og:type"        content="website" />
   <meta property="og:url"         content="https://fitwithange.vercel.app/gallery" />
   <meta property="og:site_name"   content="FitWithAnge" />
   <meta property="og:locale"      content="en_AU" />
-  <meta property="og:title"       content="Fitness Tips &amp; Posts | FitWithAnge Sydney" />
-  <meta property="og:description" content="Real posts from @fitwith_ange — daily science-backed fitness and nutrition tips from Exercise Physiologist Angelina Farag." />
+  <meta property="og:title"       content="Training Gallery | FitWithAnge Sydney" />
+  <meta property="og:description" content="Behind the scenes with Angelina Farag — real training moments and science-backed content from Sydney Exercise Physiologist &amp; PT." />
   <meta property="og:image"       content="https://fitwithange.vercel.app/assets/img/angelina.jpg" />
   <meta property="og:image:alt"   content="Angelina Farag — Exercise Physiologist and Personal Trainer, Sydney" />
 
-  <!-- Twitter Card -->
   <meta name="twitter:card"        content="summary_large_image" />
-  <meta name="twitter:title"       content="Fitness Tips &amp; Posts | FitWithAnge Sydney" />
-  <meta name="twitter:description" content="Real posts from @fitwith_ange — daily science-backed fitness tips from Exercise Physiologist Angelina Farag." />
+  <meta name="twitter:title"       content="Training Gallery | FitWithAnge Sydney" />
+  <meta name="twitter:description" content="Behind the scenes with Angelina Farag — real training moments and science-backed content." />
   <meta name="twitter:image"       content="https://fitwithange.vercel.app/assets/img/angelina.jpg" />
 
   <link rel="canonical" href="https://fitwithange.vercel.app/gallery" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" />
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#d4a574" />
   <link rel="stylesheet" href="css/styles.css" />
@@ -66,10 +66,176 @@
     ]
   }
   </script>
+
+  <style>
+    /* ── Gallery page overrides ── */
+
+    /* Hero */
+    .gallery-hero {
+      padding-block: clamp(5rem, 14vh, 10rem) clamp(3rem, 8vh, 6rem);
+      text-align: center;
+    }
+    .gallery-hero .display-hero {
+      margin-block: 0.75rem 1.25rem;
+      line-height: 1.05;
+    }
+    .gallery-hero .lead {
+      max-width: 44ch;
+      margin-inline: auto;
+      margin-bottom: 0;
+      font-size: clamp(1rem, 1.5vw, 1.15rem);
+      color: var(--gray);
+    }
+
+    /* Masonry grid */
+    .masonry-section {
+      padding-block: clamp(4rem, 10vh, 8rem);
+    }
+    .masonry-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 240px;
+      gap: clamp(0.75rem, 1.5vw, 1.25rem);
+    }
+    @media (max-width: 900px) {
+      .masonry-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 220px;
+      }
+    }
+    @media (max-width: 520px) {
+      .masonry-grid {
+        grid-template-columns: 1fr;
+        grid-auto-rows: 280px;
+      }
+    }
+
+    /* Row-span variants for visual rhythm */
+    .masonry-tile--tall   { grid-row: span 2; }
+    .masonry-tile--wide   { grid-column: span 2; }
+
+    @media (max-width: 900px) {
+      .masonry-tile--wide { grid-column: span 1; }
+    }
+    @media (max-width: 520px) {
+      .masonry-tile--tall,
+      .masonry-tile--wide { grid-row: span 1; grid-column: span 1; }
+    }
+
+    /* Tile base */
+    .masonry-tile {
+      position: relative;
+      overflow: hidden;
+      background: var(--cream);
+      border-radius: var(--radius-sm, 8px);
+    }
+    .masonry-tile img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s var(--ease-out-expo, cubic-bezier(0.16,1,0.3,1));
+    }
+    .masonry-tile:hover img {
+      transform: scale(1.06);
+    }
+
+    /* Arch mask on alternating tiles */
+    .masonry-tile.img-mask-arch img {
+      border-radius: 999px 999px 0 0;
+    }
+
+    /* Hover overlay caption */
+    .masonry-tile__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top,
+        rgba(29,24,22,0.88) 0%,
+        rgba(29,24,22,0.2)  50%,
+        transparent         100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.25rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .masonry-tile:hover .masonry-tile__overlay,
+    .masonry-tile:focus-within .masonry-tile__overlay {
+      opacity: 1;
+    }
+    .masonry-tile__caption {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.92);
+      line-height: 1.55;
+      margin-bottom: 0.4rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .masonry-tile__tag {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .masonry-tile > a {
+      display: block;
+      width: 100%;
+      height: 100%;
+      text-decoration: none;
+    }
+    .masonry-tile > a:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 2px;
+    }
+
+    /* Section header shared style */
+    .section-eyebrow {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: clamp(2.5rem, 5vh, 4rem);
+    }
+
+    /* Instagram CTA section */
+    .ig-cta-section {
+      padding-block: clamp(5rem, 12vh, 9rem);
+      text-align: center;
+    }
+    .ig-cta-section .display-hero {
+      margin-block: 0.75rem 1.25rem;
+      line-height: 1.1;
+    }
+    .ig-cta-section .lead {
+      max-width: 46ch;
+      margin-inline: auto;
+      margin-bottom: 2.5rem;
+      font-size: clamp(1rem, 1.4vw, 1.1rem);
+      color: var(--gray);
+    }
+    .ig-handle-display {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5em;
+      margin-bottom: 2rem;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1.15rem, 2vw, 1.5rem);
+      color: var(--rust);
+      letter-spacing: 0.01em;
+    }
+    .ig-handle-display svg {
+      flex-shrink: 0;
+      color: var(--rust);
+    }
+  </style>
 </head>
 <body>
 
-  <a href="#main-content" class="skip-link">Skip to content</a>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <!-- ANNOUNCEMENT BAR -->
   <div class="announcement-bar" id="announcement-bar" role="region" aria-label="Partner offer">
@@ -83,16 +249,18 @@
 
   <header class="site-header" role="banner">
     <div class="header-inner">
-      <a href="/" class="site-logo" aria-label="FitWithAnge Home">FitWith<span>Ange</span></a>
-      <nav class="nav-links" aria-label="Main navigation">
+      <a href="/" class="site-logo" aria-label="FitWithAnge — home">FitWith<span>Ange</span></a>
+      <nav class="nav-links" role="navigation" aria-label="Main navigation">
         <a href="/">Home</a>
-        <a href="about">About</a>
-        <a href="services">Services</a>
-        <a href="gallery" class="active">Gallery</a>
-        <a href="contact">Contact</a>
-        <a href="enquire" target="_blank" rel="noopener" class="btn btn--primary" style="padding:0.6rem 1.25rem;">Book a Free Enquiry</a>
+        <a href="/about">About</a>
+        <a href="/services">Services</a>
+        <a href="/gallery" class="active">Gallery</a>
+        <a href="/contact">Contact</a>
+        <a href="/enquire" class="btn btn--primary btn--magnetic" style="border-radius:50px; padding:0.6rem 1.25rem; font-size:0.8rem;">
+          Book a Free Enquiry
+        </a>
       </nav>
-      <button class="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-nav">
+      <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-nav">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -100,298 +268,370 @@
 
   <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
     <a href="/">Home</a>
-    <a href="about">About</a>
-    <a href="services">Services</a>
-    <a href="gallery">Gallery</a>
-    <a href="contact">Contact</a>
-    <a href="enquire" target="_blank" rel="noopener" class="btn btn--primary">Book a Free Enquiry</a>
+    <a href="/about">About</a>
+    <a href="/services">Services</a>
+    <a href="/gallery">Gallery</a>
+    <a href="/contact">Contact</a>
+    <a href="/enquire" class="btn btn--primary">Book a Free Enquiry</a>
   </nav>
 
   <main id="main-content">
 
-    <!-- HERO -->
+    <!-- ── HERO ── -->
     <section class="gallery-hero" aria-label="Gallery hero">
       <div class="container">
-        <nav aria-label="Breadcrumb" class="breadcrumb breadcrumb--light" style="justify-content:center;margin-bottom:1rem;">
+        <nav aria-label="Breadcrumb" class="breadcrumb" style="justify-content:center; margin-bottom:1.5rem;">
           <a href="/">Home</a>
-          <span class="sep" aria-hidden="true">"º</span>
+          <span class="sep" aria-hidden="true">/</span>
           <span aria-current="page">Gallery</span>
         </nav>
-        <span class="section-label">From the Feed</span>
-        <h1>Real Posts. Real Tips.</h1>
-        <p>
-          Follow <a href="https://www.instagram.com/fitwith_ange/" target="_blank" rel="noopener noreferrer">Instagram</a>
-          for daily science-backed fitness and nutrition tips.
+
+        <p class="label-caps fade-in" style="color:var(--gold); margin-bottom:0.5rem;">Behind the Scenes</p>
+        <h1 class="display-hero fade-in" style="animation-delay:0.1s;">
+          In the <span class="italic-accent">Studio.</span>
+        </h1>
+        <p class="lead fade-in" style="animation-delay:0.2s;">
+          Real sessions, honest form cues, and the science that underpins every rep.
+          This is what purposeful training actually looks like.
         </p>
       </div>
     </section>
 
-    <!-- GALLERY GRID -->
-    <section class="section" aria-labelledby="gallery-heading">
+    <!-- ── MARQUEE DIVIDER ── -->
+    <div class="marquee" aria-hidden="true" style="padding-block:1.25rem; border-block:1px solid rgba(212,165,116,0.25); overflow:hidden;">
+      <div class="marquee__track">
+        <span class="marquee__item label-caps">Training Moments</span>
+        <span class="marquee__item" style="color:var(--gold); padding-inline:0.75rem;">&#183;</span>
+        <span class="marquee__item label-caps">Science-Backed</span>
+        <span class="marquee__item" style="color:var(--gold); padding-inline:0.75rem;">&#183;</span>
+        <span class="marquee__item label-caps">Sydney CBD</span>
+        <span class="marquee__item" style="color:var(--gold); padding-inline:0.75rem;">&#183;</span>
+        <span class="marquee__item label-caps">Strength &amp; Conditioning</span>
+        <span class="marquee__item" style="color:var(--gold); padding-inline:0.75rem;">&#183;</span>
+        <span class="marquee__item label-caps">Purposeful Movement</span>
+        <span class="marquee__item" style="color:var(--gold); padding-inline:0.75rem;">&#183;</span>
+        <span class="marquee__item label-caps">Exercise Physiology</span>
+        <span class="marquee__item" style="color:var(--gold); padding-inline:0.75rem;">&#183;</span>
+      </div>
+    </div>
+
+    <!-- ── MASONRY GRID ── -->
+    <section class="masonry-section" aria-labelledby="gallery-heading">
       <div class="container">
-        <div class="text-center" style="margin-bottom:0;">
-<h2 id="gallery-heading" class="section-title" style="margin-bottom:0;">Latest from Instagram</h2>
+
+        <div class="section-eyebrow">
+          <p class="chapter-number reveal-fade">01 &#8212; Training Moments</p>
+          <h2 id="gallery-heading" class="reveal-up" style="font-size:clamp(1.6rem,3.5vw,2.5rem); margin:0;">
+            From the floor <span class="italic-accent">up.</span>
+          </h2>
         </div>
 
-        <div class="gallery-grid">
+        <div class="masonry-grid reveal-stagger">
 
-          <!-- Post 1 -->
-          <article class="gallery-card">
-            <a href="https://www.instagram.com/p/DVFwT_3E3Km/" target="_blank" rel="noopener noreferrer" aria-label="View post on Instagram: Hack Squat">
-              <div class="gallery-card__img-wrap">
-                <img src="assets/img/posts/DVFwT_3E3Km_0.jpg" alt="Hack Squat — our latest gym addition" loading="lazy" decoding="async" width="600" height="600" />
-                <div class="gallery-card__hover-overlay">View on Instagram</div>
+          <!-- Tile 1 — tall, arch mask (positions 1, 3, 5, 7… get arch) -->
+          <article class="masonry-tile masonry-tile--tall img-mask-arch reveal-fade" style="--reveal-delay:0s;">
+            <a href="https://www.instagram.com/p/DXIFp7hE44z/" target="_blank" rel="noopener noreferrer"
+               aria-label="View RDL form post on Instagram">
+              <img
+                src="assets/img/posts/DXIFp7hE44z_0.jpg"
+                alt="RDL form correction — hamstring activation cues demonstrated by Angelina"
+                loading="lazy" decoding="async" width="600" height="600"
+              />
+              <div class="masonry-tile__overlay" aria-hidden="true">
+                <p class="masonry-tile__caption">Feeling your lower back more than your hamstrings in your RDL? These cues change everything.</p>
+                <span class="masonry-tile__tag">Form &amp; Technique</span>
               </div>
             </a>
-            <div class="gallery-card__body">
-              <p class="gallery-card__caption">Our latest addition to the gym: Hack Squat. Let us know what you think when you give it a try!</p>
-              <div class="gallery-card__meta">
-<a class="gallery-card__link" href="https://www.instagram.com/p/DVFwT_3E3Km/" target="_blank" rel="noopener noreferrer">View post</a>
-              </div>
-            </div>
           </article>
 
-          <!-- Post 2 -->
-          <article class="gallery-card">
-            <a href="https://www.instagram.com/p/DXIFp7hE44z/" target="_blank" rel="noopener noreferrer" aria-label="View post on Instagram: RDL form tips">
-              <div class="gallery-card__img-wrap">
-                <img src="assets/img/posts/DXIFp7hE44z_0.jpg" alt="RDL form correction tips — hamstring vs lower back" loading="lazy" decoding="async" width="600" height="600" />
-                <div class="gallery-card__hover-overlay">View on Instagram</div>
+          <!-- Tile 2 — normal -->
+          <article class="masonry-tile reveal-fade" style="--reveal-delay:0.08s;">
+            <a href="https://www.instagram.com/p/DVFwT_3E3Km/" target="_blank" rel="noopener noreferrer"
+               aria-label="View Hack Squat post on Instagram">
+              <img
+                src="assets/img/posts/DVFwT_3E3Km_0.jpg"
+                alt="Hack Squat machine — latest gym addition at Anytime Fitness Martin Place"
+                loading="lazy" decoding="async" width="600" height="600"
+              />
+              <div class="masonry-tile__overlay" aria-hidden="true">
+                <p class="masonry-tile__caption">Our latest addition: Hack Squat. Come try it and let Ange know what you think.</p>
+                <span class="masonry-tile__tag">Equipment</span>
               </div>
             </a>
-            <div class="gallery-card__body">
-              <p class="gallery-card__caption">Unsure about your RDL form? Feeling your lower back more than your hamstrings? Try these exercises to help correct your form.</p>
-              <div class="gallery-card__meta">
-<a class="gallery-card__link" href="https://www.instagram.com/p/DXIFp7hE44z/" target="_blank" rel="noopener noreferrer">View post</a>
-              </div>
-            </div>
           </article>
 
-          <!-- Post 3 -->
-          <article class="gallery-card">
-            <a href="https://www.instagram.com/p/DU3xlOMEqtA/" target="_blank" rel="noopener noreferrer" aria-label="View post on Instagram: fitness goals and structure">
-              <div class="gallery-card__img-wrap">
-                <img src="assets/img/posts/DU3xlOMEqtA_0.jpg" alt="Fitness goals — structure, accountability and why people fail" loading="lazy" decoding="async" width="600" height="600" />
-                <div class="gallery-card__hover-overlay">View on Instagram</div>
+          <!-- Tile 3 — normal, arch -->
+          <article class="masonry-tile img-mask-arch reveal-fade" style="--reveal-delay:0.16s;">
+            <a href="https://www.instagram.com/p/DVR-EnpEkWo/" target="_blank" rel="noopener noreferrer"
+               aria-label="View strength for endurance athletes post on Instagram">
+              <img
+                src="assets/img/posts/DVR-EnpEkWo_0.jpg"
+                alt="Full-body strength session designed for endurance athletes"
+                loading="lazy" decoding="async" width="600" height="600"
+              />
+              <div class="masonry-tile__overlay" aria-hidden="true">
+                <p class="masonry-tile__caption">Strength training doesn't stop when endurance training starts — it just gets more specific.</p>
+                <span class="masonry-tile__tag">Strength &amp; Endurance</span>
               </div>
             </a>
-            <div class="gallery-card__body">
-              <p class="gallery-card__caption">Most people don't fail their fitness goals because they're lazy. They fail because they don't have structure, accountability"¦</p>
-              <div class="gallery-card__meta">
-                <a class="gallery-card__link" href="https://www.instagram.com/p/DU3xlOMEqtA/" target="_blank" rel="noopener noreferrer">View post</a>
-              </div>
-            </div>
           </article>
 
-          <!-- Post 4 -->
-          <article class="gallery-card">
-            <a href="https://www.instagram.com/p/DSfC8kmEShr/" target="_blank" rel="noopener noreferrer" aria-label="View post on Instagram: cortisol and weight loss">
-              <div class="gallery-card__img-wrap">
-                <img src="assets/img/posts/DSfC8kmEShr_0.jpg" alt="How elevated cortisol impacted exercise and weight loss experience" loading="lazy" decoding="async" width="600" height="600" />
-                <div class="gallery-card__hover-overlay">View on Instagram</div>
+          <!-- Tile 4 — wide -->
+          <article class="masonry-tile masonry-tile--wide reveal-fade" style="--reveal-delay:0.24s;">
+            <a href="https://www.instagram.com/p/DU3xlOMEqtA/" target="_blank" rel="noopener noreferrer"
+               aria-label="View fitness goals post on Instagram">
+              <img
+                src="assets/img/posts/DU3xlOMEqtA_0.jpg"
+                alt="Fitness goals — why structure and accountability are the missing link"
+                loading="lazy" decoding="async" width="600" height="600"
+              />
+              <div class="masonry-tile__overlay" aria-hidden="true">
+                <p class="masonry-tile__caption">Most people don't miss their fitness goals because they're lazy — they miss them because they lack structure.</p>
+                <span class="masonry-tile__tag">Mindset</span>
               </div>
             </a>
-            <div class="gallery-card__body">
-              <p class="gallery-card__caption">How elevated cortisol levels impacted my exercise and experience with weight loss.</p>
-              <div class="gallery-card__meta">
-                <a class="gallery-card__link" href="https://www.instagram.com/p/DSfC8kmEShr/" target="_blank" rel="noopener noreferrer">View post</a>
-              </div>
-            </div>
           </article>
 
-          <!-- Post 5 -->
-          <article class="gallery-card">
-            <a href="https://www.instagram.com/p/DVR-EnpEkWo/" target="_blank" rel="noopener noreferrer" aria-label="View post on Instagram: strength and endurance training">
-              <div class="gallery-card__img-wrap">
-                <img src="assets/img/posts/DVR-EnpEkWo_0.jpg" alt="Strength training for endurance athletes — full-body session" loading="lazy" decoding="async" width="600" height="600" />
-                <div class="gallery-card__hover-overlay">View on Instagram</div>
+          <!-- Tile 5 — normal, arch -->
+          <article class="masonry-tile img-mask-arch reveal-fade" style="--reveal-delay:0.32s;">
+            <a href="https://www.instagram.com/p/DSfC8kmEShr/" target="_blank" rel="noopener noreferrer"
+               aria-label="View cortisol and weight loss post on Instagram">
+              <img
+                src="assets/img/posts/DSfC8kmEShr_0.jpg"
+                alt="How elevated cortisol affects weight loss and exercise performance"
+                loading="lazy" decoding="async" width="600" height="600"
+              />
+              <div class="masonry-tile__overlay" aria-hidden="true">
+                <p class="masonry-tile__caption">How elevated cortisol levels can quietly derail your weight loss and training performance.</p>
+                <span class="masonry-tile__tag">Physiology</span>
               </div>
             </a>
-            <div class="gallery-card__body">
-              <p class="gallery-card__caption">Strength training doesn't stop when endurance training starts, it just becomes more specific. This full-body session is"¦</p>
-              <div class="gallery-card__meta">
-                <a class="gallery-card__link" href="https://www.instagram.com/p/DVR-EnpEkWo/" target="_blank" rel="noopener noreferrer">View post</a>
-              </div>
-            </div>
           </article>
 
-          <!-- Post 6 -->
-          <article class="gallery-card">
-            <a href="https://www.instagram.com/p/DVzqlDIkRgA/" target="_blank" rel="noopener noreferrer" aria-label="View post on Instagram: common PT questions">
-              <div class="gallery-card__img-wrap">
-                <img src="assets/img/posts/DVzqlDIkRgA_0.jpg" alt="Most common questions I get asked as a personal trainer" loading="lazy" decoding="async" width="600" height="600" />
-                <div class="gallery-card__hover-overlay">View on Instagram</div>
+          <!-- Tile 6 — tall -->
+          <article class="masonry-tile masonry-tile--tall reveal-fade" style="--reveal-delay:0.4s;">
+            <a href="https://www.instagram.com/p/DNjlafASwb7/" target="_blank" rel="noopener noreferrer"
+               aria-label="View movement patterns and strength post on Instagram">
+              <img
+                src="assets/img/posts/DNjlafASwb7_0.jpg"
+                alt="Combining movement patterns with correct intensity for lasting strength"
+                loading="lazy" decoding="async" width="600" height="600"
+              />
+              <div class="masonry-tile__overlay" aria-hidden="true">
+                <p class="masonry-tile__caption">Strength is built by combining movement patterns, applied with the right intensity and intent.</p>
+                <span class="masonry-tile__tag">Programming</span>
               </div>
             </a>
-            <div class="gallery-card__body">
-              <p class="gallery-card__caption">Some of the most common questions I get asked as a personal trainer. There's a lot of confusing information online about"¦</p>
-              <div class="gallery-card__meta">
-                <a class="gallery-card__link" href="https://www.instagram.com/p/DVzqlDIkRgA/" target="_blank" rel="noopener noreferrer">View post</a>
-              </div>
-            </div>
           </article>
 
-          <!-- Post 7 -->
-          <article class="gallery-card">
-            <a href="https://www.instagram.com/p/DNjlafASwb7/" target="_blank" rel="noopener noreferrer" aria-label="View post on Instagram: movement patterns and strength">
-              <div class="gallery-card__img-wrap">
-                <img src="assets/img/posts/DNjlafASwb7_0.jpg" alt="Combining movement patterns with right intensity for strength building" loading="lazy" decoding="async" width="600" height="600" />
-                <div class="gallery-card__hover-overlay">View on Instagram</div>
+          <!-- Tile 7 — normal, arch -->
+          <article class="masonry-tile img-mask-arch reveal-fade" style="--reveal-delay:0.48s;">
+            <a href="https://www.instagram.com/p/DRLzG79kQNZ/" target="_blank" rel="noopener noreferrer"
+               aria-label="View posterior chain post on Instagram">
+              <img
+                src="assets/img/posts/DRLzG79kQNZ_0.jpg"
+                alt="Posterior chain strength work — reducing compensation patterns and improving biomechanics"
+                loading="lazy" decoding="async" width="600" height="600"
+              />
+              <div class="masonry-tile__overlay" aria-hidden="true">
+                <p class="masonry-tile__caption">A stronger posterior chain reduces compensations and keeps you moving well for the long term.</p>
+                <span class="masonry-tile__tag">Biomechanics</span>
               </div>
             </a>
-            <div class="gallery-card__body">
-              <p class="gallery-card__caption">Strength isn't built from one lift, it's built by combining different movement patterns, applied with the right intensity.</p>
-              <div class="gallery-card__meta">
-                <a class="gallery-card__link" href="https://www.instagram.com/p/DNjlafASwb7/" target="_blank" rel="noopener noreferrer">View post</a>
-              </div>
-            </div>
           </article>
 
-          <!-- Post 8 -->
-          <article class="gallery-card">
-            <a href="https://www.instagram.com/p/DRLzG79kQNZ/" target="_blank" rel="noopener noreferrer" aria-label="View post on Instagram: posterior chain strength">
-              <div class="gallery-card__img-wrap">
-                <img src="assets/img/posts/DRLzG79kQNZ_0.jpg" alt="Improving posterior chain strength for better biomechanics" loading="lazy" decoding="async" width="600" height="600" />
-                <div class="gallery-card__hover-overlay">View on Instagram</div>
+          <!-- Tile 8 — normal -->
+          <article class="masonry-tile reveal-fade" style="--reveal-delay:0.56s;">
+            <a href="https://www.instagram.com/p/DXamkSjEUQp/" target="_blank" rel="noopener noreferrer"
+               aria-label="View creatine explained post on Instagram">
+              <img
+                src="assets/img/posts/DXamkSjEUQp_0.jpg"
+                alt="Creatine — how this well-researched supplement works at the cellular level"
+                loading="lazy" decoding="async" width="600" height="600"
+              />
+              <div class="masonry-tile__overlay" aria-hidden="true">
+                <p class="masonry-tile__caption">Creatine isn't just a gym supplement — it's one of the most-studied performance enhancers in existence.</p>
+                <span class="masonry-tile__tag">Nutrition Science</span>
               </div>
             </a>
-            <div class="gallery-card__body">
-              <p class="gallery-card__caption">Improving posterior chain strength reduces compensations and improves biomechanics in everyday movement.</p>
-              <div class="gallery-card__meta">
-                <a class="gallery-card__link" href="https://www.instagram.com/p/DRLzG79kQNZ/" target="_blank" rel="noopener noreferrer">View post</a>
-              </div>
-            </div>
           </article>
 
-          <!-- Post 9 -->
-          <article class="gallery-card">
-            <a href="https://www.instagram.com/p/DXamkSjEUQp/" target="_blank" rel="noopener noreferrer" aria-label="View post on Instagram: creatine explained">
-              <div class="gallery-card__img-wrap">
-                <img src="assets/img/posts/DXamkSjEUQp_0.jpg" alt="Creatine — a well-researched performance enhancer that works at cellular level" loading="lazy" decoding="async" width="600" height="600" />
-                <div class="gallery-card__hover-overlay">View on Instagram</div>
+          <!-- Tile 9 — normal, arch -->
+          <article class="masonry-tile img-mask-arch reveal-fade" style="--reveal-delay:0.64s;">
+            <a href="https://www.instagram.com/p/DXEL8yVkY3c/" target="_blank" rel="noopener noreferrer"
+               aria-label="View overnight Weet-Bix recipe post on Instagram">
+              <img
+                src="assets/img/posts/DXEL8yVkY3c_0.jpg"
+                alt="Overnight Weet-Bix — a quick, prep-friendly breakfast recipe"
+                loading="lazy" decoding="async" width="600" height="600"
+              />
+              <div class="masonry-tile__overlay" aria-hidden="true">
+                <p class="masonry-tile__caption">Quick, prep-friendly, and genuinely good — overnight Weet-Bix for a smarter morning routine.</p>
+                <span class="masonry-tile__tag">Nutrition</span>
               </div>
             </a>
-            <div class="gallery-card__body">
-              <p class="gallery-card__caption">Creatine isn't just a "gym supplement" — it's a well-researched performance enhancer that works at the cellular level.</p>
-              <div class="gallery-card__meta">
-                <a class="gallery-card__link" href="https://www.instagram.com/p/DXamkSjEUQp/" target="_blank" rel="noopener noreferrer">View post</a>
-              </div>
-            </div>
           </article>
 
-          <!-- Post 10 -->
-          <article class="gallery-card">
-            <a href="https://www.instagram.com/p/DXEL8yVkY3c/" target="_blank" rel="noopener noreferrer" aria-label="View post on Instagram: overnight Weet-Bix recipe">
-              <div class="gallery-card__img-wrap">
-                <img src="assets/img/posts/DXEL8yVkY3c_0.jpg" alt="Overnight Weet-Bix recipe — quick and easy breakfast prep" loading="lazy" decoding="async" width="600" height="600" />
-                <div class="gallery-card__hover-overlay">View on Instagram</div>
+          <!-- Tile 10 — wide -->
+          <article class="masonry-tile masonry-tile--wide reveal-fade" style="--reveal-delay:0.72s;">
+            <a href="https://www.instagram.com/p/DP4v6E1kq-0/" target="_blank" rel="noopener noreferrer"
+               aria-label="View neural adaptation post on Instagram">
+              <img
+                src="assets/img/posts/DP4v6E1kq-0_0.jpg"
+                alt="Why you get stronger before you look stronger — neural adaptation explained"
+                loading="lazy" decoding="async" width="600" height="600"
+              />
+              <div class="masonry-tile__overlay" aria-hidden="true">
+                <p class="masonry-tile__caption">Why you're getting stronger before your body looks different — neural adaptation is doing its job.</p>
+                <span class="masonry-tile__tag">Exercise Science</span>
               </div>
             </a>
-            <div class="gallery-card__body">
-              <p class="gallery-card__caption">Try adding this overnight Weet-Bix to your breakfast routine! Super quick and easy to make, and perfect to prep in advance.</p>
-              <div class="gallery-card__meta">
-                <a class="gallery-card__link" href="https://www.instagram.com/p/DXEL8yVkY3c/" target="_blank" rel="noopener noreferrer">View post</a>
-              </div>
-            </div>
           </article>
 
-          <!-- Post 11 -->
-          <article class="gallery-card">
-            <a href="https://www.instagram.com/p/DP4v6E1kq-0/" target="_blank" rel="noopener noreferrer" aria-label="View post on Instagram: neural adaptation and strength gains">
-              <div class="gallery-card__img-wrap">
-                <img src="assets/img/posts/DP4v6E1kq-0_0.jpg" alt="Why you're stronger before you look stronger — neural adaptation" loading="lazy" decoding="async" width="600" height="600" />
-                <div class="gallery-card__hover-overlay">View on Instagram</div>
+          <!-- Tile 11 — normal, arch -->
+          <article class="masonry-tile img-mask-arch reveal-fade" style="--reveal-delay:0.8s;">
+            <a href="https://www.instagram.com/p/DVzqlDIkRgA/" target="_blank" rel="noopener noreferrer"
+               aria-label="View common PT questions post on Instagram">
+              <img
+                src="assets/img/posts/DVzqlDIkRgA_0.jpg"
+                alt="Most common questions people ask a personal trainer — answered honestly"
+                loading="lazy" decoding="async" width="600" height="600"
+              />
+              <div class="masonry-tile__overlay" aria-hidden="true">
+                <p class="masonry-tile__caption">The questions Ange gets asked every single week — answered with clarity and without the noise.</p>
+                <span class="masonry-tile__tag">Ask a PT</span>
               </div>
             </a>
-            <div class="gallery-card__body">
-              <p class="gallery-card__caption">Why You're Stronger Before You Look Stronger. Neural adaptation and early strength gains explained.</p>
-              <div class="gallery-card__meta">
-                <a class="gallery-card__link" href="https://www.instagram.com/p/DP4v6E1kq-0/" target="_blank" rel="noopener noreferrer">View post</a>
-              </div>
-            </div>
           </article>
 
-          <!-- Post 12 -->
-          <article class="gallery-card">
-            <a href="https://www.instagram.com/p/DLgF2viTkBJ/" target="_blank" rel="noopener noreferrer" aria-label="View post on Instagram: ACSM physical activity guidelines">
-              <div class="gallery-card__img-wrap">
-                <img src="assets/img/posts/DLgF2viTkBJ_0.jpg" alt="ACSM Physical Activity Guidelines — are you meeting the minimum?" loading="lazy" decoding="async" width="600" height="600" />
-                <div class="gallery-card__hover-overlay">View on Instagram</div>
+          <!-- Tile 12 — normal -->
+          <article class="masonry-tile reveal-fade" style="--reveal-delay:0.88s;">
+            <a href="https://www.instagram.com/p/DLgF2viTkBJ/" target="_blank" rel="noopener noreferrer"
+               aria-label="View ACSM physical activity guidelines post on Instagram">
+              <img
+                src="assets/img/posts/DLgF2viTkBJ_0.jpg"
+                alt="ACSM Physical Activity Guidelines — meeting the minimum versus training for more"
+                loading="lazy" decoding="async" width="600" height="600"
+              />
+              <div class="masonry-tile__overlay" aria-hidden="true">
+                <p class="masonry-tile__caption">ACSM guidelines are a minimum, not a ceiling. Are you meeting them — and what would it look like to go further?</p>
+                <span class="masonry-tile__tag">Guidelines</span>
               </div>
             </a>
-            <div class="gallery-card__body">
-              <p class="gallery-card__caption">Are you meeting the ACSM Guidelines for Physical Activity? These guidelines are a minimum, not a limit!</p>
-              <div class="gallery-card__meta">
-                <a class="gallery-card__link" href="https://www.instagram.com/p/DLgF2viTkBJ/" target="_blank" rel="noopener noreferrer">View post</a>
-              </div>
-            </div>
           </article>
 
         </div>
+      </div>
+    </section>
 
-        <!-- CTA -->
-        <div class="gallery-cta">
-          <p class="ig-handle">fitwith_ange</p>
-          <div style="display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;margin-top:1.5rem;">
-            <a href="https://www.instagram.com/fitwith_ange/" target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--lg">
-              Follow on Instagram
-            </a>
-            <a href="enquire" target="_blank" rel="noopener" class="btn btn--outline btn--lg">
-              Book a Free Enquiry
-            </a>
-          </div>
+    <!-- ── INSTAGRAM CTA ── -->
+    <section class="ig-cta-section section--cream" aria-labelledby="ig-cta-heading">
+      <div class="container">
+        <p class="label-caps reveal-fade" style="color:var(--gold);">Follow Along</p>
+        <h2 id="ig-cta-heading" class="display-hero reveal-up">
+          Daily tips.<br>
+          <span class="italic-accent">Real science.</span>
+        </h2>
+        <div class="ig-handle-display reveal-fade" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+          </svg>
+          @fitwith_ange
         </div>
+        <p class="lead reveal-fade">
+          Science-backed fitness and nutrition content, posted regularly. No fads, no fluff — just the kind of information that actually moves the needle.
+        </p>
+        <a
+          href="https://www.instagram.com/fitwith_ange/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn--primary btn--magnetic btn--lg reveal-up"
+        >
+          Follow on Instagram
+        </a>
+      </div>
+    </section>
 
+    <!-- ── ENQUIRE CTA ── -->
+    <section style="padding-block:clamp(5rem,12vh,9rem); text-align:center;" aria-labelledby="enquire-cta-heading">
+      <div class="container">
+        <p class="label-caps reveal-fade" style="color:var(--gold);">Work with Angelina</p>
+        <h2 id="enquire-cta-heading" class="display-hero reveal-up" style="margin-block:0.75rem 1.25rem;">
+          Train with <span class="italic-accent">purpose.</span>
+        </h2>
+        <p class="reveal-fade" style="max-width:44ch; margin-inline:auto; margin-bottom:2.5rem; color:var(--gray); font-size:clamp(1rem,1.4vw,1.1rem);">
+          Science-backed programming, genuine accountability, and a coach who actually listens. Ready to start?
+        </p>
+        <a href="/enquire" class="btn btn--primary btn--magnetic btn--lg reveal-up">
+          Book a Free Enquiry
+        </a>
       </div>
     </section>
 
   </main>
 
+  <!-- ── FOOTER ── -->
   <footer class="site-footer" role="contentinfo">
     <div class="container">
       <div class="footer-grid">
+
         <div class="footer-brand">
-          <div class="site-logo" aria-label="FitWithAnge">FitWith<span>Ange</span></div>
-          <p>Helping women build strength and transform their bodies through intelligent, personalised coaching.</p>
-          <div class="social-row">
-            <a href="https://www.instagram.com/fitwith_ange/" target="_blank" rel="noopener noreferrer"
-               class="social-icon" aria-label="Follow @fitwith_ange on Instagram">
-              <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="currentColor" stroke-width="1.5" fill="none"/>
-                <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/>
-                <circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>
+          <a href="/" class="site-logo" aria-label="FitWithAnge — home">FitWith<span>Ange</span></a>
+          <p>Science-backed coaching for women who train with purpose. Exercise Physiology &amp; Personal Training — online &amp; in-person at Martin Place, Sydney.</p>
+          <div class="social-row" aria-label="Social media links">
+            <a class="social-icon" href="https://www.instagram.com/fitwith_ange/" target="_blank" rel="noopener noreferrer" aria-label="Follow @fitwith_ange on Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                <circle cx="12" cy="12" r="4"/>
+                <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+              </svg>
+            </a>
+            <a class="social-icon" href="https://www.tiktok.com/@fitwithange" target="_blank" rel="noopener noreferrer" aria-label="Follow on TikTok">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.82a8.18 8.18 0 0 0 4.78 1.52V6.9a4.85 4.85 0 0 1-1.01-.21z"/>
               </svg>
             </a>
           </div>
-          <p class="footer-partner">Activewear partner: <a href="https://clubathletica.com.au/?sca_ref=10453730.MFEqJltNbf" target="_blank" rel="noopener sponsored">Club Athletica DC</a> — use code <strong>ANGEX10</strong></p>
+          <p class="footer-partner">Partner: <a href="https://clubathletica.com.au/?sca_ref=10453730.MFEqJltNbf" target="_blank" rel="noopener sponsored">Club Athletica DC</a> — use code <strong>ANGEX10</strong> for 10% off.</p>
         </div>
+
         <nav aria-label="Footer quick links">
-          <p class="footer-heading">Quick Links</p>
-          <ul class="footer-links">
+          <span class="footer-heading">Quick Links</span>
+          <ul class="footer-links" role="list">
             <li><a href="/">Home</a></li>
-            <li><a href="about">About</a></li>
-            <li><a href="services">Services</a></li>
-            <li><a href="gallery">Gallery</a></li>
-            <li><a href="contact">Contact</a></li>
-            <li><a href="enquire" target="_blank" rel="noopener">Book a Call</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/services">Services</a></li>
+            <li><a href="/gallery">Gallery</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/enquire">Book a Free Enquiry</a></li>
           </ul>
         </nav>
+
         <div>
-          <p class="footer-heading">Get in Touch</p>
-          <ul class="footer-links">
-            <li><a href="https://www.instagram.com/fitwith_ange/" target="_blank" rel="noopener">Instagram</a></li>
-            <li><a href="enquire" target="_blank" rel="noopener">Book a free enquiry</a></li>
+          <span class="footer-heading">Get in Touch</span>
+          <ul class="footer-links" role="list">
+            <li><a href="mailto:hello@fitwithange.com.au">hello@fitwithange.com.au</a></li>
+            <li><a href="https://www.instagram.com/fitwith_ange/" target="_blank" rel="noopener">@fitwith_ange</a></li>
+            <li><span style="color:rgba(255,255,255,0.45); font-size:0.85rem; line-height:1.6; display:block; padding-block:0.25rem;">Martin Place, Sydney&nbsp;NSW</span></li>
           </ul>
+          <div style="margin-top:var(--space-md);">
+            <a href="/enquire" class="btn btn--primary btn--magnetic">Book a Free Enquiry</a>
+          </div>
         </div>
+
       </div>
+
       <div class="footer-bottom">
-        <p>&copy; <span class="current-year">2026</span> FitWithAnge · Angelina Farag. All rights reserved.</p>
-        <p>Sydney, NSW, Australia</p>
+        <span>&copy; <span class="current-year"></span> FitWithAnge. All rights reserved.</span>
+        <span>Sydney, NSW, Australia</span>
       </div>
     </div>
   </footer>
 
-  <script src="js/main.js"></script>
+  <script src="js/main.js" defer></script>
+  <script src="js/motion-fx.js" defer></script>
   <script>
     (function () {
       var bar = document.getElementById('announcement-bar');
