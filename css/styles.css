@@ -2309,3 +2309,90 @@ textarea.form-control { resize: vertical; min-height: 120px; }
 @media (prefers-reduced-motion: reduce) {
   .adm-modal-overlay, .adm-modal-card { transition: none; }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   EDITORIAL HERO (index) — fixes for new hero__* structure
+   ═══════════════════════════════════════════════════════════ */
+.hero__inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding: clamp(4rem, 10vh, 7rem) clamp(1.25rem, 4vw, 3rem);
+}
+.hero__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+}
+@media (min-width: 900px) {
+  .hero__grid { grid-template-columns: 1.15fr 1fr; }
+}
+.hero__text { max-width: 640px; }
+.hero__eyebrow {
+  color: var(--gold);
+  margin-bottom: var(--space-md);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.hero__eyebrow::before {
+  content: '';
+  width: 2.25rem;
+  height: 1px;
+  background: var(--gold);
+  display: inline-block;
+}
+.hero__h1 {
+  color: var(--white);
+  margin-bottom: var(--space-lg);
+  letter-spacing: -0.035em;
+  line-height: 0.95;
+}
+.hero__h1 em {
+  font-style: italic;
+  color: var(--gold);
+  font-weight: 400;
+}
+.hero__sub {
+  color: rgba(255,255,255,0.82);
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
+  line-height: 1.65;
+  max-width: 38ch;
+  margin-bottom: var(--space-lg);
+}
+.hero__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+.hero__credential {
+  color: rgba(255,255,255,0.6);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-top: var(--space-md);
+}
+.hero__portrait { display: flex; justify-content: center; }
+.hero__portrait-wrap {
+  width: 100%;
+  max-width: 420px;
+  aspect-ratio: 3/4;
+  transform: rotate(-1.5deg);
+}
+.hero__portrait-wrap img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Outline button on the dark hero — override charcoal-on-charcoal invisibility */
+.hero .btn--outline {
+  color: var(--white);
+  border-color: rgba(255,255,255,0.6);
+  background: transparent;
+}
+.hero .btn--outline:hover {
+  background: var(--white);
+  color: var(--charcoal);
+  border-color: var(--white);
+}
