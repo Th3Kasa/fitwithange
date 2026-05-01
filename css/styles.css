@@ -2020,6 +2020,34 @@ textarea.form-control { resize: vertical; min-height: 120px; }
 
   .booking-panel  { padding: var(--space-md); }
   .booking-options { gap: var(--space-lg); }
+
+  /* ── split-uneven: portrait (first child) above text on mobile ── */
+  /* about.html story section — image is first child, already shows first.
+     Enforce explicit order so no future reordering breaks this. */
+  .split-uneven > *:first-child { order: 1; }
+  .split-uneven > *:last-child  { order: 2; }
+
+  /* Centre and constrain the sticky portrait on mobile */
+  .split-uneven .sticky-col {
+    position: static;       /* un-stick on mobile — no need to scroll-stick */
+    display: flex;
+    justify-content: center;
+  }
+  .split-uneven .sticky-col > * {
+    max-width: 280px;
+    width: 100%;
+  }
+
+  /* stack-overlap: ensure portrait child (first) stays above text (last) */
+  .stack-overlap > *:first-child { order: 1; }
+  .stack-overlap > *:last-child  { order: 2; margin-top: 0; margin-left: 0; }
+
+  /* ── Section padding tighter on mobile ── */
+  :root { --section-pad: clamp(4rem, 10vh, 8rem); }
+
+  /* ── Calendly widget min-height on mobile ── */
+  .enq-calendly-wrap .calendly-inline-widget,
+  .calendly-frame iframe { min-height: 600px; }
 }
 
 @media (min-width: 768px) {
