@@ -154,14 +154,15 @@
     submitBtn.disabled = true;
     submitBtn.textContent = 'Sending…';
 
+    const s = window.fwaSanitize || { name: v=>v.trim(), email: v=>v.trim(), phone: v=>v.trim(), service: v=>v, text: v=>v.trim(), goals: v=>v.trim() };
     const data = {
-      name:    this.querySelector('#booking-name').value.trim(),
-      email:   this.querySelector('#booking-email').value.trim(),
-      phone:   this.querySelector('#booking-phone').value.trim(),
-      service: this.querySelector('#booking-service').value,
-      date:    this.querySelector('#booking-date').value,
-      time:    this.querySelector('#booking-time').value,
-      goals:   this.querySelector('#booking-goals').value.trim(),
+      name:    s.name(this.querySelector('#booking-name').value),
+      email:   s.email(this.querySelector('#booking-email').value),
+      phone:   s.phone(this.querySelector('#booking-phone').value),
+      service: s.service(this.querySelector('#booking-service').value),
+      date:    s.text(this.querySelector('#booking-date').value),
+      time:    s.text(this.querySelector('#booking-time').value),
+      goals:   s.goals(this.querySelector('#booking-goals').value),
     };
 
     // 1. Always save to localStorage first (works offline / as fallback)

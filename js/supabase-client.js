@@ -198,6 +198,20 @@
      */
     createEnquiry: function (payload) {
       return (async function () {
+        // ----- Sanitize inputs (defence-in-depth — callers should sanitize too) -----
+        if (window.fwaSanitize) {
+          var _s = window.fwaSanitize;
+          payload = {
+            firstName: _s.name(payload.firstName  || ''),
+            lastName:  _s.name(payload.lastName   || ''),
+            email:     _s.email(payload.email     || ''),
+            phone:     _s.phone(payload.phone     || ''),
+            instagram: payload.instagram != null ? _s.instagram(payload.instagram) : null,
+            goals:     _s.goals(payload.goals     || ''),
+            blockers:  _s.blockers(payload.blockers || ''),
+          };
+        }
+
         // ----- Rate limit check -----
         if (!rateLimitCheck()) {
           return { id: null, error: 'Too many submissions. Please wait a while before trying again.' };

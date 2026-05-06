@@ -69,6 +69,7 @@
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#d4a574" />
   <link rel="stylesheet" href="css/styles.css" />
+  <script src="js/sanitize.js"></script>
   <script src="js/supabase-client.js"></script>
 
   <script type="application/ld+json">
@@ -1370,14 +1371,15 @@
           return;
         }
 
-        var firstName  = document.getElementById('enq-first-name').value.trim();
-        var lastName   = document.getElementById('enq-last-name').value.trim();
-        var email      = document.getElementById('enq-email').value.trim();
-        var phone      = document.getElementById('enq-phone').value.trim();
-        var igRaw      = document.getElementById('enq-instagram').value.trim();
+        var _s         = window.fwaSanitize;
+        var firstName  = _s ? _s.name(document.getElementById('enq-first-name').value)  : document.getElementById('enq-first-name').value.trim();
+        var lastName   = _s ? _s.name(document.getElementById('enq-last-name').value)   : document.getElementById('enq-last-name').value.trim();
+        var email      = _s ? _s.email(document.getElementById('enq-email').value)       : document.getElementById('enq-email').value.trim();
+        var phone      = _s ? _s.phone(document.getElementById('enq-phone').value)       : document.getElementById('enq-phone').value.trim();
+        var igRaw      = _s ? _s.instagram(document.getElementById('enq-instagram').value) : document.getElementById('enq-instagram').value.trim();
         var instagram  = igRaw ? stripAtSign(igRaw) : null;
-        var goals      = document.getElementById('enq-goals').value.trim();
-        var blockers   = document.getElementById('enq-blockers').value.trim();
+        var goals      = _s ? _s.goals(document.getElementById('enq-goals').value)       : document.getElementById('enq-goals').value.trim();
+        var blockers   = _s ? _s.blockers(document.getElementById('enq-blockers').value) : document.getElementById('enq-blockers').value.trim();
 
         var submitErrEl = document.getElementById('enq-submit-error');
         if (submitErrEl) submitErrEl.textContent = '';

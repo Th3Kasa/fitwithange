@@ -712,6 +712,7 @@
     </div>
   </footer>
 
+  <script src="js/sanitize.js"></script>
   <script src="js/main.js" defer></script>
   <script src="js/motion-fx.js" defer></script>
   <script>
@@ -741,6 +742,15 @@
           if (!field.value.trim()) { field.focus(); valid = false; }
         });
         if (!valid) return;
+
+        // Sanitize all text inputs before submission
+        if (window.fwaSanitize) {
+          form.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"], textarea').forEach(function (f) {
+            var type = f.type === 'email' ? 'email' : f.name === 'phone' ? 'phone' : 'text';
+            f.value = window.fwaSanitize[type] ? window.fwaSanitize[type](f.value) : window.fwaSanitize.text(f.value);
+          });
+        }
+
         submit.disabled = true;
         submit.textContent = 'Sending…';
         fetch(form.action, {
