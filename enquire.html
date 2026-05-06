@@ -1400,10 +1400,13 @@
             });
 
             if (result.error) {
+              var isRateLimit = result.error && result.error.toString().toLowerCase().includes('too many');
               if (submitErrEl) {
-                submitErrEl.textContent = 'Something went wrong. Please try again, or DM @fitwith_ange on Instagram if it persists.';
+                submitErrEl.textContent = isRateLimit
+                  ? 'You\'ve submitted too many times recently. Please wait an hour and try again.'
+                  : 'Something went wrong. Please try again, or DM @fitwith_ange on Instagram if it persists.';
               }
-              if (liveRegion) liveRegion.textContent = 'Submission failed. Please try again.';
+              if (liveRegion) liveRegion.textContent = isRateLimit ? 'Too many submissions. Please wait.' : 'Submission failed. Please try again.';
               enqSubmit.disabled = false;
               enqSubmit.innerHTML = 'Continue to Scheduling <svg class="icon icon-lg" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>';
               return;

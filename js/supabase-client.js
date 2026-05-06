@@ -100,6 +100,34 @@
   }
 
   // ------------------------------------------------------------
+  // RATE LIMITING — client-side (localStorage-backed)
+  // Max 3 enquiry submissions per browser per hour.
+  // A server-side trigger in supabase/migrations/ enforces a harder
+  // limit of 5 per email per 24 h regardless of client bypass.
+  // ------------------------------------------------------------
+  var RL_KEY    = 'fitwithange_rl';
+  var RL_MAX    = 3;
+  var RL_WINDOW = 60 * 60 * 1000; // 1 hour in ms
+
+  function rateLimitCheck() {
+    try {
+      var now  = Date.now();
+      var data = JSON.parse(localStorage.getItem(RL_KEY) || '{"count":0,"since":0}');
+      if (now - data.since > RL_WINDOW) {
+        data = { count: 0, since: now };
+      }
+      if (data.count >= RL_MAX) {
+        return false; // blocked
+      }
+      data.count += 1;
+      localStorage.setItem(RL_KEY, JSON.stringify(data));
+      return true;
+    } catch (e) {
+      return true; // if storage unavailable, allow through
+    }
+  }
+
+  // ------------------------------------------------------------
   // LOCALSTORAGE HELPERS
   // ------------------------------------------------------------
 
@@ -170,6 +198,11 @@
      */
     createEnquiry: function (payload) {
       return (async function () {
+        // ----- Rate limit check -----
+        if (!rateLimitCheck()) {
+          return { id: null, error: 'Too many submissions. Please wait a while before trying again.' };
+        }
+
         // ----- Supabase path -----
         if (fwa.isConfigured()) {
           try {
